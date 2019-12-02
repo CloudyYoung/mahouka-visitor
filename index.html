@@ -1,0 +1,158 @@
+<html>
+<head>
+	<script type="text/javascript" src="https://unpkg.com/jquery"></script>
+	<style>
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		body, .bg{
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			right: 0px;
+			bottom: 0px;
+			background: #000;
+		}
+		.bg{
+			margin: 0px;
+			z-index: -999;
+			background: url('kv_bg.jpg');
+			background-size:     cover;
+		    background-repeat:   no-repeat;
+		    background-position: top center;
+		}
+		.kv{
+			margin: 0px;
+			--x: 0px;
+			--y: 0px;
+			position: absolute;
+			top: 2%;
+			left: 2%;
+			height: 102%;
+			width: 102%;
+			background-size:     cover !important;
+		    background-repeat:   no-repeat !important;
+		    background-position: top center !important;
+		    background-position: var(--x) var(--y) !important;
+		    transition: background-position .2s;
+		}
+		.kv_chara_01{
+			background: url('kv_chara_01.png');
+		}
+		.kv_chara_02{
+			background: url('kv_chara_02.png');
+		}
+		.kv_chara_03{
+			background: url('kv_chara_03.png');
+		}
+		.kv_flare{
+			position: absolute;
+			top: 0%;
+			left: 0%;
+			height: 100%;
+			width: 100%;
+			background-size:     cover !important;
+		    background-repeat:   no-repeat !important;
+		    background-position: top center !important;
+			background: url('kv_flare2.png');
+			opacity: 0.3;
+		}
+
+		.dust{
+			z-index: -99;
+			position: absolute;
+			left: 100%;
+			top: 0px;
+			background-size:     cover !important;
+		    background-repeat:   no-repeat !important;
+		    background-position: top center !important;
+		    transform: scale(0.6);
+		    opacity: 0.6;
+		}
+		.bg_dust_01{
+			background: url('bg_dust_01.png');
+			width: 160px;
+			height: 117px;
+		}
+		.bg_dust_02{
+			background: url('bg_dust_02.png');
+			width: 134px;
+			height: 117px;
+		}
+		.bg_dust_03{
+			background: url('bg_dust_03.png');
+			width: 131px;
+			height: 128px;
+		}
+		.bg_dust_04{
+			background: url('bg_dust_04.png');
+			width: 168px;
+			height: 136px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="bg"></div>
+	<div class="kv kv_chara_01"></div>
+	<div class="kv kv_chara_02"></div>
+	<div class="kv kv_chara_03"></div>
+	<div class="kv_flare"></div>
+
+	<script>
+
+		setInterval(function(){
+		    
+		    let rand = Math.floor(Math.random() * 10000 + 1000);
+		    let top = Math.random() * 1000;
+		    let dust = '';
+		    let id = (Date.now()).valueOf() + rand;
+		    if(rand % 5 == 0){
+		    	dust = '<div class="dust dust bg_dust_01" id="' + id + '"></div>';
+		    	top *= -1
+		    }else if(rand % 5 == 1){
+		    	dust = '<div class="dust dust bg_dust_02" id="' + id + '"></div>';
+		    	top *= -1
+		    }else if(rand % 5 == 2){
+		    	dust = '<div class="dust dust bg_dust_03" id="' + id + '"></div>';
+		    }else if(rand % 5 == 3){
+		    	dust = '<div class="dust dust bg_dust_04" id="' + id + '"></div>';
+		    }
+
+		    time = Math.min(Math.max(rand, 3000), 7000);
+			$('body').append(dust);
+			$('#' + id).css({'top': top + 'px'});
+			$('#' + id).animate({'margin-top': '50%', 'left': '-100px'}, time, 'linear', function(){
+				$(this).remove();
+			});
+
+
+		}, 1500);
+
+		$('body').mousemove(function(e){
+			let width = $('body').width();
+			let height = $('body').height();
+
+			let wr = e.offsetX / width;
+			let hr = e.offsetY / height;
+
+			$('.kv').css({'--x': e.offsetX * 0.04 * -1 + 'px', '--y': e.offsetY * 0.04 * -1 + 'px'});
+
+			if(wr < 0.3){
+				console.log('01');
+				$('.kv_chara_02').css({'--x': e.offsetX * 0.01 * -1 + 'px'});
+				$('.kv_chara_03').css({'--x': e.offsetX * 0.01 * -1 + 'px'});
+			}else if(wr < 0.6){
+				$('.kv_chara_01').css({'--x': e.offsetX * 0.09 * -1 + 'px'});
+				$('.kv_chara_03').css({'--x': e.offsetX * 0.01 * -1 + 'px'});
+				console.log('02')
+			}else{
+				$('.kv_chara_01').css({'--x': e.offsetX * 0.09 * -1 + 'px'});
+				$('.kv_chara_02').css({'--x': e.offsetX * 0.09 * -1 + 'px'});
+				console.log('03')
+			}
+		});
+	</script>
+</body>
+</html>
