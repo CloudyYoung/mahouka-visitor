@@ -8,7 +8,7 @@
 		{
 			"background_amplitude" : 
 			{
-				"condition" : "movement_performance.value == \"high\"",
+				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
 				"fraction" : true,
 				"max" : 10,
 				"min" : 1,
@@ -17,11 +17,11 @@
 				"step" : 0.10000000000000001,
 				"text" : "Background Amplitude",
 				"type" : "slider",
-				"value" : 1
+				"value" : 2
 			},
 			"character_amplitude_x" : 
 			{
-				"condition" : "movement_performance.value == \"high\"",
+				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
 				"fraction" : true,
 				"max" : 10,
 				"min" : 1,
@@ -34,7 +34,7 @@
 			},
 			"character_amplitude_y" : 
 			{
-				"condition" : "movement_performance.value == \"high\"",
+				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
 				"fraction" : true,
 				"max" : 10,
 				"min" : 1,
