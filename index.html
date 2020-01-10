@@ -8,6 +8,10 @@
 			padding: 0px;
 		}
 
+		:root {
+			--transition: background-position .3s ease-out;
+		}
+
 		body {
 			position: fixed;
 			top: 0px;
@@ -34,7 +38,7 @@
 			background-size: cover !important;
 			background-repeat: no-repeat !important;
 			background-position: var(--x) var(--y) !important;
-			transition: background-position .3s ease-out;
+			transition: var(--transition);
 		}
 
 		.kv {
@@ -46,15 +50,14 @@
 			position: absolute;
 			margin: 0px;
 			top: 1.5%;
+			left: 0px;
+			right: 0px;
 			right: calc(var(--x-change-rate) * 100% * -1);
 			height: calc((var(--y-change-rate) + 1) * (100% - 1.5%));
-			width: 100%;
-			max-height: 2560px;
-			max-width: 2560px;
-			background-size: cover !important;
+			background-size: contain !important;
 			background-repeat: no-repeat !important;
-			background-position: var(--x) var(--y) !important;
-			transition: background-position .3s ease-out;
+			background-position: calc((var(--x) + 100%) - (var(--x-change-rate) * 100% * -1)) var(--y) !important;
+			transition: var(--transition);
 		}
 
 		.kv.kv_chara_01 {
@@ -77,10 +80,10 @@
 			position: absolute;
 			z-index: 8999;
 			top: 0%;
-			left: 0%;
+			right: 0%;
 			height: 100%;
 			width: 100%;
-			background-size: cover !important;
+			background-size: contain !important;
 			background-repeat: no-repeat !important;
 			background-position: top center !important;
 			background: url('kv_flare.png');
@@ -127,19 +130,22 @@
 		}
 
 		.logo {
+			--display: none;
+			--opacity : 0.8;
+			display: var(--display);
 			z-index: 4999;
 			position: absolute;
 			right: 37px;
 			top: 21px;
 			height: 20%;
-			width: 20%;
+			width: 10%;
 			max-height: 352px;
 			max-width: 580px;
 			background: url('logo.png');
 			background-size: contain !important;
 			background-repeat: no-repeat !important;
 			background-position: top right !important;
-			opacity: 0.8;
+			opacity: var(--opacity);
 		}
 
 		.console {
@@ -193,6 +199,94 @@
 
 	<script>
 
+		var global_instandRatio = 0.025;
+		var global_outstandRatio = 1.8;
+		var global_degreeRatio = 1;
+
+		window.wallpaperPropertyListener = {
+			applyUserProperties: function (properties) {
+
+				// Quality
+				if (properties.movement_performance) {
+					if (properties.movement_performance.value) {
+						switch (properties.movement_performance.value) {
+							case 'high': // All on
+								global_instandRatio = 0.025;
+								global_outstandRatio = 1.8;
+								global_degreeRatio = 1;
+								$('.kv').css('transition', 'var(--transition)');
+								$('.bg').css('transition', 'var(--transition)');
+								$('body').unbind();
+								$('body').mousemove(mouse);
+								break;
+							case 'simple': // Remove transition .3s ease and in/outstand
+								global_instandRatio = global_outstandRatio = 1;
+								global_degreeRatio = 0;
+								$('.kv').css('transition', 'none');
+								$('.bg').css('transition', 'none');
+								$('body').mousemove(mouse);
+								break;
+							case 'none': // All static
+								global_instandRatio = global_outstandRatio = 0;
+								global_degreeRatio = 0;
+								$('.kv').css('transition', 'none');
+								$('.bg').css('transition', 'none');
+								$('body').unbind();
+								break;
+						}
+					}
+				}
+
+
+				// Mahouka Logo
+				if (properties.mahouka_logo) {
+					if (properties.mahouka_logo.value) {
+						$('.logo').css('--display', properties.mahouka_logo.value);
+					}
+				}
+
+				// Mahouka Logo Opacity
+				if (properties.mahouka_logo_opacity) {
+					if (properties.mahouka_logo_opacity.value) {
+						$('.logo').css('--opacity', properties.mahouka_logo_opacity.value / 10);
+					}
+				}
+
+
+				// Character Amplitude X
+				if (properties.character_amplitude_x) {
+					if (properties.character_amplitude_x.value) {
+						$('.kv').css('--x-change-rate', properties.character_amplitude_x.value / 100);
+					}
+				}
+
+				// Character Amplitude Y
+				if (properties.character_amplitude_y) {
+					if (properties.character_amplitude_y.value) {
+						$('.kv').css('--y-change-rate', properties.character_amplitude_y.value / 100);
+					}
+				}
+
+				// Background Amplitude
+				if (properties.background_amplitude) {
+					if (properties.background_amplitude.value) {
+						$('.bg').css('--x-change-rate', properties.background_amplitude.value / 100);
+						$('.bg').css('--y-change-rate', properties.background_amplitude.value / 100);
+					}
+				}
+
+				// Flare Amplitude
+				if (properties.flare_amplitude) {
+					if (properties.flare_amplitude.value) {
+						$('.fv_flare').css('--x-change-rate', properties.flare_amplitude.value / 100);
+						$('.fv_flare').css('--y-change-rate', properties.flare_amplitude.value / 100);
+					}
+				}
+
+
+			}
+		}
+
 		setInterval(function () {
 
 			let rand = Math.floor(Math.random() * 10000 + 1000);
@@ -224,18 +318,19 @@
 
 		}, 1500);
 
-		$('body').mousemove(function (e) {
+		function mouse(e) {
+
 			let width = $('body').width();
 			let height = $('body').height();
-
+			
 			let wr = e.offsetX / width;
 			let hr = e.offsetY / height;
 
 			let kv_xChangeRate = $('.kv').css('--x-change-rate');
 			let kv_yChangeRate = $('.kv').css('--y-change-rate');
 
-			let kv_xChangeRate_instand = kv_xChangeRate * 0.025;
-			let kv_xChangeRate_outstand = kv_xChangeRate * 1.8;
+			let kv_xChangeRate_instand = kv_xChangeRate * global_instandRatio;
+			let kv_xChangeRate_outstand = kv_xChangeRate * global_outstandRatio;
 			let kv_tolerancePixel = 3; // Unit: px
 
 			$('.kv').css({ '--x': (e.offsetX * kv_xChangeRate * -1 + kv_tolerancePixel) + 'px', '--y': e.offsetY * kv_yChangeRate * -1 + 'px' });
@@ -264,14 +359,12 @@
 			$('.console #bg #bg').html("bg: " + $('.bg').css('--x') + ", " + $('.bg').css('--y'));
 
 
-
-			let flare_degreeChangeRate = $('.kv_flare').css('--degree-change-rate');
+			let flare_degreeChangeRate = $('.kv_flare').css('--degree-change-rate') * global_degreeRatio;
 			let flare_degree = Math.atan2(e.offsetY, width - e.offsetX) * (180 / Math.PI) * flare_degreeChangeRate;
 			$('.kv_flare').css('--degree', flare_degree + 'deg');
 			$('.console #flare #flare').html("flare: " + flare_degree);
 
-		});
-
+		}
 
 	</script>
 </body>
