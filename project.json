@@ -45,6 +45,24 @@
 				"type" : "slider",
 				"value" : 6
 			},
+			"developer_console" : 
+			{
+				"options" : 
+				[
+					{
+						"label" : "Hide",
+						"value" : "none"
+					},
+					{
+						"label" : "Show",
+						"value" : "block"
+					}
+				],
+				"order" : 107,
+				"text" : "Developer Console",
+				"type" : "combo",
+				"value" : "none"
+			},
 			"flare_amplitude" : 
 			{
 				"condition" : "movement_performance.value == \"high\"",
