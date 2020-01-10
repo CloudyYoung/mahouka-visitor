@@ -69,6 +69,10 @@
 		}
 
 		.kv_flare {
+			--degree: 0deg;
+			--degree-change-rate: 0.06;
+			transform: rotate(var(--degree));
+			transform-origin: top right;
 			position: absolute;
 			top: 0%;
 			left: 0%;
@@ -191,6 +195,11 @@
 
 			$('.bg').css({'--x': e.offsetX * bg_xChangeRate + 'px', '--y': e.offsetY * bg_yChangeRate + 'px'});
 			
+
+			let flare_degreeChangeRate = $('.kv_flare').css('--degree-change-rate');
+			let flare_degree = Math.atan2(e.offsetY, width - e.offsetX) * (180 / Math.PI) * flare_degreeChangeRate;
+			console.log(flare_degree);
+			$('.kv_flare').css('--degree', flare_degree + 'deg');
 
 		});
 	</script>
