@@ -8,7 +8,7 @@
 			padding: 0px;
 		}
 
-		body{
+		body {
 			position: fixed;
 			top: 0px;
 			left: 0px;
@@ -57,15 +57,15 @@
 			transition: background-position .3s ease-out;
 		}
 
-		.kv_chara_01 {
+		.kv.kv_chara_01 {
 			background: url('kv_chara_01.png');
 		}
 
-		.kv_chara_02 {
+		.kv.kv_chara_02 {
 			background: url('kv_chara_02.png');
 		}
 
-		.kv_chara_03 {
+		.kv.kv_chara_03 {
 			background: url('kv_chara_03.png');
 		}
 
@@ -75,7 +75,7 @@
 			transform: rotate(var(--degree));
 			transform-origin: top right;
 			position: absolute;
-			z-index: 9999;
+			z-index: 8999;
 			top: 0%;
 			left: 0%;
 			height: 100%;
@@ -86,7 +86,7 @@
 			background: url('kv_flare.png');
 			opacity: 0.5;
 			mix-blend-mode: screen;
-			border: 30px ridge transparent;
+			border: 80px ridge transparent;
 			border-top: none;
 		}
 
@@ -102,41 +102,66 @@
 			opacity: 0.6;
 		}
 
-		.bg_dust_01 {
+		.dust.bg_dust_01 {
 			background: url('bg_dust_01.png');
 			width: 160px;
 			height: 117px;
 		}
 
-		.bg_dust_02 {
+		.dust.bg_dust_02 {
 			background: url('bg_dust_02.png');
 			width: 134px;
 			height: 117px;
 		}
 
-		.bg_dust_03 {
+		.dust.bg_dust_03 {
 			background: url('bg_dust_03.png');
 			width: 131px;
 			height: 128px;
 		}
 
-		.bg_dust_04 {
+		.dust.bg_dust_04 {
 			background: url('bg_dust_04.png');
 			width: 168px;
 			height: 136px;
 		}
 
-		.logo{
+		.logo {
 			z-index: 4999;
 			position: absolute;
-			right: 0px;
-			top: 0px;
+			right: 37px;
+			top: 21px;
+			height: 20%;
+			width: 20%;
+			max-height: 352px;
+			max-width: 580px;
 			background: url('logo.png');
-			background-size: cover !important;
+			background-size: contain !important;
 			background-repeat: no-repeat !important;
-			background-position: top center !important;
-			transform: scale(0.7);
-			opacity: 0.6;
+			background-position: top right !important;
+			opacity: 0.8;
+		}
+
+		.console {
+			--display: none;
+			position: fixed;
+			right: 0;
+			top: 0;
+			width: 500px;
+			height: auto;
+			text-align: left;
+			font-family: 'Consolas', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			z-index: 9999;
+			color: #e6e6e6;
+			font-size: 1.4rem;
+			padding-left: 0.4rem;
+			background: rgba(0, 0, 0, 0.5);
+			display: var(--display);
+			white-space: nowrap;
+		}
+
+		.console * {
+			list-style-type: none !important;
 		}
 	</style>
 </head>
@@ -147,6 +172,24 @@
 	<div class="kv kv_chara_02"></div>
 	<div class="kv kv_chara_03"></div>
 	<div class="kv_flare"></div>
+	<div class="logo"></div>
+
+	<div class="console">
+		<ul>
+			<ul id="bg">
+				<li id="bg"></li>
+			</ul>
+			<ul id="kv">
+				<li id="01"></li>
+				<li id="02"></li>
+				<li id="03"></li>
+			</ul>
+			<ul id="flare">
+				<li id="flare"></li>
+			</ul>
+			<ul id="dust"></ul>
+		</ul>
+	</div>
 
 	<script>
 
@@ -171,7 +214,10 @@
 			time = Math.min(Math.max(rand, 3000), 7000);
 			$('body').append(dust);
 			$('#' + id).css({ 'top': top + 'px' });
+			$('.console #dust').append("<li id='console-" + id + "'>dust_" + id + ": " + top + "px</li>");
+
 			$('#' + id).animate({ 'margin-top': '50%', 'left': '-100px' }, time, 'linear', function () {
+				$('#console-' + id).remove();
 				$(this).remove();
 			});
 
@@ -190,35 +236,43 @@
 
 			let kv_xChangeRate_instand = kv_xChangeRate * 0.025;
 			let kv_xChangeRate_outstand = kv_xChangeRate * 1.8;
+			let kv_tolerancePixel = 3; // Unit: px
 
-			$('.kv').css({ '--x': e.offsetX * kv_xChangeRate * -1 + 'px', '--y': e.offsetY * kv_yChangeRate * -1 + 'px' });
+			$('.kv').css({ '--x': (e.offsetX * kv_xChangeRate * -1 + kv_tolerancePixel) + 'px', '--y': e.offsetY * kv_yChangeRate * -1 + 'px' });
 
 			if (wr < 0.3) {
 				$('.kv_chara_02').css({ '--x': e.offsetX * kv_xChangeRate_instand * -1 + 'px' });
 				$('.kv_chara_03').css({ '--x': e.offsetX * kv_xChangeRate_instand * -1 + 'px' });
-				// console.log('01');
 			} else if (wr < 0.6) {
 				$('.kv_chara_01').css({ '--x': e.offsetX * kv_xChangeRate_outstand * -1 + 'px' });
 				$('.kv_chara_03').css({ '--x': e.offsetX * kv_xChangeRate_instand * -1 + 'px' });
-				// console.log('02')
 			} else {
 				$('.kv_chara_01').css({ '--x': e.offsetX * kv_xChangeRate_outstand * -1 + 'px' });
 				$('.kv_chara_02').css({ '--x': e.offsetX * kv_xChangeRate_outstand * -1 + 'px' });
-				// console.log('03')
 			}
+
+			$('.console #kv #01').html("kv_01: " + $('.kv_chara_01').css('--x') + ", " + $('.kv_chara_01').css('--y'));
+			$('.console #kv #02').html("kv_02: " + $('.kv_chara_02').css('--x') + ", " + $('.kv_chara_02').css('--y'));
+			$('.console #kv #03').html("kv_03: " + $('.kv_chara_03').css('--x') + ", " + $('.kv_chara_03').css('--y'));
+
+
 
 			let bg_xChangeRate = $('.bg').css('--x-change-rate');
 			let bg_yChangeRate = $('.bg').css('--y-change-rate');
 
-			$('.bg').css({'--x': e.offsetX * bg_xChangeRate + 'px', '--y': e.offsetY * bg_yChangeRate + 'px'});
-			
+			$('.bg').css({ '--x': e.offsetX * bg_xChangeRate + 'px', '--y': e.offsetY * bg_yChangeRate + 'px' });
+			$('.console #bg #bg').html("bg: " + $('.bg').css('--x') + ", " + $('.bg').css('--y'));
+
+
 
 			let flare_degreeChangeRate = $('.kv_flare').css('--degree-change-rate');
 			let flare_degree = Math.atan2(e.offsetY, width - e.offsetX) * (180 / Math.PI) * flare_degreeChangeRate;
-			console.log(flare_degree);
 			$('.kv_flare').css('--degree', flare_degree + 'deg');
+			$('.console #flare #flare').html("flare: " + flare_degree);
 
 		});
+
+
 	</script>
 </body>
 
