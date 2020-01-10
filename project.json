@@ -1,0 +1,24 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "魔法科高校の劣等生 来访者篇 (The Irregular at Magic High School 2, Mahouka koukou no rettousei 2)\r\n\r\n官网壁纸 重制+修改的版本\r\n\r\nMade with creativity😈",
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0 0 0"
+			}
+		}
+	},
+	"preview" : "preview.jpg",
+	"tags" : [ "Anime" ],
+	"title" : "魔法科高校の劣等生 来访者篇 (Mahouka koukou no rettousei 2)",
+	"type" : "web",
+	"visibility" : "public",
+	"workshopid" : "1922527858"
+}
