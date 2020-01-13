@@ -80,7 +80,6 @@
 			position: absolute;
 			z-index: 8999;
 			top: 0%;
-			right: 0%;
 			height: 100%;
 			width: 100%;
 			background-size: contain !important;
@@ -131,7 +130,7 @@
 
 		.logo {
 			--display: none;
-			--opacity : 0.8;
+			--opacity: 0.8;
 			display: var(--display);
 			z-index: 4999;
 			position: absolute;
@@ -309,6 +308,8 @@
 				dust = '<div class="dust dust bg_dust_03" id="' + id + '"></div>';
 			} else if (rand % 5 == 3) {
 				dust = '<div class="dust dust bg_dust_04" id="' + id + '"></div>';
+			} else {
+				return;
 			}
 
 			time = Math.min(Math.max(rand, 3000), 7000);
@@ -328,7 +329,7 @@
 
 			let width = $('body').width();
 			let height = $('body').height();
-			
+
 			let wr = e.offsetX / width;
 			let hr = e.offsetY / height;
 
