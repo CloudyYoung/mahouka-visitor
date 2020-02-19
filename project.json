@@ -47,29 +47,18 @@
 			},
 			"developer_console" : 
 			{
-				"options" : 
-				[
-					{
-						"label" : "Hide",
-						"value" : "none"
-					},
-					{
-						"label" : "Show",
-						"value" : "block"
-					}
-				],
-				"order" : 107,
-				"text" : "Developer Console",
-				"type" : "combo",
-				"value" : "none"
+				"order" : 108,
+				"text" : "Show Developer Console",
+				"type" : "bool",
+				"value" : false
 			},
 			"flare_amplitude" : 
 			{
-				"condition" : "movement_performance.value == \"high\"",
+				"condition" : "movement_performance.value == \"hide\"",
 				"fraction" : true,
 				"max" : 10,
 				"min" : 1,
-				"order" : 106,
+				"order" : 107,
 				"precision" : 2,
 				"step" : 0.10000000000000001,
 				"text" : "Flare Amplitude",
@@ -78,21 +67,10 @@
 			},
 			"mahouka_logo" : 
 			{
-				"options" : 
-				[
-					{
-						"label" : "Hide",
-						"value" : "none"
-					},
-					{
-						"label" : "Show",
-						"value" : "block"
-					}
-				],
 				"order" : 101,
-				"text" : "Mahouka Logo",
-				"type" : "combo",
-				"value" : "none"
+				"text" : "Show Mahouka Logo",
+				"type" : "bool",
+				"value" : false
 			},
 			"mahouka_logo_opacity" : 
 			{
@@ -135,6 +113,13 @@
 				"text" : "ui_browse_properties_scheme_color",
 				"type" : "color",
 				"value" : "0 0 0"
+			},
+			"particles" : 
+			{
+				"order" : 106,
+				"text" : "Show Particles",
+				"type" : "bool",
+				"value" : true
 			}
 		}
 	},

@@ -281,7 +281,9 @@
 				// Mahouka Logo
 				if (properties.mahouka_logo) {
 					if (properties.mahouka_logo.value) {
-						$('.logo').css('--display', properties.mahouka_logo.value);
+						$('.logo').css('--display', 'block');
+					}else{
+						$('.logo').css('--display', 'none');
 					}
 				}
 
@@ -315,6 +317,16 @@
 					}
 				}
 
+				// Particles
+				if (properties.particles) {
+					if (properties.particles.value) {
+						var script = '<script type="text/javascript" src="createjs.js"><\/script><script type="text/javascript" src="particlejs.js"><\/script><script type="text/javascript" src="particle.js"><\/script>';
+						$('.particles-script').html(script);
+					}else{
+						$('.particles-script').html("<br>");
+					}
+				}
+
 				// Flare Amplitude
 				if (properties.flare_amplitude) {
 					if (properties.flare_amplitude.value) {
@@ -325,7 +337,9 @@
 				// Console
 				if (properties.developer_console) {
 					if (properties.developer_console.value) {
-						$('.console').css('--display', properties.developer_console.value);
+						$('.console').css('--display', 'block');
+					}else{
+						$('.console').css('--display', 'none');
 					}
 				}
 
@@ -375,8 +389,8 @@
 			let wr = e.screenX / width;
 			let hr = e.screenY / height;
 
-			let kv_xChangeRate = $('.kv').css('--x-change-rate');
-			let kv_yChangeRate = $('.kv').css('--y-change-rate');
+			let kv_xChangeRate = $('.kv').css('--x-change-rate') * 1.0;
+			let kv_yChangeRate = $('.kv').css('--y-change-rate') * 1.0;
 
 			let kv_xChangeRate_instand = kv_xChangeRate * global_instandRatio;
 			let kv_xChangeRate_outstand = kv_xChangeRate * global_outstandRatio;
@@ -416,10 +430,9 @@
 		}
 
 	</script>
+
 	<!--- Particles -->
-	<script type="text/javascript" src="createjs.js"></script>
-	<script type="text/javascript" src="particlejs.js"></script>
-	<script type="text/javascript" src="particle.js"></script>
+	<div class="particles-script"></div>
 
 </body>
 
