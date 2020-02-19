@@ -413,14 +413,11 @@
 			$('.console #kv #02').html("kv_02: " + $('.kv_chara_02').css('--x') + ", " + $('.kv_chara_02').css('--y'));
 			$('.console #kv #03').html("kv_03: " + $('.kv_chara_03').css('--x') + ", " + $('.kv_chara_03').css('--y'));
 
-
-
 			let bg_xChangeRate = $('.bg').css('--x-change-rate');
 			let bg_yChangeRate = $('.bg').css('--y-change-rate');
 
 			$('.bg').css({ '--x': e.offsetX * bg_xChangeRate + 'px', '--y': e.offsetY * bg_yChangeRate + 'px' });
 			$('.console #bg #bg').html("bg: " + $('.bg').css('--x') + ", " + $('.bg').css('--y'));
-
 
 			let flare_degreeChangeRate = $('.kv_flare').css('--degree-change-rate') * global_degreeRatio;
 			let flare_degree = Math.atan2(e.offsetY, width - e.offsetX) * (180 / Math.PI) * flare_degreeChangeRate;
