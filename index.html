@@ -1,8 +1,16 @@
 <html>
 
 <head>
+	<link href="https://fonts.googleapis.com/css?family=Noto+Serif+JP:200,300,400,500,600,700,900&display=swap&subset=japanese" rel="stylesheet">
+	<link href="https://fonts.loli.net/css?family=Noto+Serif+JP:200,300,400,500,600,700,900&display=swap&subset=japanese" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
+	<link href="https://fonts.loli.net/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="jquery.js"></script>
 	<style>
+		body{
+			font-family: 'Noto Serif JP';
+		}
+		
 		* {
 			margin: 0px;
 			padding: 0px;
@@ -20,7 +28,6 @@
 				transform: rotate(360deg);
 			}
 		}
-
 
 		body {
 			position: fixed;
@@ -207,6 +214,42 @@
 		}
 
 	</style>
+	<style class="special birthday-text-css">
+		.birthday-text{
+			position: absolute;
+			bottom: 10%;
+			right: 0px;
+			text-align: right;
+			padding: 11px 30px 11px 93px;
+			background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, white 10%, white 100%);
+			z-index: 1699;
+			letter-spacing: normal;
+			line-height: 1;
+			text-align: left;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			display: flex;
+			height: auto;
+			display: none;
+		}
+
+		.birthday-text .date{
+			color: #42BFB2;
+			font-family: 'Roboto Condensed';
+			line-height: 1;
+			margin-right: 8px;
+			font-size: 2em;
+			font-weight: 600;
+		}
+
+		.birthday-text .text{
+			font-size: 1.8em;
+			font-weight: 700;
+			margin-top: -2px;
+			margin-right: 8px;
+		}
+	</style>
 </head>
 
 <body>
@@ -235,11 +278,46 @@
 		</ul>
 	</div>
 
+	<div class="special birthday-text-div">
+		<div class="birthday-text kv_chara_01">
+			<span class="date">2080.03.25</span>
+			<span class="text" i18n>司波 深雪 // SHIBA MIYUKI</span>
+			<span class="text">HAPPY BIRTHDAY</span>
+		</div>
+		<div class="birthday-text kv_chara_02">
+			<span class="date">2079.04.24</span>
+			<span class="text" i18n>司波 达也 // SHIBA TATSUYA</span>
+			<span class="text">HAPPY BIRTHDAY</span>
+		</div>
+	</div>
+
 	<script>
 
 		var global_instandRatio = 0.025;
 		var global_outstandRatio = 1.8;
 		var global_degreeRatio = 1;
+
+		$(function(){
+			let lang = window.navigator.languages ? window.navigator.languages[0] : null;
+			lang = lang || window.navigator.language || window.navigator.browserLanguage || window.navigator.userLanguage;
+
+			let shortLang = lang;
+			if (shortLang.indexOf('-') !== -1)
+				shortLang = shortLang.split('-')[0];
+
+			if (shortLang.indexOf('_') !== -1)
+				shortLang = shortLang.split('_')[0];
+
+			$('[i18n]').each(function(){
+				$(this).attr('original-text', $(this).text());
+				let arr = $(this).text().split("//");
+				if(shortLang == 'zh' || shortLang == 'ja'){
+					$(this).text(arr[0].trim());
+				}else{
+					$(this).text(arr[1].trim());
+				}
+			});
+		});
 
 		$('body').mousemove(mouse);
 
@@ -426,6 +504,21 @@
 
 		}
 
+	</script>
+
+	<script class="special birthday-text-script">
+		setInterval(function(){
+			var today = new Date();
+			var month = today.getMonth() + 1;
+			var day = today.getDate();
+			if(month == 3 && day == 25){
+				$('.birthday-text.kv_chara_01').fadeIn();
+			}else if(month == 4 && day == 24){
+				$('.birthday-text.kv_chara_02').fadeIn();
+			}else{
+				$('.birthday-text').fadeOut();
+			}
+		}, 1000);
 	</script>
 
 	<!--- Particles -->

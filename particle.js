@@ -44,12 +44,12 @@ function _defineProperty(obj, x, value) {
       view.addChild(self.container);
       self.importFromJson((_SET_BY_CODE = {
         "bgColor" : "#000000",
-        "width" : 513,
-        "height" : 829,
+        "width" : value,
+        "height" : index * 2, 
         "emitFrequency" : 300,
         "startX" : 260,
-        "startXVariance" : 500,
-        "startY" : 847,
+        "startXVariance" : 800,
+        "startY" : index * 2 + 20,
         "startYVariance" : 0,
         "initialDirection" : 270,
         "initialDirectionVariance" : 45.5,
