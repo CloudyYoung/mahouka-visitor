@@ -551,6 +551,14 @@
 	<div class="particles-script"></div>
 
 	<iframe class="iframe" src="https://meonc.studio/mahouka?origin=wallpaper-engine"></iframe>
+	<script>
+		var refresh = 1000 * 60 * 10;
+		setInterval(function(){
+			$(".iframe").attr("src", function(index, attr){ 
+				return attr;
+			});
+		}, refresh);
+	</script>
 
 </body>
 
