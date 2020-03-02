@@ -220,7 +220,7 @@
 			bottom: 10%;
 			right: 0px;
 			text-align: right;
-			padding: 11px 30px 11px 93px;
+			padding: 11px 170px 11px 93px;
 			background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, white 10%, white 100%);
 			z-index: 1699;
 			letter-spacing: normal;
@@ -228,10 +228,10 @@
 			text-align: left;
 			text-overflow: ellipsis;
 			white-space: nowrap;
-			overflow: hidden;
 			display: flex;
 			height: auto;
 			display: none;
+			opacity: 0.85;
 		}
 
 		.birthday-text .date{
@@ -248,6 +248,26 @@
 			font-weight: 700;
 			margin-top: -2px;
 			margin-right: 8px;
+		}
+
+		.birthday-text .charaface{
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-origin: right bottom;
+			background-position: right bottom;
+			position: absolute;
+			right: 0%;
+			bottom: 0%;
+			height: calc(128px * 0.85);
+			width: calc(200px * 0.85);
+		}
+
+		.birthday-text.kv_chara_01 .charaface{
+			background-image: url('lz_charaface/CharaFace_miyuki.png');
+		}
+
+		.birthday-text.kv_chara_02 .charaface{
+			background-image: url('lz_charaface/CharaFace_tatsuya.png');
 		}
 	</style>
 </head>
@@ -280,11 +300,13 @@
 
 	<div class="special birthday-text-div">
 		<div class="birthday-text kv_chara_01">
+			<div class="charaface"></div>
 			<span class="date">2080.03.25</span>
 			<span class="text" i18n>司波 深雪 // SHIBA MIYUKI</span>
 			<span class="text">HAPPY BIRTHDAY</span>
 		</div>
 		<div class="birthday-text kv_chara_02">
+			<div class="charaface"></div>
 			<span class="date">2079.04.24</span>
 			<span class="text" i18n>司波 达也 // SHIBA TATSUYA</span>
 			<span class="text">HAPPY BIRTHDAY</span>
@@ -310,11 +332,11 @@
 
 			$('[i18n]').each(function(){
 				$(this).attr('original-text', $(this).text());
-				let arr = $(this).text().split("//");
+				let arr = $(this).html().split("//");
 				if(shortLang == 'zh' || shortLang == 'ja'){
-					$(this).text(arr[0].trim());
+					$(this).html(arr[0].trim());
 				}else{
-					$(this).text(arr[1].trim());
+					$(this).html(arr[1].trim());
 				}
 			});
 		});
@@ -518,7 +540,7 @@
 			}else{
 				$('.birthday-text').fadeOut();
 			}
-		}, 60000);
+		}, 1000);
 	</script>
 
 	<!--- Particles -->
