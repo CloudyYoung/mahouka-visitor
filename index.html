@@ -425,11 +425,10 @@
 
 				// Particles
 				if (properties.particles) {
-					if (properties.particles.value) {
-						var script = '<script type="text/javascript" src="createjs.js"><\/script><script type="text/javascript" src="particlejs.js"><\/script><script type="text/javascript" src="particle.js"><\/script>';
-						$('.particles-script').html(script);
+					if (properties.particles.value == true) {
+						$('#bg_canvas').show();
 					}else{
-						$('.particles-script').html("<br>");
+						$('#bg_canvas').hide();
 					}
 				}
 
@@ -570,7 +569,9 @@
 	</script>
 
 	<!-- Particles -->
-	<div class="particles-script"></div>
+	<script type="text/javascript" src="createjs.js"></script>
+	<script type="text/javascript" src="particlejs.js"></script>
+	<script type="text/javascript" src="particle.js"></script>
 
 	<iframe class="iframe" src="https://meonc.studio/mahouka?origin=wallpaper-engine"></iframe>
 	<script>
