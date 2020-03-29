@@ -323,9 +323,12 @@
 
 	<script>
 
-		var global_instandRatio = 1.8;
-		var global_outstandRatio = 1.8;
 		var global_degreeRatio = 1;
+		var global_outstandRatio = [0.1, 0.1, 0.1];
+		var kv_x_stand = [0, 0, 0];
+		var kv_stand_ratio = [0.4, 0.7, 1.0];
+
+		mouse({"clientX": 0, "clientY": 0});
 
 		$(function(){
 			let lang = window.navigator.languages ? window.navigator.languages[0] : null;
@@ -359,8 +362,7 @@
 					if (properties.movement_performance.value) {
 						switch (properties.movement_performance.value) {
 							case 'high': // All on
-								global_instandRatio = 0.025;
-								global_outstandRatio = 1.8;
+								global_outstandRatio = [0.1, 0.1, 0.1];
 								global_degreeRatio = 1;
 								$('.kv').css('transition', 'var(--transition)');
 								$('.bg').css('transition', 'var(--transition)');
@@ -368,14 +370,16 @@
 								$('body').mousemove(mouse);
 								break;
 							case 'simple': // Remove transition .3s ease and in/outstand
-								global_instandRatio = global_outstandRatio = 1;
+								global_outstandRatio = [0, 0, 0];
+								kv_x_stand = [0, 0, 0];
 								global_degreeRatio = 0;
 								$('.kv').css('transition', 'none');
 								$('.bg').css('transition', 'none');
 								$('body').mousemove(mouse);
 								break;
 							case 'none': // All static
-								global_instandRatio = global_outstandRatio = 0;
+								global_outstandRatio = [0, 0, 0];
+								kv_x_stand = [0, 0, 0];
 								global_degreeRatio = 0;
 								$('.kv').css('transition', 'none');
 								$('.bg').css('transition', 'none');
@@ -486,11 +490,6 @@
 
 		}, 1500);
 
-
-		var kv_x_stand = [0, 0, 0];
-		var kv_stand_ratio = [0.4, 0.8, 1.0];
-		mouse({"clientX": 0, "clientY": 0});
-
 		function mouse(e) {
 
 			let width = window.screen.width;
@@ -504,32 +503,39 @@
 
 			let kv_xChangeRate = $('.kv').css('--x-change-rate') * 1.0;
 			let kv_yChangeRate = $('.kv').css('--y-change-rate') * 1.0;
-			let kv_tolerancePixel = 3; // Unit: px
+			let kv_tolerancePixel = 1; // Unit: px, technically no need anymore
 
 			if (wr <= kv_stand_ratio[0]) {
 				let wr_rate = wr;
-				kv_x_stand[0] = e.clientX * wr_rate * 0.10 * -1;
+				kv_x_stand[0] = e.clientX * wr_rate * global_outstandRatio[0] * -1;
 				kv_x_stand[1] = 0;
 				kv_x_stand[2] = 0;
 			}else if (wr <= kv_stand_ratio[1]) {
 				let wr_rate = wr - kv_stand_ratio[0];
-				kv_x_stand[0] = e.clientX * kv_stand_ratio[0] * 0.12 * -1;
-				kv_x_stand[1] = e.clientX * wr_rate * 0.10 * -1;
+				kv_x_stand[0] = e.clientX * kv_stand_ratio[0] * global_outstandRatio[0] * -1;
+				kv_x_stand[1] = e.clientX * wr_rate * global_outstandRatio[1] * -1;
 				kv_x_stand[2] = 0;
 			}else if (wr <= kv_stand_ratio[2]) {
 				let wr_rate = wr - kv_stand_ratio[1];
-				kv_x_stand[0] = e.clientX * kv_stand_ratio[0] * 0.12 * -1;
-				kv_x_stand[1] = e.clientX * (kv_stand_ratio[1] - kv_stand_ratio[0]) * 0.12 * -1;
-				kv_x_stand[2] = e.clientX * wr_rate * 0.10 * -1;
+				kv_x_stand[0] = e.clientX * kv_stand_ratio[0] * global_outstandRatio[0] * -1;
+				kv_x_stand[1] = e.clientX * (kv_stand_ratio[1] - kv_stand_ratio[0]) * global_outstandRatio[1] * -1;
+				kv_x_stand[2] = e.clientX * wr_rate * global_outstandRatio[2] * -1;
 			}
 
 			let kv_x = e.clientX * kv_xChangeRate * -1 + kv_tolerancePixel;
 			let kv_y = e.clientY * kv_yChangeRate * -1 + kv_tolerancePixel;
-			$('.kv').css('--stand-cancellation', (width * 0.2 * 0.1) + "px");
+			let stand_cancellation = width * (kv_stand_ratio[2] - kv_stand_ratio[1]) * 0.1;
+
+			let kv_03_over = $(document).width() - $('.kv_chara_03').width(); // Make sure within screen
+			let kv_y_over = $(document).height() - $('.kv').height();
 
 			$('.kv').each(function(index, obj){
-				let kv_x_this = kv_x + kv_x_stand[index];
+				let kv_x_this = kv_x + kv_x_stand[index] + stand_cancellation;
 				let kv_y_this = kv_y;
+
+				if(kv_y_this < kv_y_over) kv_y_this = kv_y_over;
+				if(index == 2 && kv_x_this < kv_03_over) kv_x_this = kv_03_over; // Make sure within screen
+
 				$(obj).css({"--x": kv_x_this + "px", "--y": kv_y_this + "px"});
 			});
 
