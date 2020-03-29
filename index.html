@@ -65,19 +65,21 @@
 			--y-change-rate: 0.06;
 			--x-change-resist: calc(var(--x-change-rate) * 100% * -1.0);
 			--y-change-resist: calc(var(--y-change-rate) * 100% * -1.0);
+			--stand-cancellation: 0px;
 			height: 100%;
 			width: 100%;
 			z-index: 899;
 			position: absolute;
 			bottom: calc(var(--y) * -1 + var(--y-change-resist));
 			right: calc(var(--x) * -1 + var(--x-change-resist));
+			width: calc((var(--x-change-rate) + 1) * 100%);
 			height: calc((var(--y-change-rate) + 1) * 100%);
 			background-size: contain;
 			background-repeat: no-repeat;
 			background-position: bottom right;
 			transition: var(--transition);
-			transform: scale(0.95);
-			transform-origin: right bottom;
+			transform: scale(0.95) translateX(var(--stand-cancellation));
+			transform-origin: bottom right;
 		}
 
 		.kv.kv_chara_01 {
@@ -165,7 +167,6 @@
 			background-position: top right;
 			opacity: var(--opacity);
 			transition: opacity 0.7s ease 0.3s;
-			pointer-events: none;
 		}
 
 		.console {
@@ -184,7 +185,6 @@
 			background: rgba(0, 0, 0, 0.5);
 			display: var(--display);
 			white-space: nowrap;
-			pointer-events: none;
 		}
 
 		.console * {
@@ -287,6 +287,10 @@
 
 	<div class="console">
 		<ul>
+			<ul id="main">
+				<li id="screen"></li>
+				<li id="mouse"></li>
+			</ul>
 			<ul id="bg">
 				<li id="bg"></li>
 			</ul>
@@ -319,7 +323,7 @@
 
 	<script>
 
-		var global_instandRatio = 0.025;
+		var global_instandRatio = 1.8;
 		var global_outstandRatio = 1.8;
 		var global_degreeRatio = 1;
 
@@ -345,7 +349,7 @@
 			});
 		});
 
-		$('body').mousemove(mouse);
+		$(document).on('mousemove', mouse);
 
 		window.wallpaperPropertyListener = {
 			applyUserProperties: function (properties) {
@@ -381,7 +385,6 @@
 					}
 				}
 
-
 				// Mahouka Logo
 				if (properties.mahouka_logo) {
 					if (properties.mahouka_logo.value) {
@@ -397,7 +400,6 @@
 						$('.logo').css('--opacity', properties.mahouka_logo_opacity.value / 10);
 					}
 				}
-
 
 				// Character Amplitude X
 				if (properties.character_amplitude_x) {
@@ -485,33 +487,57 @@
 
 		}, 1500);
 
+
+		var kv_x_stand = [0, 0, 0];
+		mouse({"clientX": 0, "clientY": 0});
+
 		function mouse(e) {
 
-			let width = $('body').width();
-			let height = $('body').height();
+			let width = window.screen.width;
+			let height = window.screen.height;
 
-			let wr = e.screenX / width;
-			let hr = e.screenY / height;
+			$('.console #main #screen').html("screen: " + width + "px, " + height + "px");
+			$('.console #main #mouse').html("mouse: " + e.clientX + "px, " + e.clientY + "px");
+			
+			let wr = e.clientX / width;
+			let hr = e.clientY / height;
 
 			let kv_xChangeRate = $('.kv').css('--x-change-rate') * 1.0;
 			let kv_yChangeRate = $('.kv').css('--y-change-rate') * 1.0;
-
-			let kv_xChangeRate_instand = kv_xChangeRate * global_instandRatio;
-			let kv_xChangeRate_outstand = kv_xChangeRate * global_outstandRatio;
 			let kv_tolerancePixel = 3; // Unit: px
 
-			$('.kv').css({ '--x': (e.offsetX * kv_xChangeRate * -1.0 + kv_tolerancePixel) + 'px', '--y': (e.offsetY * kv_yChangeRate * -1.0 + kv_tolerancePixel) + 'px' });
-
-			if (wr < 0.3) {
-				$('.kv_chara_02').css({ '--x': e.offsetX * kv_xChangeRate_instand * -1 + 'px' });
-				$('.kv_chara_03').css({ '--x': e.offsetX * kv_xChangeRate_instand * -1 + 'px' });
-			} else if (wr < 0.6) {
-				$('.kv_chara_01').css({ '--x': e.offsetX * kv_xChangeRate_outstand * -1 + 'px' });
-				$('.kv_chara_03').css({ '--x': e.offsetX * kv_xChangeRate_instand * -1 + 'px' });
-			} else {
-				$('.kv_chara_01').css({ '--x': e.offsetX * kv_xChangeRate_outstand * -1 + 'px' });
-				$('.kv_chara_02').css({ '--x': e.offsetX * kv_xChangeRate_outstand * -1 + 'px' });
+			if (wr <= 0.4) {
+				let wr_rate = wr;
+				kv_x_stand[0] = e.clientX * wr_rate * 0.12 * -1;
+				kv_x_stand[1] = e.clientX * wr_rate * 0.06 * -1;
+				kv_x_stand[2] = e.clientX * wr_rate * 0.06 * -1;
 			}
+			if (wr <= 0.8) {
+				let wr_rate = wr - 0.4;
+				kv_x_stand[0] = kv_x_stand[0];
+				kv_x_stand[1] = e.clientX * wr_rate * 0.12 * -1;
+				kv_x_stand[2] = e.clientX * wr_rate * 0.08 * -1;
+			}
+			if (wr <= 1) {
+				let wr_rate = wr - 0.8;
+				kv_x_stand[0] = kv_x_stand[0];
+				kv_x_stand[1] = kv_x_stand[1];
+				kv_x_stand[2] = e.clientX * wr_rate * 0.10 * -1;
+			}
+
+			let kv_x = e.clientX * kv_xChangeRate * -1 + kv_tolerancePixel;
+			let kv_y = e.clientY * kv_yChangeRate * -1 + kv_tolerancePixel;
+			$('.kv').css('--stand-cancellation', (width * 0.2 * 0.1) + "px");
+
+			console.log(kv_x, kv_x_stand[2]);
+
+			$('.kv').each(function(index, obj){
+				let kv_x_this = kv_x + kv_x_stand[index];
+				let kv_y_this = kv_y;
+				if(kv_x_this > 3) kv_x_this = 3;
+				$(obj).css({"--x": kv_x_this + "px", "--y": kv_y_this + "px"});
+			});
+
 
 			$('.console #kv #01').html("kv_01: " + $('.kv_chara_01').css('--x') + ", " + $('.kv_chara_01').css('--y'));
 			$('.console #kv #02').html("kv_02: " + $('.kv_chara_02').css('--x') + ", " + $('.kv_chara_02').css('--y'));
@@ -520,11 +546,11 @@
 			let bg_xChangeRate = $('.bg').css('--x-change-rate');
 			let bg_yChangeRate = $('.bg').css('--y-change-rate');
 
-			$('.bg').css({ '--x': e.offsetX * bg_xChangeRate + 'px', '--y': e.offsetY * bg_yChangeRate + 'px' });
+			$('.bg').css({ '--x': e.clientX * bg_xChangeRate + 'px', '--y': e.clientY * bg_yChangeRate + 'px' });
 			$('.console #bg #bg').html("bg: " + $('.bg').css('--x') + ", " + $('.bg').css('--y'));
 
 			let flare_degreeChangeRate = $('.kv_flare').css('--degree-change-rate') * global_degreeRatio;
-			let flare_degree = Math.atan2(e.offsetY, width - e.offsetX) * (180 / Math.PI) * flare_degreeChangeRate;
+			let flare_degree = Math.atan2(e.clientY, width - e.clientX) * (180 / Math.PI) * flare_degreeChangeRate;
 			$('.kv_flare').css('--degree', flare_degree + 'deg');
 			$('.console #flare #flare').html("flare: " + flare_degree);
 
@@ -547,12 +573,12 @@
 		}, 60000);
 	</script>
 
-	<!--- Particles -->
+	<!-- Particles -->
 	<div class="particles-script"></div>
 
 	<iframe class="iframe" src="https://meonc.studio/mahouka?origin=wallpaper-engine"></iframe>
 	<script>
-		var refresh = 1000 * 60 * 10;
+		var refresh = 1000 * 60 * 5;
 		setInterval(function(){
 			$(".iframe").attr("src", function(index, attr){ 
 				return attr;
