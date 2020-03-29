@@ -509,13 +509,13 @@
 
 			if (wr <= kv_stand_ratio[0]) {
 				let wr_rate = wr;
-				kv_x_stand[0] = e.clientX * wr_rate * 0.14 * -1;
+				kv_x_stand[0] = e.clientX * wr_rate * 0.10 * -1;
 				kv_x_stand[1] = 0;
 				kv_x_stand[2] = 0;
 			}else if (wr <= kv_stand_ratio[1]) {
 				let wr_rate = wr - kv_stand_ratio[0];
 				kv_x_stand[0] = e.clientX * kv_stand_ratio[0] * 0.12 * -1;
-				kv_x_stand[1] = e.clientX * wr_rate * 0.12 * -1;
+				kv_x_stand[1] = e.clientX * wr_rate * 0.10 * -1;
 				kv_x_stand[2] = 0;
 			}else if (wr <= kv_stand_ratio[2]) {
 				let wr_rate = wr - kv_stand_ratio[1];
