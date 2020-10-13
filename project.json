@@ -15,7 +15,7 @@
 				"order" : 105,
 				"precision" : 2,
 				"step" : 0.10000000000000001,
-				"text" : "Background Amplitude",
+				"text" : "Background amplitude",
 				"type" : "slider",
 				"value" : 2
 			},
@@ -28,7 +28,7 @@
 				"order" : 103,
 				"precision" : 2,
 				"step" : 0.10000000000000001,
-				"text" : "Character Amplitude X",
+				"text" : "Character vertical amplitude",
 				"type" : "slider",
 				"value" : 4
 			},
@@ -41,14 +41,14 @@
 				"order" : 104,
 				"precision" : 2,
 				"step" : 0.10000000000000001,
-				"text" : "Character Amplitude Y",
+				"text" : "Character horizontal amplitude",
 				"type" : "slider",
 				"value" : 6
 			},
 			"developer_console" : 
 			{
 				"order" : 108,
-				"text" : "Show Developer Console",
+				"text" : "Show developer console",
 				"type" : "bool",
 				"value" : false
 			},
@@ -61,14 +61,14 @@
 				"order" : 107,
 				"precision" : 2,
 				"step" : 0.10000000000000001,
-				"text" : "Flare Amplitude",
+				"text" : "Flare amplitude",
 				"type" : "slider",
 				"value" : 6
 			},
 			"mahouka_logo" : 
 			{
 				"order" : 101,
-				"text" : "Show Mahouka Logo",
+				"text" : "Mahouka logo",
 				"type" : "bool",
 				"value" : false
 			},
@@ -81,7 +81,7 @@
 				"order" : 102,
 				"precision" : 2,
 				"step" : 0.10000000000000001,
-				"text" : "Mahouka Logo Opacity",
+				"text" : "Mahouka logo opacity",
 				"type" : "slider",
 				"value" : 8
 			},
@@ -103,14 +103,14 @@
 					}
 				],
 				"order" : 100,
-				"text" : "Movement Performance",
+				"text" : "Performance",
 				"type" : "combo",
 				"value" : "high"
 			},
 			"particles" : 
 			{
 				"order" : 106,
-				"text" : "Show Particles",
+				"text" : "Show particles",
 				"type" : "bool",
 				"value" : true
 			},
