@@ -1,132 +1,134 @@
 {
-	"contentrating": "Everyone",
-	"description": "魔法科高校の劣等生: 来訪者編 (The Irregular at Magic High School: Visitor Arc, Mahouka Koukou no Rettousei: Raihousha-hen, 魔法科高校的劣等生: 来访者篇)\r\n\r\nPlz leave your comments or suggestions! And rate this wallpaper 😉!\r\n\r\nMade with creativity and love by 😈",
-	"file": "index.html",
-	"general": {
-		"properties": {
-			"background_amplitude": {
-				"condition": "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
-				"fraction": true,
-				"max": 10,
-				"min": 1,
-				"order": 105,
-				"precision": 2,
-				"step": 0.10000000000000001,
-				"text": "Background amplitude",
-				"type": "slider",
-				"value": 2
+	"contentrating" : "Everyone",
+	"description" : "魔法科高校の劣等生: 来訪者編 (The Irregular at Magic High School: Visitor Arc, Mahouka Koukou no Rettousei: Raihousha-hen, 魔法科高校的劣等生: 来访者篇)\r\n\r\nPlz leave your comments or suggestions! And rate this wallpaper 😉!\r\n\r\nMade with creativity and love by 😈",
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"background_amplitude" : 
+			{
+				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
+				"fraction" : true,
+				"max" : 10,
+				"min" : 1,
+				"order" : 105,
+				"precision" : 2,
+				"step" : 0.10000000000000001,
+				"text" : "Background amplitude",
+				"type" : "slider",
+				"value" : 2
 			},
-			"character_amplitude_x": {
-				"condition": "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
-				"fraction": true,
-				"max": 10,
-				"min": 1,
-				"order": 103,
-				"precision": 2,
-				"step": 0.10000000000000001,
-				"text": "Character amplitude x",
-				"type": "slider",
-				"value": 4
+			"character_amplitude_x" : 
+			{
+				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
+				"fraction" : true,
+				"max" : 10,
+				"min" : 1,
+				"order" : 103,
+				"precision" : 2,
+				"step" : 0.10000000000000001,
+				"text" : "Character amplitude x",
+				"type" : "slider",
+				"value" : 4
 			},
-			"character_amplitude_y": {
-				"condition": "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
-				"fraction": true,
-				"max": 10,
-				"min": 1,
-				"order": 104,
-				"precision": 2,
-				"step": 0.10000000000000001,
-				"text": "Character amplitude y",
-				"type": "slider",
-				"value": 6
+			"character_amplitude_y" : 
+			{
+				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
+				"fraction" : true,
+				"max" : 10,
+				"min" : 1,
+				"order" : 104,
+				"precision" : 2,
+				"step" : 0.10000000000000001,
+				"text" : "Character amplitude y",
+				"type" : "slider",
+				"value" : 6
 			},
-			"developer_console": {
-				"order": 108,
-				"text": "Show developer console",
-				"type": "bool",
-				"value": false
+			"developer_console" : 
+			{
+				"order" : 108,
+				"text" : "Show developer console",
+				"type" : "bool",
+				"value" : false
 			},
-			"flare_amplitude": {
-				"condition": "movement_performance.value == \"hide\"",
-				"fraction": true,
-				"max": 10,
-				"min": 1,
-				"order": 107,
-				"precision": 2,
-				"step": 0.10000000000000001,
-				"text": "Flare amplitude",
-				"type": "slider",
-				"value": 6
+			"flare_amplitude" : 
+			{
+				"condition" : "movement_performance.value == \"hide\"",
+				"fraction" : true,
+				"max" : 10,
+				"min" : 1,
+				"order" : 107,
+				"precision" : 2,
+				"step" : 0.10000000000000001,
+				"text" : "Flare amplitude",
+				"type" : "slider",
+				"value" : 6
 			},
-			"mahouka_logo": {
-				"order": 101,
-				"text": "Mahouka logo",
-				"type": "bool",
-				"value": false
+			"mahouka_logo" : 
+			{
+				"order" : 101,
+				"text" : "Mahouka logo",
+				"type" : "bool",
+				"value" : false
 			},
-			"mahouka_logo_opacity": {
-				"condition": "mahouka_logo.value == true",
-				"fraction": true,
-				"max": 10,
-				"min": 1,
-				"order": 102,
-				"precision": 2,
-				"step": 0.10000000000000001,
-				"text": "Mahouka logo opacity",
-				"type": "slider",
-				"value": 8
+			"mahouka_logo_opacity" : 
+			{
+				"condition" : "mahouka_logo.value == true",
+				"fraction" : true,
+				"max" : 10,
+				"min" : 1,
+				"order" : 102,
+				"precision" : 2,
+				"step" : 0.10000000000000001,
+				"text" : "Mahouka logo opacity",
+				"type" : "slider",
+				"value" : 8
 			},
-			"movement_performance": {
-				"options": [
+			"movement_performance" : 
+			{
+				"options" : 
+				[
 					{
-						"label": "High",
-						"value": "high"
+						"label" : "High",
+						"value" : "high"
 					},
 					{
-						"label": "Simple",
-						"value": "simple"
+						"label" : "Simple",
+						"value" : "simple"
 					},
 					{
-						"label": "Static",
-						"value": "none"
+						"label" : "Static",
+						"value" : "none"
 					}
 				],
-				"order": 100,
-				"text": "Performance",
-				"type": "combo",
-				"value": "high"
+				"order" : 100,
+				"text" : "Performance",
+				"type" : "combo",
+				"value" : "high"
 			},
-			"particles": {
-				"order": 106,
-				"text": "Show particles",
-				"type": "bool",
-				"value": true
+			"particles" : 
+			{
+				"order" : 106,
+				"text" : "Show particles",
+				"type" : "bool",
+				"value" : true
 			},
-			"schemecolor": {
-				"order": 0,
-				"text": "ui_browse_properties_scheme_color",
-				"type": "color",
-				"value": "0 0 0"
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0 0 0"
 			}
 		}
 	},
-	"preview": "preview.jpg",
-	"tags": [
-		"Anime",
-		"Mahouka",
-		"魔法科",
-		"Magic",
-		"High School",
-		"Irregular",
-		"劣等生",
-		"来訪者",
-		"来访者",
-		"Visitor"
-	],
-	"title": "The Irregular at Magic High School: Visitor Arc (Mahouka Koukou no Rettousei: Raihousha-hen)",
-	"type": "Web",
-	"version": 1,
-	"visibility": "public",
-	"workshopid": "1922527858",
-	"workshopurl": "steam://url/CommunityFilePage/1922527858"
+	"preview" : "preview.jpg",
+	"tags" : [ "Anime" ],
+	"title" : "The Irregular at Magic High School: Visitor Arc (Mahouka Koukou no Rettousei: Raihousha-hen)",
+	"type" : "web",
+	"version" : 2,
+	"visibility" : "public",
+	"workshopid" : "1922527858",
+	"workshopurl" : "steam://url/CommunityFilePage/1922527858"
 }
