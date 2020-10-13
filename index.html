@@ -17,7 +17,7 @@
 		}
 
 		:root {
-			--transition: all 0.3s ease-out;
+			--transition: all 0.25s ease-out;
 		}
 
 		@keyframes rotate-360 {
@@ -380,8 +380,8 @@
 								global_degreeRatio = 1;
 								$('.kv').css('transition', 'var(--transition)');
 								$('.bg').css('transition', 'var(--transition)');
-								$('body').unbind();
-								$('body').mousemove(mouse);
+								$(document).unbind("mousemove");
+								$(document).mousemove(mouse);
 								break;
 							case 'simple': // Remove transition .3s ease and in/outstand
 								global_outstandRatio = [0, 0, 0];
@@ -389,7 +389,8 @@
 								global_degreeRatio = 0;
 								$('.kv').css('transition', 'none');
 								$('.bg').css('transition', 'none');
-								$('body').mousemove(mouse);
+								$(document).unbind("mousemove");
+								$(document).mousemove(mouse);
 								break;
 							case 'none': // All static
 								global_outstandRatio = [0, 0, 0];
@@ -397,7 +398,7 @@
 								global_degreeRatio = 0;
 								$('.kv').css('transition', 'none');
 								$('.bg').css('transition', 'none');
-								$('body').unbind();
+								$(document).unbind("mousemove");
 								break;
 						}
 					}
@@ -443,7 +444,7 @@
 
 				// Particles
 				if (properties.particles) {
-					if (properties.particles.value == true) {
+					if (properties.particles.value) {
 						$('#bg_canvas').show();
 					}else{
 						$('#bg_canvas').hide();
