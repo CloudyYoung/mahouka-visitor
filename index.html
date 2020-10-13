@@ -1,16 +1,20 @@
 <html>
 
 <head>
-	<link href="https://fonts.googleapis.com/css?family=Noto+Serif+JP:200,300,400,500,600,700,900&display=swap&subset=japanese" rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css?family=Noto+Serif+JP:200,300,400,500,600,700,900&display=swap&subset=japanese"
+		rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
-	<link href="https://fonts.loli.net/css?family=Noto+Serif+JP:200,300,400,500,600,700,900&display=swap&subset=japanese" rel="stylesheet">
+	<link
+		href="https://fonts.loli.net/css?family=Noto+Serif+JP:200,300,400,500,600,700,900&display=swap&subset=japanese"
+		rel="stylesheet">
 	<link href="https://fonts.loli.net/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="jquery.js"></script>
 	<style>
-		body{
+		body {
 			font-family: 'Noto Serif JP';
 		}
-		
+
 		* {
 			margin: 0px;
 			padding: 0px;
@@ -24,6 +28,7 @@
 			0% {
 				transform: rotate(0deg);
 			}
+
 			100% {
 				transform: rotate(360deg);
 			}
@@ -151,14 +156,15 @@
 		}
 
 		@keyframes dust-run {
-		  from {
-		  	margin-top: 0%;
-		  	left: 100%;
-		  }
-		  to {
-		  	margin-top: 50%;
-		  	left: -200px;
-		  }
+			from {
+				margin-top: 0%;
+				left: 100%;
+			}
+
+			to {
+				margin-top: 50%;
+				left: -200px;
+			}
 		}
 
 
@@ -204,7 +210,7 @@
 			list-style-type: none;
 		}
 
-		.bg_canvas{
+		.bg_canvas {
 			position: absolute;
 			top: 0px;
 			left: 0px;
@@ -213,27 +219,25 @@
 			z-index: 1799 !important;
 		}
 
-		.bg_circle{
+		.bg_circle {
 			position: absolute;
 			background-image: url("bg_circle_news.png");
 			background-position: center center;
 			background-repeat: no-repeat;
 			background-size: contain;
 			width: 704px;
-    		height: 704px;
+			height: 704px;
 			margin-left: -352px;
 			animation: rotate-360 200s linear 0.2s infinite;
 			left: 50%;
 		}
 
-		.iframe{
+		.iframe {
 			display: none;
 		}
-
-
 	</style>
 	<style class="special birthday-text-css">
-		.birthday-text{
+		.birthday-text {
 			position: absolute;
 			bottom: 10%;
 			right: 0px;
@@ -252,7 +256,7 @@
 			opacity: 0.85;
 		}
 
-		.birthday-text .date{
+		.birthday-text .date {
 			color: #42BFB2;
 			font-family: 'Roboto Condensed';
 			line-height: 1;
@@ -261,14 +265,14 @@
 			font-weight: 600;
 		}
 
-		.birthday-text .text{
+		.birthday-text .text {
 			font-size: 1.8em;
-			font-weight: 700;
-			margin-top: -2px;
-			margin-right: 8px;
+			font-weight: 800;
+			margin-top: -10px;
+			margin-right: 6px;
 		}
 
-		.birthday-text .charaface{
+		.birthday-text .charaface {
 			background-size: contain;
 			background-repeat: no-repeat;
 			background-origin: right bottom;
@@ -278,14 +282,6 @@
 			bottom: 0%;
 			height: calc(128px * 0.85);
 			width: calc(200px * 0.85);
-		}
-
-		.birthday-text.kv_chara_01 .charaface{
-			background-image: url('lz_charaface/CharaFace_miyuki.png');
-		}
-
-		.birthday-text.kv_chara_02 .charaface{
-			background-image: url('lz_charaface/CharaFace_tatsuya.png');
 		}
 	</style>
 </head>
@@ -320,20 +316,7 @@
 		</ul>
 	</div>
 
-	<div class="special birthday-text-div">
-		<div class="birthday-text kv_chara_01">
-			<div class="charaface"></div>
-			<span class="date">2080.03.25</span>
-			<span class="text" i18n>司波 深雪 // SHIBA MIYUKI</span>
-			<span class="text">HAPPY BIRTHDAY</span>
-		</div>
-		<div class="birthday-text kv_chara_02">
-			<div class="charaface"></div>
-			<span class="date">2079.04.24</span>
-			<span class="text" i18n>司波 达也 // SHIBA TATSUYA</span>
-			<span class="text">HAPPY BIRTHDAY</span>
-		</div>
-	</div>
+	<div class="special birthday"></div>
 
 	<script>
 
@@ -342,29 +325,19 @@
 		var kv_x_stand = [0, 0, 0];
 		var kv_stand_ratio = [0.4, 0.8, 1.0];
 
-		mouse({"clientX": 0, "clientY": 0});
+		mouse({ "clientX": 0, "clientY": 0 });
 
-		$(function(){
-			let lang = window.navigator.languages ? window.navigator.languages[0] : null;
-			lang = lang || window.navigator.language || window.navigator.browserLanguage || window.navigator.userLanguage;
 
-			let shortLang = lang;
-			if (shortLang.indexOf('-') !== -1)
-				shortLang = shortLang.split('-')[0];
 
-			if (shortLang.indexOf('_') !== -1)
-				shortLang = shortLang.split('_')[0];
+		let lang = window.navigator.languages ? window.navigator.languages[0] : null;
+		lang = lang || window.navigator.language || window.navigator.browserLanguage || window.navigator.userLanguage;
 
-			$('[i18n]').each(function(){
-				$(this).attr('original-text', $(this).text());
-				let arr = $(this).html().split("//");
-				if(shortLang == 'zh' || shortLang == 'ja'){
-					$(this).html(arr[0].trim());
-				}else{
-					$(this).html(arr[1].trim());
-				}
-			});
-		});
+		var shortLang = lang;
+		if (shortLang.indexOf('-') !== -1)
+			shortLang = shortLang.split('-')[0];
+
+		if (shortLang.indexOf('_') !== -1)
+			shortLang = shortLang.split('_')[0];
 
 		$(document).on('mousemove', mouse);
 
@@ -408,7 +381,7 @@
 				if (properties.mahouka_logo) {
 					if (properties.mahouka_logo.value) {
 						$('.logo').css('--display', 'block');
-					}else{
+					} else {
 						$('.logo').css('--display', 'none');
 					}
 				}
@@ -446,7 +419,7 @@
 				if (properties.particles) {
 					if (properties.particles.value) {
 						$('#bg_canvas').show();
-					}else{
+					} else {
 						$('#bg_canvas').hide();
 					}
 				}
@@ -462,7 +435,7 @@
 				if (properties.developer_console) {
 					if (properties.developer_console.value) {
 						$('.console').css('--display', 'block');
-					}else{
+					} else {
 						$('.console').css('--display', 'none');
 					}
 				}
@@ -506,7 +479,7 @@
 
 			$('.console #main #screen').html("screen: " + width + "px, " + height + "px");
 			$('.console #main #mouse').html("mouse: " + e.clientX + "px, " + e.clientY + "px");
-			
+
 			let wr = e.clientX / width;
 			let hr = e.clientY / height;
 
@@ -519,12 +492,12 @@
 				kv_x_stand[0] = e.clientX * wr_rate * global_outstandRatio[0] * -1;
 				kv_x_stand[1] = 0;
 				kv_x_stand[2] = 0;
-			}else if (wr <= kv_stand_ratio[1]) {
+			} else if (wr <= kv_stand_ratio[1]) {
 				let wr_rate = wr - kv_stand_ratio[0];
 				kv_x_stand[0] = e.clientX * kv_stand_ratio[0] * global_outstandRatio[0] * -1;
 				kv_x_stand[1] = e.clientX * wr_rate * global_outstandRatio[1] * -1;
 				kv_x_stand[2] = 0;
-			}else if (wr <= kv_stand_ratio[2]) {
+			} else if (wr <= kv_stand_ratio[2]) {
 				let wr_rate = wr - kv_stand_ratio[1];
 				kv_x_stand[0] = e.clientX * kv_stand_ratio[0] * global_outstandRatio[0] * -1;
 				kv_x_stand[1] = e.clientX * (kv_stand_ratio[1] - kv_stand_ratio[0]) * global_outstandRatio[1] * -1;
@@ -538,14 +511,14 @@
 			let kv_03_over = $(document).width() - $('.kv_chara_03').width(); // Make sure within screen
 			let kv_y_over = $(document).height() - $('.kv').height();
 
-			$('.kv').each(function(index, obj){
+			$('.kv').each(function (index, obj) {
 				let kv_x_this = kv_x + kv_x_stand[index] + stand_cancellation;
 				let kv_y_this = kv_y;
 
-				if(kv_y_this < kv_y_over) kv_y_this = kv_y_over;
-				if(index == 2 && kv_x_this < kv_03_over) kv_x_this = kv_03_over; // Make sure within screen
+				if (kv_y_this < kv_y_over) kv_y_this = kv_y_over;
+				if (index == 2 && kv_x_this < kv_03_over) kv_x_this = kv_03_over; // Make sure within screen
 
-				$(obj).css({"--x": kv_x_this + "px", "--y": kv_y_this + "px"});
+				$(obj).css({ "--x": kv_x_this + "px", "--y": kv_y_this + "px" });
 			});
 
 
@@ -569,18 +542,99 @@
 	</script>
 
 	<script class="special birthday-text-script">
-		setInterval(function(){
+
+		var birthdays = [
+			{
+				key: "miyuki",
+				month: 3,
+				day: 25,
+				name: ["司波 深雪", "司波 深雪", "Miyuki Shiba"]
+			},
+			{
+				key: "tatsuya",
+				month: 4,
+				day: 24,
+				name: ["司波 達也", "司波 达也", "Tatsuya Shiba"]
+			},
+			{
+				key: "mayumi",
+				month: 6,
+				day: 26,
+				name: ["七草 真由美", "七草 真由美", "Mayumi Saegusa"]
+			},
+			{
+				key: "erika",
+				month: 8,
+				day: 28,
+				name: ["千葉 エリカ", "千叶 艾莉卡", "Erika Chiba"]
+			},
+			{
+				key: "leo",
+				month: 8,
+				day: 1,
+				name: ["西城 レオンハルト", "西城 雷欧赫特", "Leonhard Saijo"]
+			},
+			{
+				key: "mikihiko",
+				month: 9,
+				day: 10,
+				name: ["吉田 幹比古", "吉田 干比古", "Mikihiko Yoshida"]
+			},
+			{
+				key: "mizuki",
+				month: 9,
+				day: 25,
+				name: ["柴田 美月", "柴田 美月", "Mizuki Shibata"]
+			},
+		];
+
+		var months = [
+			'January', 'February', 'March', 'April', 'May',
+			'June', 'July', 'August', 'September',
+			'October', 'November', 'December'
+		];
+
+		birthdays.forEach(each => {
+			$('.special.birthday').append(`
+			<div class="birthday-text ` + each.key + `">
+				<div class= "charaface" style="background-image: url('lz_charaface/CharaFace_` + each.key + `.png')" ></div>
+				<span class="date" i18n>` + each.month + `月` + each.day + `日 // ` + each.month + `月` + each.day + `日 // ` + months[each.month - 1] + ` ` + each.day + `</span>
+				<span class="text" i18n>` + each.name[0].split(" ")[1] + `の誕生日おめでとう！ // ` + each.name[1].split(" ")[1] + `生日快乐！ // Happy ` + each.name[2].split(" ")[0] + ` Day!</span>
+			</div >`);
+		});
+
+		$('.special.birthday .birthday-text').hide();
+
+
+		setInterval(function () {
 			var today = new Date();
 			var month = today.getMonth() + 1;
 			var day = today.getDate();
-			if(month == 3 && day == 25){
-				$('.birthday-text.kv_chara_01').fadeIn();
-			}else if(month == 4 && day == 24){
-				$('.birthday-text.kv_chara_02').fadeIn();
-			}else{
-				$('.birthday-text').fadeOut();
-			}
-		}, 60000);
+
+			birthdays.forEach(each => {
+				if (each.month == month && each.day == day) {
+					$('.special.birthday .birthday-text.' + each.key).fadeIn();
+				} else {
+					$('.special.birthday .birthday-text').fadeOut();
+				}
+			});
+		}, 1000);
+	</script>
+
+	<script class="i18n">
+		$(() => {
+			$('[i18n]').each(function () {
+				$(this).attr('original-text', $(this).text());
+				let arr = $(this).html().split("//");
+				if (shortLang == 'ja') {
+					$(this).html(arr[0].trim());
+				} else if (shortLang == "zh") {
+					$(this).html(arr[1].trim());
+				} else {
+					$(this).html(arr[2].trim());
+				}
+			});
+		});
 	</script>
 
 	<!-- Particles -->
@@ -591,8 +645,8 @@
 	<iframe class="iframe" src="https://meonc.studio/mahouka?origin=wallpaper-engine"></iframe>
 	<script>
 		var refresh = 1000 * 60 * 5;
-		setInterval(function(){
-			$(".iframe").attr("src", function(index, attr){ 
+		setInterval(function () {
+			$(".iframe").attr("src", function (index, attr) {
 				return attr;
 			});
 		}, refresh);
