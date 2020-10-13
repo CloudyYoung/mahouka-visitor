@@ -611,11 +611,14 @@
 			var month = today.getMonth() + 1;
 			var day = today.getDate();
 
+			month = 3;
+			day = 25;
+
 			birthdays.forEach(each => {
 				if (each.month == month && each.day == day) {
 					$('.special.birthday .birthday-text.' + each.key).fadeIn();
 				} else {
-					$('.special.birthday .birthday-text').fadeOut();
+					$('.special.birthday .birthday-text.' + each.key).fadeOut();
 				}
 			});
 		}, 1000);
