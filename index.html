@@ -2,8 +2,8 @@
 
 <head>
 	<link href="https://fonts.googleapis.com/css?family=Noto+Serif+JP:200,300,400,500,600,700,900&display=swap&subset=japanese" rel="stylesheet">
-	<link href="https://fonts.loli.net/css?family=Noto+Serif+JP:200,300,400,500,600,700,900&display=swap&subset=japanese" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
+	<link href="https://fonts.loli.net/css?family=Noto+Serif+JP:200,300,400,500,600,700,900&display=swap&subset=japanese" rel="stylesheet">
 	<link href="https://fonts.loli.net/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="jquery.js"></script>
 	<style>
@@ -17,7 +17,7 @@
 		}
 
 		:root {
-			--transition: all 0.25s ease-out;
+			--transition: all 0.3s ease-out;
 		}
 
 		@keyframes rotate-360 {
@@ -109,7 +109,7 @@
 			background-position: top right;
 			mix-blend-mode: screen;
 			opacity: 0.7;
-			transform: scale(1.0);
+			transform: scale(1.0) rotate(var(--degree));
 			transform-origin: top right;
 		}
 
@@ -123,6 +123,7 @@
 			background-position: top center;
 			transform: scale(0.65);
 			opacity: 0.6;
+			animation: dust-run 10s linear;
 		}
 
 		.dust.bg_dust_01 {
@@ -148,6 +149,18 @@
 			width: 168px;
 			height: 136px;
 		}
+
+		@keyframes dust-run {
+		  from {
+		  	margin-top: 0%;
+		  	left: 100%;
+		  }
+		  to {
+		  	margin-top: 50%;
+		  	left: -200px;
+		  }
+		}
+
 
 		.logo {
 			--display: none;
@@ -216,6 +229,7 @@
 		.iframe{
 			display: none;
 		}
+
 
 	</style>
 	<style class="special birthday-text-css">
@@ -326,7 +340,7 @@
 		var global_degreeRatio = 1;
 		var global_outstandRatio = [0.1, 0.1, 0.1];
 		var kv_x_stand = [0, 0, 0];
-		var kv_stand_ratio = [0.4, 0.7, 1.0];
+		var kv_stand_ratio = [0.4, 0.8, 1.0];
 
 		mouse({"clientX": 0, "clientY": 0});
 
@@ -480,12 +494,6 @@
 			time = Math.min(Math.max(rand, 3000), 7000);
 			$('body').append(dust);
 			$('#' + id).css({ 'top': top + 'px' });
-			$('.console #dust').append("<li id='console-" + id + "'>dust_" + id + ": " + top + "px</li>");
-
-			$('#' + id).animate({ 'margin-top': '50%', 'left': '-100px' }, time, 'linear', function () {
-				$('#console-' + id).remove();
-				$(this).remove();
-			});
 
 
 		}, 1500);
