@@ -236,27 +236,42 @@
 			display: none;
 		}
 	</style>
-	<style class="special birthday-text-css">
-		.birthday-text {
+	<style class="special">
+		.special div {
 			position: absolute;
 			bottom: 10%;
 			right: 0px;
-			text-align: right;
-			padding: 11px 170px 11px 93px;
-			background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, white 10%, white 100%);
 			z-index: 1699;
+			display: none;
+		}
+
+		.special.birthday .birthday-text {
+			bottom: 10%;
+			right: 3em;
+			text-align: right;
+			background: #0000008f;
+			padding: 1.6em 3.2em;
+			border: 1px #fff solid;
+			transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 			letter-spacing: normal;
 			line-height: 1;
-			text-align: left;
+			text-align: center;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			display: flex;
 			height: auto;
-			display: none;
-			opacity: 0.85;
+			padding-right: 160px;
 		}
 
-		.birthday-text .date {
+		.special.birthday .birthday-text .text {
+			font-size: 1.8em;
+			font-weight: 700;
+			color: #fff;
+			margin-bottom: 0.2em;
+			text-align: center;
+		}
+
+		.special.birthday .birthday-text .date {
 			color: #42BFB2;
 			font-family: 'Roboto Condensed';
 			line-height: 1;
@@ -265,14 +280,7 @@
 			font-weight: 600;
 		}
 
-		.birthday-text .text {
-			font-size: 1.8em;
-			font-weight: 800;
-			margin-top: -10px;
-			margin-right: 6px;
-		}
-
-		.birthday-text .charaface {
+		.special.birthday .birthday-text .charaface {
 			background-size: contain;
 			background-repeat: no-repeat;
 			background-origin: right bottom;
@@ -317,7 +325,6 @@
 	</div>
 
 	<div class="special birthday"></div>
-	<div class="special event"></div>
 
 	<script>
 
@@ -598,7 +605,7 @@
 		birthdays.forEach(each => {
 			$('.special.birthday').append(`
 			<div class="birthday-text ` + each.key + `">
-				<div class= "charaface" style="background-image: url('lz_charaface/CharaFace_` + each.key + `.png')" ></div>
+				<span class= "charaface" style="background-image: url('lz_charaface/CharaFace_` + each.key + `.png')" ></span>
 				<span class="date" i18n>` + each.month + `月` + each.day + `日 // ` + each.month + `月` + each.day + `日 // ` + months[each.month - 1] + ` ` + each.day + `</span>
 				<span class="text" i18n>` + each.name[0].split(" ")[1] + `の誕生日おめでとう！ // ` + each.name[1].split(" ")[1] + `生日快乐！ // Happy ` + each.name[2].split(" ")[0] + ` Day!</span>
 			</div >`);
@@ -611,6 +618,8 @@
 			var today = new Date();
 			var month = today.getMonth() + 1;
 			var day = today.getDate();
+
+			month = 4, day = 24;
 
 			birthdays.forEach(each => {
 				if (each.month == month && each.day == day) {
