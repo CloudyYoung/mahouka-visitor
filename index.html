@@ -22,6 +22,7 @@
 
 		:root {
 			--transition: all 0.25s ease-out;
+			--transition-charaface: all 0.4s ease-in-out;
 		}
 
 		@keyframes rotate-360 {
@@ -232,20 +233,18 @@
 			left: 50%;
 		}
 
-		.iframe {
+		.iframe,
+		.hide {
 			display: none;
 		}
 	</style>
 	<style class="special">
-		.special div {
+		.special.event div {
 			position: absolute;
 			bottom: 10%;
 			right: 3em;
 			z-index: 1899;
 			display: none;
-		}
-
-		.special.birthday .birthday-text {
 			text-align: right;
 			background: #0000008f;
 			padding: 1.8em 2.8em;
@@ -261,11 +260,11 @@
 			transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 		}
 
-		.special.birthday .birthday-text:hover {
+		.special.event div:hover {
 			opacity: 0.8;
 		}
 
-		.special.birthday .birthday-text .text {
+		.special.event div .text {
 			font-size: 1.8em;
 			font-weight: 700;
 			color: #fff;
@@ -273,7 +272,7 @@
 			text-align: center;
 		}
 
-		.special.birthday .birthday-text .date {
+		.special.event div .date {
 			color: #42BFB2;
 			font-family: 'Roboto Condensed';
 			line-height: 1;
@@ -282,7 +281,7 @@
 			font-weight: 600;
 		}
 
-		.special.birthday .birthday-text .charaface {
+		.special.event div .charaface {
 			background-size: contain;
 			background-repeat: no-repeat;
 			background-origin: right bottom;
@@ -292,6 +291,20 @@
 			bottom: 0%;
 			height: calc(128px * 0.85);
 			width: calc(200px * 0.85);
+		}
+
+		.special.event .event .charaface {
+			background-size: calc(510px * 0.38) calc(550px * 0.38);
+			background-position: top left;
+			background-origin: top left;
+			height: 160px;
+			width: 200px;
+			right: -4%;
+			transition: var(--transition-charaface);
+		}
+
+		.special.event .event:hover .charaface {
+			height: 220px;
 		}
 	</style>
 </head>
@@ -326,7 +339,6 @@
 		</ul>
 	</div>
 
-	<div class="special birthday"></div>
 	<div class="special event"></div>
 
 	<script>
@@ -552,51 +564,122 @@
 
 	</script>
 
-	<script class="special birthday-script">
-
-		var birthdays = [
+	<script class="special event-script">
+		var events = [
 			{
 				key: "miyuki",
+				type: "birthday",
 				month: 3,
 				day: 25,
 				name: ["司波 深雪", "司波 深雪", "Miyuki Shiba"]
 			},
 			{
 				key: "tatsuya",
+				type: "birthday",
 				month: 4,
 				day: 24,
 				name: ["司波 達也", "司波 达也", "Tatsuya Shiba"]
 			},
 			{
 				key: "mayumi",
+				type: "birthday",
 				month: 6,
 				day: 26,
 				name: ["七草 真由美", "七草 真由美", "Mayumi Saegusa"]
 			},
 			{
 				key: "erika",
+				type: "birthday",
 				month: 8,
 				day: 28,
 				name: ["千葉 エリカ", "千叶 艾莉卡", "Erika Chiba"]
 			},
 			{
 				key: "leo",
+				type: "birthday",
 				month: 8,
 				day: 1,
 				name: ["西城 レオンハルト", "西城 雷欧赫特", "Leonhard Saijo"]
 			},
 			{
 				key: "mikihiko",
+				type: "birthday",
 				month: 9,
 				day: 10,
 				name: ["吉田 幹比古", "吉田 干比古", "Mikihiko Yoshida"]
 			},
 			{
 				key: "mizuki",
+				type: "birthday",
 				month: 9,
 				day: 25,
 				name: ["柴田 美月", "柴田 美月", "Mizuki Shibata"]
 			},
+			{
+				key: "halloween8",
+				month: 10,
+				day: 24,
+				festival: "halloween",
+				charaface: "azusa",
+				text: ["Happy Halloween!", "Happy Halloween!", "Happy Halloween!"]
+			},
+			{
+				key: "halloween7",
+				month: 10,
+				day: 25,
+				festival: "halloween",
+				charaface: "honoka",
+				text: ["Happy Halloween!", "Happy Halloween!", "Happy Halloween!"]
+			},
+			{
+				key: "halloween6",
+				month: 10,
+				day: 26,
+				festival: "halloween",
+				charaface: "mari",
+				text: ["Happy Halloween!", "Happy Halloween!", "Happy Halloween!"]
+			},
+			{
+				key: "halloween5",
+				month: 10,
+				day: 27,
+				festival: "halloween",
+				charaface: "shizuku",
+				text: ["Happy Halloween!", "Happy Halloween!", "Happy Halloween!"]
+			},
+			{
+				key: "halloween4",
+				month: 10,
+				day: 28,
+				festival: "halloween",
+				charaface: "erika",
+				text: ["Happy Halloween!", "Happy Halloween!", "Happy Halloween!"]
+			},
+			{
+				key: "halloween3",
+				month: 10,
+				day: 29,
+				festival: "halloween",
+				charaface: "lina",
+				text: ["Happy Halloween!", "Happy Halloween!", "Happy Halloween!"]
+			},
+			{
+				key: "halloween2",
+				month: 10,
+				day: 30,
+				festival: "halloween",
+				charaface: "miyuki",
+				text: ["Happy Halloween!", "Happy Halloween!", "Happy Halloween!"]
+			},
+			{
+				key: "halloween1",
+				month: 10,
+				day: 31,
+				showDate: true,
+				festival: "halloween",
+				charaface: "tatsuya",
+				text: ["灼熱のハロウィン", "烧焦的万圣节", "Scorched Halloween"]
+			}
 		];
 
 		var months = [
@@ -605,44 +688,48 @@
 			'October', 'November', 'December'
 		];
 
-		birthdays.forEach(each => {
-			$('.special.birthday').append(`
-			<div class="birthday-text ` + each.key + `">
-				<span class= "charaface" style="background-image: url('lz_charaface/CharaFace_` + each.key + `.png')" ></span>
-				<span class="date" i18n>` + each.month + `月` + each.day + `日 // ` + each.month + `月` + each.day + `日 // ` + months[each.month - 1] + ` ` + each.day + `</span>
-				<span class="text" i18n>` + each.name[0].split(" ")[1] + `の誕生日おめでとう！ // ` + each.name[1].split(" ")[1] + `生日快乐！ // Happy ` + each.name[2].split(" ")[0] + ` Day!</span>
-			</div >`);
+		events.forEach(each => {
+			var html = "";
+			if (each.type == "birthday") {
+				html = `<div class="birthday ` + each.key + `" style="display: none;">
+					<span class= "charaface" style="background-image: url('lz_charaface/CharaFace_` + each.key + `.png')" ></span>
+					<span class="date" i18n>` + each.month + `月` + each.day + `日 // ` + each.month + `月` + each.day + `日 // ` + months[each.month - 1] + ` ` + each.day + `</span>
+					<span class="text" i18n>` + each.name[0].split(" ")[1] + `の誕生日おめでとう！ // ` + each.name[1].split(" ")[1] + `生日快乐！ // Happy ` + each.name[2].split(" ")[0] + ` Day!</span>
+				</div >`;
+			} else {
+				html = `<div class="event ` + each.key + `" style="display: none;">
+					<span class= "charaface" style="background-image: url('lz_chara/` + each.festival + `/` + each.charaface + `.png')" ></span>
+					<span class="date ` + (each.showDate ? `` : `hide`) + `" i18n>` + each.month + `月` + each.day + `日 // ` + each.month + `月` + each.day + `日 // ` + months[each.month - 1] + ` ` + each.day + `</span>
+					<span class="text" i18n>` + each.text.join("//") + `</span>
+				</div >`;
+			}
+			$('.special.event').append(html);
 		});
-
-		$('.special.birthday .birthday-text').hide();
-
 
 		setInterval(function () {
 			var today = new Date();
 			var month = today.getMonth() + 1;
 			var day = today.getDate();
 
-			month = 3, day = 25;
+			month = 10, day = 31;
 
-			birthdays.forEach(each => {
-				if (each.month == month && each.day == day) {
-					$('.special.birthday .birthday-text.' + each.key).fadeIn();
+			events.forEach(each => {
+				var id = "";
+				if (each.type == "birthday") {
+					id = ".special.event .birthday." + each.key;
 				} else {
-					$('.special.birthday .birthday-text.' + each.key).fadeOut();
+					id = ".special.event .event." + each.key;
+				}
+
+				if (each.month == month && each.day == day) {
+					$(id).fadeIn();
+				} else {
+					$(id).fadeOut();
 				}
 			});
 		}, 1000);
 	</script>
 
-	<script class="special event-script">
-		var events = [
-			{
-				"key": "halloween",
-				month: 10,
-				day: 15,
-			}
-		];
-	</script>
 
 	<script class="i18n">
 		$(() => {
