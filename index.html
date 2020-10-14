@@ -240,19 +240,16 @@
 		.special div {
 			position: absolute;
 			bottom: 10%;
-			right: 0px;
-			z-index: 1699;
+			right: 3em;
+			z-index: 1899;
 			display: none;
 		}
 
 		.special.birthday .birthday-text {
-			bottom: 10%;
-			right: 3em;
 			text-align: right;
 			background: #0000008f;
-			padding: 1.6em 3.2em;
+			padding: 1.8em 2.8em;
 			border: 1px #fff solid;
-			transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 			letter-spacing: normal;
 			line-height: 1;
 			text-align: center;
@@ -260,7 +257,12 @@
 			white-space: nowrap;
 			display: flex;
 			height: auto;
-			padding-right: 160px;
+			padding-right: 155px;
+			transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+		}
+
+		.special.birthday .birthday-text:hover {
+			opacity: 0.8;
 		}
 
 		.special.birthday .birthday-text .text {
@@ -325,6 +327,7 @@
 	</div>
 
 	<div class="special birthday"></div>
+	<div class="special event"></div>
 
 	<script>
 
@@ -619,7 +622,7 @@
 			var month = today.getMonth() + 1;
 			var day = today.getDate();
 
-			month = 4, day = 24;
+			month = 3, day = 25;
 
 			birthdays.forEach(each => {
 				if (each.month == month && each.day == day) {
