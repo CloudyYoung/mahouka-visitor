@@ -11,8 +11,9 @@
 	<link href="https://fonts.loli.net/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="jquery.js"></script>
 	<style>
-		body {
+		html {
 			font-family: 'Noto Serif JP';
+			font-size: calc(100vw/190);
 		}
 
 		* {
@@ -120,40 +121,45 @@
 		}
 
 		.dust {
+			--width: 100;
+			--height: 100;
+			--height-rate: calc(var(--width) / var(--height));
 			z-index: -99;
 			position: absolute;
 			left: 100%;
 			top: 0px;
-			background-size: cover;
+			background-size: contain;
 			background-repeat: no-repeat;
 			background-position: top center;
 			transform: scale(0.65);
-			opacity: 0.6;
+			opacity: 0.8;
 			animation: dust-run 10s linear;
+			width: 5%;
+			height: calc(var(--height-rate) * 5%);
 		}
 
 		.dust.bg_dust_01 {
+			--width: 160;
+			--height: 117;
 			background-image: url('bg_dust_01.png');
-			width: 160px;
-			height: 117px;
 		}
 
 		.dust.bg_dust_02 {
+			--width: 134;
+			--height: 117;
 			background-image: url('bg_dust_02.png');
-			width: 134px;
-			height: 117px;
 		}
 
 		.dust.bg_dust_03 {
+			--width: 131;
+			--height: 128;
 			background-image: url('bg_dust_03.png');
-			width: 131px;
-			height: 128px;
 		}
 
 		.dust.bg_dust_04 {
+			--width: 168px;
+			--height: 136px;
 			background-image: url('bg_dust_04.png');
-			width: 168px;
-			height: 136px;
 		}
 
 		@keyframes dust-run {
@@ -239,72 +245,92 @@
 		}
 	</style>
 	<style class="special">
-		.special.event div {
+		.special.event {
+			--charaface-width: 14rem;
+			--charaface-height: 14rem;
 			position: absolute;
 			bottom: 10%;
-			right: 3em;
+			right: 3%;
 			z-index: 1899;
+		}
+
+		.special.event div {
+			position: relative;
 			display: none;
 			text-align: right;
-			background: #0000008f;
-			padding: 1.8em 2.8em;
+			background: rgba(0, 0, 0, 0.5);
+			padding: 1.8rem 2.8rem;
 			border: 1px #fff solid;
 			letter-spacing: normal;
-			line-height: 1;
 			text-align: center;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			display: flex;
 			height: auto;
-			padding-right: 155px;
-			transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+			padding-right: calc(var(--charaface-width) - 0.5rem);
+			transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+			margin-top: 1.4rem;
+			text-align: center;
 		}
 
 		.special.event div:hover {
-			opacity: 0.8;
+			background: rgba(0, 0, 0, 0.35);
+			border: 1px rgba(255, 255, 255, 0.9) solid;
 		}
 
 		.special.event div .text {
-			font-size: 1.8em;
+			font-size: 1.8rem;
 			font-weight: 700;
 			color: #fff;
-			margin-bottom: 0.2em;
+			margin-bottom: 0.2rem;
 			text-align: center;
+			width: 100%;
 		}
 
 		.special.event div .date {
 			color: #42BFB2;
 			font-family: 'Roboto Condensed', 'Noto Serif JP';
-			line-height: 1;
-			margin-right: 8px;
-			font-size: 2em;
+			line-height: 1.4;
+			margin-right: 1.1rem;
+			font-size: 2rem;
 			font-weight: 600;
 		}
 
 		.special.event div .charaface {
+			--height-rate: calc(var(--raw-width) / var(--raw-height));
+			--height: calc(var(--charaface-height) * var(--height-rate));
+			--width: var(--charaface-width);
 			background-size: contain;
 			background-repeat: no-repeat;
-			background-origin: right bottom;
-			background-position: right bottom;
+			background-origin: center;
+			background-position: center;
 			position: absolute;
 			right: 0%;
 			bottom: 0%;
-			height: calc(128px * 0.85);
-			width: calc(200px * 0.85);
-		}
-
-		.special.event .event .charaface {
-			background-size: calc(510px * 0.38) calc(550px * 0.38);
-			background-position: top left;
-			background-origin: top left;
-			height: 160px;
-			width: 200px;
-			right: -4%;
+			height: var(--height);
+			width: var(--width);
 			transition: var(--transition-charaface);
 		}
 
+		.special.event div.event .charaface {
+			--raw-height: 550;
+			--raw-width: 510;
+			--zoom-rate: 1.15;
+			background-origin: top center;
+			background-position: top center;
+			background-size: calc(var(--charaface-height) * var(--height-rate) * var(--zoom-rate)) calc(var(--charaface-width) * var(--zoom-rate));
+			height: calc(var(--height) - 2.2rem);
+		}
+
 		.special.event .event:hover .charaface {
-			height: 220px;
+			height: calc(var(--height) + 4rem);
+		}
+
+		.special.event div.birthday .charaface {
+			--raw-height: 128;
+			--raw-width: 200;
+			background-origin: right bottom;
+			background-position: right bottom;
 		}
 	</style>
 </head>
@@ -712,7 +738,7 @@
 			var month = today.getMonth() + 1;
 			var day = today.getDate();
 
-			// month = 10, day = 30;
+			// month = 10, day = 27;
 
 			events.forEach(each => {
 				var id = "";
