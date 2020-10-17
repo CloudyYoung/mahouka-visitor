@@ -13,7 +13,7 @@
 	<style>
 		html {
 			font-family: 'Noto Serif JP';
-			font-size: calc(100vw/190);
+			font-size: calc(100vw/200);
 		}
 
 		* {
@@ -254,12 +254,17 @@
 			z-index: 1899;
 		}
 
-		.special.event div {
+		.special.event div{
+			margin-top: 1.4rem;
+		}
+
+		.special.event .event,
+		.special.event .birthday{
 			position: relative;
 			display: none;
 			text-align: right;
-			background: rgba(0, 0, 0, 0.5);
-			padding: 1.8rem 2.8rem;
+			background: rgba(0, 0, 0, 0.4);
+			padding: 2.0rem 3.2rem;
 			border: 1px #fff solid;
 			letter-spacing: normal;
 			text-align: center;
@@ -267,18 +272,18 @@
 			white-space: nowrap;
 			display: flex;
 			height: auto;
-			padding-right: calc(var(--charaface-width) - 0.5rem);
 			transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
-			margin-top: 1.4rem;
 			text-align: center;
 		}
-
-		.special.event div:hover {
-			background: rgba(0, 0, 0, 0.35);
+		
+		.special.event .event:hover,
+		.special.event .birthday:hover {
+			background: rgba(0, 0, 0, 0.3);
 			border: 1px rgba(255, 255, 255, 0.9) solid;
 		}
 
-		.special.event div .text {
+		.special.event .event .text,
+		.special.event .birthday .text {
 			font-size: 1.8rem;
 			font-weight: 700;
 			color: #fff;
@@ -287,7 +292,8 @@
 			width: 100%;
 		}
 
-		.special.event div .date {
+		.special.event .event .date,
+		.special.event .birthday .date {
 			color: #42BFB2;
 			font-family: 'Roboto Condensed', 'Noto Serif JP';
 			line-height: 1.4;
@@ -296,7 +302,8 @@
 			font-weight: 600;
 		}
 
-		.special.event div .charaface {
+		.special.event .event .charaface,
+		.special.event .birthday .charaface {
 			--height-rate: calc(var(--raw-width) / var(--raw-height));
 			--height: calc(var(--charaface-height) * var(--height-rate));
 			--width: var(--charaface-width);
@@ -312,7 +319,11 @@
 			transition: var(--transition-charaface);
 		}
 
-		.special.event div.event .charaface {
+		.special.event .event{
+			padding-right: calc(var(--charaface-width) - 0.5rem);
+		}
+
+		.special.event .event .charaface {
 			--raw-height: 550;
 			--raw-width: 510;
 			--zoom-rate: 1.15;
@@ -326,11 +337,41 @@
 			height: calc(var(--height) + 4rem);
 		}
 
-		.special.event div.birthday .charaface {
+		.special.event .birthday .charaface {
 			--raw-height: 128;
 			--raw-width: 200;
 			background-origin: right bottom;
 			background-position: right bottom;
+		}
+
+		.special.story{
+			position: absolute;
+			bottom: 7%;
+			right: 2%;
+			z-index: 1899;
+		}
+
+		.special.event .story .charaface{
+			--ratio: calc(1500 / 1900);
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-origin: center;
+			background-position: center;
+			height: 14rem;
+			width: calc(var(--ratio) * 14rem);
+			float: left;
+			margin-left: -4rem;
+		}
+
+		.special.event .story .charaface.tatsuya{
+			background-image: url('lz_chara/visitor/tatsuya.png');
+		}
+		.special.event .story .charaface.miyuki{
+			background-image: url('lz_chara/visitor/miyuki.png');
+		}
+		.special.event .story .charaface.angie{
+			margin-left: -2rem;
+			background-image: url('lz_chara/visitor/angie.png');
 		}
 	</style>
 </head>
@@ -365,7 +406,13 @@
 		</ul>
 	</div>
 
-	<div class="special event"></div>
+	<div class="special event">
+		<div class="story">
+			<span class="charaface miyuki"></span>
+			<span class="charaface tatsuya"></span>
+			<span class="charaface angie"></span>
+		</div>
+	</div>
 
 	<script>
 
