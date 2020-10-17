@@ -344,23 +344,23 @@
 			background-position: right bottom;
 		}
 
-		.special.story{
-			position: absolute;
-			bottom: 7%;
-			right: 2%;
-			z-index: 1899;
+		.special.event .story{
+			--ratio: calc(1500 / 1900);
+			--height: 14rem;
+			height: var(--height);
+			text-align: center;
+			margin-right: 2rem;
 		}
 
 		.special.event .story .charaface{
-			--ratio: calc(1500 / 1900);
 			background-size: contain;
 			background-repeat: no-repeat;
 			background-origin: center;
 			background-position: center;
-			height: 14rem;
-			width: calc(var(--ratio) * 14rem);
-			float: left;
-			margin-left: -4rem;
+			height: var(--height);
+			width: calc(var(--ratio) * var(--height));
+			display: inline-block;
+			margin-right: -4rem;
 		}
 
 		.special.event .story .charaface.tatsuya{
@@ -370,7 +370,7 @@
 			background-image: url('lz_chara/visitor/miyuki.png');
 		}
 		.special.event .story .charaface.angie{
-			margin-left: -2rem;
+			margin-left: 2.4rem;
 			background-image: url('lz_chara/visitor/angie.png');
 		}
 	</style>
