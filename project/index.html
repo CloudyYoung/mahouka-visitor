@@ -254,17 +254,17 @@
 			z-index: 1899;
 		}
 
-		.special.event div{
+		.special.event div {
 			margin-top: 1.4rem;
 		}
 
 		.special.event .event,
-		.special.event .birthday{
+		.special.event .birthday {
 			position: relative;
 			display: none;
 			text-align: right;
 			background: rgba(0, 0, 0, 0.4);
-			padding: 2.0rem 3.2rem;
+			padding: 2.0rem 3.0rem;
 			border: 1px #fff solid;
 			letter-spacing: normal;
 			text-align: center;
@@ -275,7 +275,7 @@
 			transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 			text-align: center;
 		}
-		
+
 		.special.event .event:hover,
 		.special.event .birthday:hover {
 			background: rgba(0, 0, 0, 0.3);
@@ -319,8 +319,12 @@
 			transition: var(--transition-charaface);
 		}
 
-		.special.event .event{
-			padding-right: calc(var(--charaface-width) - 0.5rem);
+		.special.event .event {
+			padding-right: calc(var(--charaface-width) - 1.6rem);
+		}
+
+		.special.event .birthday {
+			padding-right: calc(var(--charaface-width) - 2rem);
 		}
 
 		.special.event .event .charaface {
@@ -344,7 +348,7 @@
 			background-position: right bottom;
 		}
 
-		.special.event .story{
+		.special.event .story {
 			--ratio: calc(1500 / 1900);
 			--height: 14rem;
 			height: var(--height);
@@ -352,7 +356,7 @@
 			margin-right: 2rem;
 		}
 
-		.special.event .story .charaface{
+		.special.event .story .charaface {
 			background-size: contain;
 			background-repeat: no-repeat;
 			background-origin: center;
@@ -363,15 +367,17 @@
 			margin-right: -4rem;
 		}
 
-		.special.event .story .charaface.tatsuya{
-			background-image: url('lz_chara/visitor/tatsuya.png');
+		.special.event .story .charaface.tatsuya {
+			background-image: url('chara/visitor/tatsuya.png');
 		}
-		.special.event .story .charaface.miyuki{
-			background-image: url('lz_chara/visitor/miyuki.png');
+
+		.special.event .story .charaface.miyuki {
+			background-image: url('chara/visitor/miyuki.png');
 		}
-		.special.event .story .charaface.angie{
+
+		.special.event .story .charaface.angie {
 			margin-left: 2.4rem;
-			background-image: url('lz_chara/visitor/angie.png');
+			background-image: url('chara/visitor/angie.png');
 		}
 	</style>
 </head>
@@ -766,13 +772,13 @@
 			let date = `${each.month}月${each.day}日 // ${each.month}月${each.day}日 // ${months[each.month - 1]} ${each.day}`;
 			if (each.type == "birthday") {
 				html = `<div class="birthday ${each.key}" style="display: none;">
-					<span class= "charaface" style="background-image: url('lz_charaface/CharaFace_${each.key}.png')" ></span>
+					<span class= "charaface" style="background-image: url('charaface/${each.key}.png')" ></span>
 					<span class="date" i18n>` + date + `</span>
 					<span class="text" i18n>${each.name[0][1]}の誕生日おめでとう！ // ${each.name[1][1]}生日快乐！ // Happy ${each.name[2][1]} Day!</span>
 				</div >`;
 			} else {
 				html = `<div class="event ${each.key}" style="display: none;">
-					<span class= "charaface" style="background-image: url('lz_chara/${each.name}/${each.charaface}.png')" ></span>
+					<span class= "charaface" style="background-image: url('chara/${each.name}/${each.charaface}.png')" ></span>
 					<span class="date ${(each.showDate ? `` : `hide`)} + " i18n>${date}</span>
 					<span class="text" i18n>${each.text.join("//")}</span>
 				</div >`;
@@ -785,7 +791,7 @@
 			var month = today.getMonth() + 1;
 			var day = today.getDate();
 
-			// month = 10, day = 27;
+			// month = 10, day = 25;
 
 			events.forEach(each => {
 				var id = "";
