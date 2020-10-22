@@ -226,6 +226,6 @@ body {
     left: 50%;
 }
 
-.iframe {
+.iframe, .hide {
     display: none;
 }

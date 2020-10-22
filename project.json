@@ -1,6 +1,6 @@
 {
 	"contentrating" : "Everyone",
-	"description" : "魔法科高校の劣等生: 来訪者編 (The Irregular at Magic High School: Visitor Arc, Mahouka Koukou no Rettousei: Raihousha-hen, 魔法科高校的劣等生: 来访者篇)\r\n\r\nPlz leave your comments or suggestions! And rate this wallpaper 😉!\r\n\r\nMade with creativity and love by 😈",
+	"description" : "魔法科高校の劣等生: 来訪者編 (The Irregular at Magic High School: Visitor Arc, Mahouka Koukou no Rettousei: Raihousha-hen, 魔法科高校的劣等生: 来访者篇)\r\n\r\nPlz leave your comments or suggestions! And rate this wallpaper 😉!\r\n\r\nMade with creativity and love by 😈\r\n\r\nLanguage supports: English, Simplified Chinese, Japanese",
 	"file" : "index.html",
 	"general" : 
 	{
@@ -51,19 +51,6 @@
 				"text" : "Developer console",
 				"type" : "bool",
 				"value" : false
-			},
-			"flare_amplitude" : 
-			{
-				"condition" : "movement_performance.value == \"hide\"",
-				"fraction" : true,
-				"max" : 10,
-				"min" : 1,
-				"order" : 107,
-				"precision" : 2,
-				"step" : 0.10000000000000001,
-				"text" : "Flare amplitude",
-				"type" : "slider",
-				"value" : 6
 			},
 			"mahouka_logo" : 
 			{
@@ -120,13 +107,20 @@
 				"text" : "ui_browse_properties_scheme_color",
 				"type" : "color",
 				"value" : "0 0 0"
+			},
+			"specials" : 
+			{
+				"order" : 107,
+				"text" : "Specials",
+				"type" : "bool",
+				"value" : true
 			}
 		}
 	},
 	"preview" : "preview.jpg",
 	"tags" : [ "Anime" ],
 	"title" : "魔法科高校的劣等生: 来访者篇 (The Irregular at Magic High School: Visitor Arc)",
-	"type" : "Web",
+	"type" : "web",
 	"version" : 7,
 	"visibility" : "public",
 	"workshopid" : "1922527858",

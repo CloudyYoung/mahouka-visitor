@@ -90,6 +90,15 @@ window.wallpaperPropertyListener = {
         }
 
         // Console
+        if (properties.specials) {
+            if (properties.specials.value) {
+                $('.special').show();
+            } else {
+                $('.special').hide();
+            }
+        }
+
+        // Console
         if (properties.developer_console) {
             if (properties.developer_console.value) {
                 $('.console').css('--display', 'block');

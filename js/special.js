@@ -3,6 +3,16 @@ $('body').append(`<div class="special event"></div>`);
 
 $.events = [
     {
+        "key": "1",
+        "type": "story",
+        "charaface": ["miyuki", "tatsuya", "angie"],
+    }, {
+        "key": "2",
+        "type": "story",
+        "charaface": ["erika", "mikihiko"],
+        "show": true
+    },
+    {
         "key": "miyuki",
         "type": "birthday",
         "month": 3,
@@ -115,16 +125,6 @@ $.events = [
         "name": "halloween",
         "charaface": "tatsuya",
         "text": ["灼熱のハロウィン", "烧焦的万圣节", "Scorched Halloween"]
-    },
-    {
-        "key": "1",
-        "type": "story",
-        "charaface": ["miyuki", "tatsuya", "angie"]
-    }, {
-        "key": "2",
-        "type": "story",
-        "charaface": ["erika", "mikihiko"],
-        "show": true
     }
 ];
 
@@ -148,9 +148,10 @@ $.events.forEach(each => {
         </div >`;
     } else if (each.type == "story") {
         html += `<div class="story ${each.key}" style="display: none;">`;
-        each.charaface.forEach(chara => html += `<span class="charaface ${chara}" style="background-image: url('chara/visitor/${chara}.png');"></span>`);
+        each.charaface.forEach(chara => html += `<span class="charaface ${chara}" style="background-image: url('chara/story/${chara}.png');"></span>`);
         html += `</div>`;
     } else {
+        each.type = 'event';
         html = `
         <div class="event ${each.key}" style="display: none;">
             <span class= "charaface" style="background-image: url('chara/${each.name}/${each.charaface}.png')" ></span>
@@ -167,14 +168,16 @@ setInterval(function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // month = 9, day = 25;
+    // month = 10, day = 28;
 
     $.events.forEach(each => {
-        let id = `.special.event .${each.type ? each.type : `event`}.${each.key}`;
+        let id = `.special.event .${each.type}.${each.key}`;
         if ((each.month == month && each.day == day) || each.show) {
             $(id).fadeIn();
+            $.console.special_event(each, true);
         } else {
             $(id).fadeOut();
+            $.console.special_event(each, false);
         }
     });
 }, 1000);

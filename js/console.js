@@ -14,6 +14,7 @@ $('body').append(`
             </ul>
             <ul class="flare-console"></ul>
             <ul class="dust-console"></ul>
+            <ul class="special-event-console"></ul>
         </ul>
     </div>
 `);
@@ -39,5 +40,18 @@ $.console = {
         setTimeout(function () {
             $(`.console .dust-console .${id}`).remove();
         }, 1000 * duration);
+    },
+    special_event: function (event, show) {
+        let id = `${event.type}-${event.key}`;
+        let value = ``;
+        if (event.month && event.day) value += event.month + ", " + event.day;
+        if (event.show) value += "show";
+        if (show && $(`.console .special-event-console .${id}`).length == 0) {
+            $(`.console .special-event-console`).append(`<li class="${id}">${event.type}_${event.key}: ${value}</li>`);
+        } else if (!show) {
+            $(`.console .special-event-console .${id}`).remove();
+        } else {
+            // Do nothing
+        }
     }
 }
