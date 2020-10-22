@@ -2,31 +2,31 @@
 window.wallpaperPropertyListener = {
     applyUserProperties: function (properties) {
 
-        // Quality
+        // Performance
         if (properties.movement_performance) {
             if (properties.movement_performance.value) {
                 switch (properties.movement_performance.value) {
                     case 'high': // All on
-                        global_outstandRatio = [0.1, 0.1, 0.1];
-                        global_degreeRatio = 1;
+                        $.global_outstandRatio = $.global_outstandRatioDefault;
+                        $.global_degreeRatio = 1;
                         $('.kv').css('transition', 'var(--transition)');
                         $('.bg').css('transition', 'var(--transition)');
                         $(document).unbind("mousemove");
-                        $(document).mousemove(mouse);
+                        $(document).mousemove($.mouse);
                         break;
                     case 'simple': // Remove transition .3s ease and in/outstand
-                        global_outstandRatio = [0, 0, 0];
-                        kv_x_stand = [0, 0, 0];
-                        global_degreeRatio = 0;
+                        $.global_outstandRatio = [0, 0, 0];
+                        $.kv_x_stand = [0, 0, 0];
+                        $.global_degreeRatio = 0;
                         $('.kv').css('transition', 'none');
                         $('.bg').css('transition', 'none');
                         $(document).unbind("mousemove");
-                        $(document).mousemove(mouse);
+                        $(document).mousemove($.mouse);
                         break;
                     case 'none': // All static
-                        global_outstandRatio = [0, 0, 0];
-                        kv_x_stand = [0, 0, 0];
-                        global_degreeRatio = 0;
+                        $.global_outstandRatio = [0, 0, 0];
+                        $.kv_x_stand = [0, 0, 0];
+                        $.global_degreeRatio = 0;
                         $('.kv').css('transition', 'none');
                         $('.bg').css('transition', 'none');
                         $(document).unbind("mousemove");
@@ -97,8 +97,5 @@ window.wallpaperPropertyListener = {
                 $('.console').css('--display', 'none');
             }
         }
-
-        $.mouse();
-
     }
 }

@@ -1,8 +1,9 @@
 
-var global_degreeRatio = 1;
-var global_outstandRatio = [0.1, 0.1, 0.1];
-var kv_x_stand = [0, 0, 0];
-var kv_stand_ratio = [0.4, 0.8, 1.0];
+$.global_degreeRatio = 1;
+$.global_outstandRatioDefault = [0.1, 0.1, 0.1];
+$.global_outstandRatio = $.global_outstandRatioDefault;
+$.kv_x_stand = [0, 0, 0];
+$.kv_stand_ratio = [0.4, 0.76, 1.0];
 
 $('body').prepend(`
     <div class="bg"></div>
@@ -62,32 +63,32 @@ $.mouse = function (e) {
     let kv_yChangeRate = $('.kv').css('--y-change-rate') * 1.0;
     let kv_tolerancePixel = 1; // Unit: px, technically no need anymore
 
-    if (wr <= kv_stand_ratio[0]) {
+    if (wr <= $.kv_stand_ratio[0]) {
         let wr_rate = wr;
-        kv_x_stand[0] = e.clientX * wr_rate * global_outstandRatio[0] * -1;
-        kv_x_stand[1] = 0;
-        kv_x_stand[2] = 0;
-    } else if (wr <= kv_stand_ratio[1]) {
-        let wr_rate = wr - kv_stand_ratio[0];
-        kv_x_stand[0] = e.clientX * kv_stand_ratio[0] * global_outstandRatio[0] * -1;
-        kv_x_stand[1] = e.clientX * wr_rate * global_outstandRatio[1] * -1;
-        kv_x_stand[2] = 0;
-    } else if (wr <= kv_stand_ratio[2]) {
-        let wr_rate = wr - kv_stand_ratio[1];
-        kv_x_stand[0] = e.clientX * kv_stand_ratio[0] * global_outstandRatio[0] * -1;
-        kv_x_stand[1] = e.clientX * (kv_stand_ratio[1] - kv_stand_ratio[0]) * global_outstandRatio[1] * -1;
-        kv_x_stand[2] = e.clientX * wr_rate * global_outstandRatio[2] * -1;
+        $.kv_x_stand[0] = e.clientX * wr_rate * $.global_outstandRatio[0] * -1;
+        $.kv_x_stand[1] = 0;
+        $.kv_x_stand[2] = 0;
+    } else if (wr <= $.kv_stand_ratio[1]) {
+        let wr_rate = wr - $.kv_stand_ratio[0];
+        $.kv_x_stand[0] = e.clientX * $.kv_stand_ratio[0] * $.global_outstandRatio[0] * -1;
+        $.kv_x_stand[1] = e.clientX * wr_rate * $.global_outstandRatio[1] * -1;
+        $.kv_x_stand[2] = 0;
+    } else if (wr <= $.kv_stand_ratio[2]) {
+        let wr_rate = wr - $.kv_stand_ratio[1];
+        $.kv_x_stand[0] = e.clientX * $.kv_stand_ratio[0] * $.global_outstandRatio[0] * -1;
+        $.kv_x_stand[1] = e.clientX * ($.kv_stand_ratio[1] - $.kv_stand_ratio[0]) * $.global_outstandRatio[1] * -1;
+        $.kv_x_stand[2] = e.clientX * wr_rate * $.global_outstandRatio[2] * -1;
     }
 
     let kv_x = e.clientX * kv_xChangeRate * -1 + kv_tolerancePixel;
     let kv_y = e.clientY * kv_yChangeRate * -1 + kv_tolerancePixel;
-    let stand_cancellation = width * (kv_stand_ratio[2] - kv_stand_ratio[1]) * 0.1;
+    let stand_cancellation = width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
 
     let kv_03_over = $(document).width() - $('.kv_chara_03').width(); // Make sure within screen
     let kv_y_over = $(document).height() - $('.kv').height();
 
     $('.kv').each(function (index, obj) {
-        let kv_x_this = kv_x + kv_x_stand[index] + stand_cancellation;
+        let kv_x_this = kv_x + $.kv_x_stand[index] + stand_cancellation;
         let kv_y_this = kv_y;
 
         if (kv_y_this < kv_y_over) kv_y_this = kv_y_over;
@@ -106,7 +107,7 @@ $.mouse = function (e) {
     $('.bg').css({ '--x': `${e.clientX * bg_xChangeRate}px`, '--y': `${e.clientY * bg_yChangeRate}px` });
     $.console.bg($('.bg').css('--x'), $('.bg').css('--y'));
 
-    let flare_degreeChangeRate = $('.kv_flare').css('--degree-change-rate') * global_degreeRatio;
+    let flare_degreeChangeRate = $('.kv_flare').css('--degree-change-rate') * $.global_degreeRatio;
     let flare_degree = Math.atan2(e.clientY, width - e.clientX) * (180 / Math.PI) * flare_degreeChangeRate;
     $('.kv_flare').css('--degree', `${flare_degree}deg`);
     $.console.flare(flare_degree);
