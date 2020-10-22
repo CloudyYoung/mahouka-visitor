@@ -98,7 +98,7 @@ window.wallpaperPropertyListener = {
             }
         }
 
-        mouse();
+        $.mouse();
 
     }
 }

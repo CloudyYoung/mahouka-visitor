@@ -1,7 +1,7 @@
 
 $('body').append(`<div class="special event"></div>`);
 
-var events = [
+$.events = [
     {
         "key": "miyuki",
         "type": "birthday",
@@ -128,7 +128,7 @@ var events = [
     }
 ];
 
-var months = [
+$.months = [
     'January', 'February', 'March', 'April', 'May',
     'June', 'July', 'August', 'September',
     'October', 'November', 'December'
@@ -136,9 +136,9 @@ var months = [
 
 
 // Special Event
-events.forEach(each => {
+$.events.forEach(each => {
     let html = ``;
-    let date = `${each.month}月${each.day}日 // ${each.month}月${each.day}日 // ${months[each.month - 1]} ${each.day}`;
+    let date = `${each.month}月${each.day}日 // ${each.month}月${each.day}日 // ${$.months[each.month - 1]} ${each.day}`;
     if (each.type == "birthday") {
         html = `
         <div class="birthday ${each.key}" style="display: none;">
@@ -161,14 +161,15 @@ events.forEach(each => {
     $('.special.event').append(html);
 });
 
+// Special
 setInterval(function () {
-    var today = new Date();
-    var month = today.getMonth() + 1;
-    var day = today.getDate();
+    let today = new Date();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
 
     // month = 9, day = 25;
 
-    events.forEach(each => {
+    $.events.forEach(each => {
         let id = `.special.event .${each.type ? each.type : `event`}.${each.key}`;
         if ((each.month == month && each.day == day) || each.show) {
             $(id).fadeIn();

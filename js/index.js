@@ -14,11 +14,6 @@ $('body').prepend(`
 `);
 
 
-mouse({ "clientX": 0, "clientY": 0 });
-
-
-$(document).on('mousemove', mouse);
-
 // Dust
 setInterval(function () {
 
@@ -52,7 +47,7 @@ setInterval(function () {
 
 
 // Mouse
-function mouse(e) {
+$.mouse = function (e) {
 
     let width = window.screen.width;
     let height = window.screen.height;
@@ -117,3 +112,6 @@ function mouse(e) {
     $.console.flare(flare_degree);
 
 }
+
+$.mouse({ "clientX": 0, "clientY": 0 });
+$(document).on('mousemove', $.mouse);
