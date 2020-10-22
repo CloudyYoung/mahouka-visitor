@@ -379,6 +379,14 @@
 			margin-left: 2.4rem;
 			background-image: url('chara/visitor/angie.png');
 		}
+
+		.special.event .story .charaface.mikihiko {
+			background-image: url('chara/visitor/mikihiko.png');
+		}
+
+		.special.event .story .charaface.erika {
+			background-image: url('chara/visitor/erika.png');
+		}
 	</style>
 </head>
 
@@ -413,10 +421,14 @@
 	</div>
 
 	<div class="special event">
-		<div class="story">
+		<div class="story ep3-1">
 			<span class="charaface miyuki"></span>
 			<span class="charaface tatsuya"></span>
 			<span class="charaface angie"></span>
+		</div>
+		<div class="story ep3-2">
+			<span class="charaface erika"></span>
+			<span class="charaface mikihiko"></span>
 		</div>
 	</div>
 
@@ -808,6 +820,8 @@
 				}
 			});
 		}, 1000);
+
+		$('.story.ep3-1').hide();
 	</script>
 
 
