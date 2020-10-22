@@ -21,7 +21,7 @@ setInterval(function () {
     let rand = Math.floor(Math.random() * 10000 + 1000);
     let top = Math.random() * 1000;
     let dust = '';
-    let id = (Date.now()).valueOf() + rand;
+    let id = '' + ((Date.now()).valueOf() % 100000) + rand % 5;
     if (rand % 5 == 0) {
         dust = `<div class="dust dust bg_dust_01" id="${id}"></div>`;
         top *= -1
@@ -95,17 +95,16 @@ $.mouse = function (e) {
         if (index == 2 && kv_x_this < kv_03_over) kv_x_this = kv_03_over; // Make sure within screen
 
         $(obj).css({ "--x": `${kv_x_this}px`, "--y": `${kv_y_this}px` });
+        $.console.kv(`0${index + 1}`, kv_x_this, kv_y_this);
     });
-
-    $.console.kv('01', $('.kv_chara_01').css('--x'), $('.kv_chara_01').css('--y'));
-    $.console.kv('02', $('.kv_chara_02').css('--x'), $('.kv_chara_02').css('--y'));
-    $.console.kv('03', $('.kv_chara_03').css('--x'), $('.kv_chara_03').css('--y'));
 
     let bg_xChangeRate = $('.bg').css('--x-change-rate');
     let bg_yChangeRate = $('.bg').css('--y-change-rate');
+    let bg_xPos = e.clientX * bg_xChangeRate;
+    let bg_yPos = e.clientY * bg_yChangeRate;
 
-    $('.bg').css({ '--x': `${e.clientX * bg_xChangeRate}px`, '--y': `${e.clientY * bg_yChangeRate}px` });
-    $.console.bg($('.bg').css('--x'), $('.bg').css('--y'));
+    $('.bg').css({ '--x': `${bg_xPos}px`, '--y': `${bg_yPos}px` });
+    $.console.bg(bg_xPos, bg_yPos);
 
     let flare_degreeChangeRate = $('.kv_flare').css('--degree-change-rate') * $.global_degreeRatio;
     let flare_degree = Math.atan2(e.clientY, width - e.clientX) * (180 / Math.PI) * flare_degreeChangeRate;

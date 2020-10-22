@@ -48,7 +48,7 @@
 			"developer_console" : 
 			{
 				"order" : 108,
-				"text" : "Show developer console",
+				"text" : "Developer console",
 				"type" : "bool",
 				"value" : false
 			},
@@ -110,7 +110,7 @@
 			"particles" : 
 			{
 				"order" : 106,
-				"text" : "Show particles",
+				"text" : "Particles",
 				"type" : "bool",
 				"value" : true
 			},

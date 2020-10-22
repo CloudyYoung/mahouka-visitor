@@ -20,10 +20,10 @@ $('body').append(`
 
 $.console = {
     kv: function (no, x, y) {
-        $(`.console .kv-console .${no}`).html(`kv_${no}: ${x}px, ${y}px`);
+        $(`.console .kv-console .${no}`).html(`kv_${no}: ${x.toFixed(4)}px, ${y.toFixed(4)}px`);
     },
     bg: function (x, y) {
-        $(`.console .bg-console`).html(`<li>bg: ${x}px, ${y}px</li>`);
+        $(`.console .bg-console`).html(`<li>bg: ${x.toFixed(4)}px, ${y.toFixed(4)}px</li>`);
     },
     flare: function (deg) {
         $(`.console .flare-console`).html(`<li>flare: ${deg}deg</li>`);
@@ -35,7 +35,7 @@ $.console = {
         $(`.console .main-console .screen`).html(`screen: ${width}px, ${height}px`);
     },
     dust: function (id, top, duration) {
-        $(`.console .dust-console`).append(`<li class="${id}">dust_${id}: ${top}px</li>`);
+        $(`.console .dust-console`).append(`<li class="${id}">dust_${id}: ${top.toFixed(4)}px</li>`);
         setTimeout(function () {
             $(`.console .dust-console .${id}`).remove();
         }, 1000 * duration);
