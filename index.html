@@ -239,8 +239,7 @@
             left: 50%;
         }
 
-        .iframe,
-        .hide {
+        .iframe {
             display: none;
         }
     </style>
@@ -366,34 +365,6 @@
             display: inline-block;
             margin-right: -3.5rem;
         }
-
-        .special.event .story .charaface.tatsuya {
-            background-image: url('chara/visitor/tatsuya.png');
-        }
-
-        .special.event .story .charaface.miyuki {
-            background-image: url('chara/visitor/miyuki.png');
-        }
-
-        .special.event .story .charaface.angie {
-            background-image: url('chara/visitor/angie.png');
-        }
-
-        .special.event .story .charaface.mikihiko {
-            background-image: url('chara/visitor/mikihiko.png');
-        }
-
-        .special.event .story .charaface.erika {
-            background-image: url('chara/visitor/erika.png');
-        }
-
-        .special.event .story .charaface.lina {
-            background-image: url('chara/visitor/lina.png');
-        }
-
-        .special.event .story .charaface.lina-2 {
-            background-image: url('chara/visitor/lina-2.png');
-        }
     </style>
 </head>
 
@@ -427,17 +398,7 @@
         </ul>
     </div>
 
-    <div class="special event">
-        <div class="story 1">
-            <span class="charaface miyuki"></span>
-            <span class="charaface tatsuya"></span>
-            <span class="charaface angie"></span>
-        </div>
-        <div class="story 2">
-            <span class="charaface erika"></span>
-            <span class="charaface mikihiko"></span>
-        </div>
-    </div>
+    <div class="special event"></div>
 
     <script>
 
@@ -777,6 +738,16 @@
                 name: "halloween",
                 charaface: "tatsuya",
                 text: ["灼熱のハロウィン", "烧焦的万圣节", "Scorched Halloween"]
+            },
+            {
+                key: "1",
+                type: "story",
+                charaface: ["miyuki", "tatsuya", "angie"]
+            }, {
+                key: "2",
+                type: "story",
+                charaface: ["erika", "mikihiko"],
+                show: true
             }
         ];
 
@@ -790,15 +761,21 @@
             let html = ``;
             let date = `${each.month}月${each.day}日 // ${each.month}月${each.day}日 // ${months[each.month - 1]} ${each.day}`;
             if (each.type == "birthday") {
-                html = `<div class="birthday ${each.key}" style="display: none;">
+                html = `
+                <div class="birthday ${each.key}" style="display: none;">
 					<span class= "charaface" style="background-image: url('charaface/${each.key}.png')" ></span>
 					<span class="date" i18n>` + date + `</span>
 					<span class="text" i18n>${each.name[0][1]}の誕生日おめでとう！ // ${each.name[1][1]}生日快乐！ // Happy ${each.name[2][1]} Day!</span>
 				</div >`;
+            } else if (each.type == "story") {
+                html += `<div class="story ${each.key}" style="display: none;">`;
+                each.charaface.forEach(chara => html += `<span class="charaface ${chara}" style="background-image: url('chara/visitor/${chara}.png');"></span>`);
+                html += `</div>`;
             } else {
-                html = `<div class="event ${each.key}" style="display: none;">
+                html = `
+                <div class="event ${each.key}" style="display: none;">
 					<span class= "charaface" style="background-image: url('chara/${each.name}/${each.charaface}.png')" ></span>
-					<span class="date ${(each.showDate ? `` : `hide`)} + " i18n>${date}</span>
+					<span class="date ${each.showDate ? `` : `hide`} + " i18n>${date}</span>
 					<span class="text" i18n>${each.text.join("//")}</span>
 				</div >`;
             }
@@ -813,22 +790,14 @@
             // month = 9, day = 25;
 
             events.forEach(each => {
-                var id = "";
-                if (each.type == "birthday") {
-                    id = `.special.event .birthday.${each.key}`;
-                } else {
-                    id = `.special.event .event.${each.key}`;
-                }
-
-                if (each.month == month && each.day == day) {
+                let id = `.special.event .${each.type ? each.type : `event`}.${each.key}`;
+                if ((each.month == month && each.day == day) || each.show) {
                     $(id).fadeIn();
                 } else {
                     $(id).fadeOut();
                 }
             });
         }, 1000);
-
-        $('.story.1').hide();
     </script>
 
 
