@@ -1,0 +1,121 @@
+.special.event {
+    --charaface-width: 14rem;
+    --charaface-height: 14rem;
+    position: absolute;
+    bottom: 10%;
+    right: 3%;
+    z-index: 1899;
+}
+
+.special.event div {
+    margin-top: 1.4rem;
+}
+
+.special.event .event,
+.special.event .birthday {
+    position: relative;
+    display: none;
+    text-align: right;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2.0rem 3.0rem;
+    border: 1px #fff solid;
+    letter-spacing: normal;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: flex;
+    height: auto;
+    transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+    text-align: center;
+}
+
+.special.event .event:hover,
+.special.event .birthday:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px rgba(255, 255, 255, 0.9) solid;
+}
+
+.special.event .event .text,
+.special.event .birthday .text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.2rem;
+    text-align: center;
+    width: 100%;
+}
+
+.special.event .event .date,
+.special.event .birthday .date {
+    color: #42BFB2;
+    font-family: 'Roboto Condensed', 'Noto Serif JP';
+    line-height: 1.4;
+    margin-right: 1.1rem;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.special.event .event .charaface,
+.special.event .birthday .charaface {
+    --height-rate: calc(var(--raw-width) / var(--raw-height));
+    --height: calc(var(--charaface-height) * var(--height-rate));
+    --width: var(--charaface-width);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-origin: center;
+    background-position: center;
+    position: absolute;
+    right: 0%;
+    bottom: 0%;
+    height: var(--height);
+    width: var(--width);
+    transition: var(--transition-charaface);
+}
+
+.special.event .event {
+    padding-right: calc(var(--charaface-width) - 1.6rem);
+}
+
+.special.event .birthday {
+    padding-right: calc(var(--charaface-width) - 2rem);
+}
+
+.special.event .event .charaface {
+    --raw-height: 550;
+    --raw-width: 510;
+    --zoom-rate: 1.15;
+    background-origin: top center;
+    background-position: top center;
+    background-size: calc(var(--charaface-height) * var(--height-rate) * var(--zoom-rate)) calc(var(--charaface-width) * var(--zoom-rate));
+    height: calc(var(--height) - 2.2rem);
+}
+
+.special.event .event:hover .charaface {
+    height: calc(var(--height) + 4rem);
+}
+
+.special.event .birthday .charaface {
+    --raw-height: 128;
+    --raw-width: 200;
+    background-origin: right bottom;
+    background-position: right bottom;
+}
+
+.special.event .story {
+    --ratio: calc(1500 / 1900);
+    --height: 14rem;
+    height: var(--height);
+    text-align: center;
+    margin-right: 2rem;
+}
+
+.special.event .story .charaface {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-origin: center;
+    background-position: center;
+    height: var(--height);
+    width: calc(var(--ratio) * var(--height));
+    display: inline-block;
+    margin-right: -3.5rem;
+}
