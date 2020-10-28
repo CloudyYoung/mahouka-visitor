@@ -6,10 +6,16 @@ $.events = [
         "key": "1",
         "type": "story",
         "charaface": ["miyuki", "tatsuya", "angie"],
+        "show": false
     }, {
         "key": "2",
         "type": "story",
         "charaface": ["erika", "mikihiko"],
+        "show": false
+    }, {
+        "key": "3",
+        "type": "story",
+        "charaface": ["shizuku"],
         "show": true
     },
     {
