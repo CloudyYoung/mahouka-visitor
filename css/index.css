@@ -118,7 +118,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: top center;
-    transform: scale(0.65);
+    transform: scale(0.75);
     opacity: 0.8;
     animation: dust-run 10s linear;
     width: 5%;

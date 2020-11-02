@@ -35,11 +35,12 @@ $.console = {
     screen: function (width, height) {
         $(`.console .main-console .screen`).html(`screen: ${width}px, ${height}px`);
     },
-    dust: function (id, top, duration) {
-        $(`.console .dust-console`).append(`<li class="${id}">dust_${id}: ${top.toFixed(4)}px</li>`);
-        setTimeout(function () {
+    dust: function (id, top) {
+        if ($(`.console .dust-console .${id}`).length != 0) {
             $(`.console .dust-console .${id}`).remove();
-        }, 1000 * duration);
+        } else {
+            $(`.console .dust-console`).append(`<li class="${id}">dust_${id}: ${top.toFixed(4)}px</li>`);
+        }
     },
     special_event: function (event, show) {
         let id = `${event.type}-${event.key}`;

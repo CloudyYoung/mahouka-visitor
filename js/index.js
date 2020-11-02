@@ -38,11 +38,12 @@ setInterval(function () {
 
     $('body').append(dust);
     $(`#${id}`).css({ 'top': `${top}px` });
-    $.console.dust(id, top, 10);
+    $.console.dust(id, top);
 
     setTimeout(function () {
         $(`#${id}`).remove();
-    }, 1000 * 10);
+        $.console.dust(id, top);
+    }, 1000 * 14);
 
 }, 1500);
 
