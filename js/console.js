@@ -43,11 +43,11 @@ $.console = {
     },
     special_event: function (event, show) {
         let id = `${event.type}-${event.key}`;
-        let value = ``;
-        if (event.month && event.day) value += event.month + ", " + event.day;
-        if (event.show) value += "show";
+        let values = [];
+        if (event.month && event.day) values.push(event.month + "," + event.day);
+        if (event.charaface) values.push(event.charaface)
         if (show && $(`.console .special-event-console .${id}`).length == 0) {
-            $(`.console .special-event-console`).append(`<li class="${id}">${event.type}_${event.key}: ${value}</li>`);
+            $(`.console .special-event-console`).append(`<li class="${id}">${event.type}_${event.key}: ${values}</li>`);
         } else if (!show) {
             $(`.console .special-event-console .${id}`).remove();
         } else {
