@@ -21,6 +21,11 @@ $.events = [
         "key": "4",
         "type": "story",
         "charaface": ["mikihiko", "mizuki"],
+        "show": false
+    }, {
+        "key": "5",
+        "type": "story",
+        "charaface": ["miyuki", "lina-2", "honoka"],
         "show": true
     },
     {
