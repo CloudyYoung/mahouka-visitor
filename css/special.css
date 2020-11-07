@@ -22,7 +22,7 @@
     display: none;
     text-align: right;
     background: rgba(0, 0, 0, 1);
-    padding: 1.6rem 2.6rem;
+    padding: 1.6rem 3rem;
     /* border: 1px #fff solid; */
     letter-spacing: normal;
     text-align: center;
@@ -32,17 +32,15 @@
     height: auto;
     transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
     text-align: center;
+    padding-right: calc(var(--charaface-width) - 0.4rem);
 }
 
 .special.event .event:hover,
 .special.event .birthday:hover {
     opacity: 0.72;
-    /* background: rgba(0, 0, 0, 0.7); */
-    /* border: 1px rgba(255, 255, 255, 0.9) solid; */
 }
 
-.special.event .event .text,
-.special.event .birthday .text {
+.special.event .event .text {
     font-size: 1.6rem;
     font-weight: 700;
     color: #fff;
@@ -61,50 +59,35 @@
     font-weight: 600;
 }
 
-.special.event .event .charaface,
-.special.event .birthday .charaface {
+.special.event .event .chara {
     --height-rate: calc(var(--raw-width) / var(--raw-height));
     --height: calc(var(--charaface-height) * var(--height-rate));
     --width: var(--charaface-width);
-    background-size: contain;
     background-repeat: no-repeat;
-    background-origin: center;
-    background-position: center;
     position: absolute;
-    right: 0%;
-    bottom: 0%;
     height: var(--height);
     width: var(--width);
-    /* transition: var(--transition-charaface); */
+    max-height: 9rem;
 }
 
-.special.event .event {
-    padding-right: calc(var(--charaface-width) - 1.2rem);
-}
-
-.special.event .birthday {
-    padding-right: calc(var(--charaface-width) - 2rem);
-}
-
-.special.event .event .charaface {
+.special.event .event .chara {
     --raw-height: 550;
-    --raw-width: 510;
-    --zoom-rate: 1.15;
+    --raw-width: 480;
+    background-size: cover;
     background-origin: top center;
     background-position: top center;
-    background-size: calc(var(--charaface-height) * var(--height-rate) * var(--zoom-rate)) calc(var(--charaface-width) * var(--zoom-rate));
-    height: calc(var(--height) - 2.2rem);
+    right: 0%;
+    bottom: 0%;
 }
 
-.special.event .event:hover .charaface {
-    /* height: calc(var(--height) + 4rem); */
-}
-
-.special.event .birthday .charaface {
+.special.event .event .chara.charaface {
     --raw-height: 128;
     --raw-width: 200;
+    background-size: contain;
     background-origin: right bottom;
     background-position: right bottom;
+    right: 0%;
+    bottom: 0%;
 }
 
 .special.event .story {
@@ -115,7 +98,7 @@
     margin-right: 2rem;
 }
 
-.special.event .story .charaface {
+.special.event .story .chara {
     background-size: contain;
     background-repeat: no-repeat;
     background-origin: center;

@@ -31,7 +31,7 @@ $.events = [
     {
         "key": "miyuki",
         "type": "birthday",
-        "month": 3,
+        "month": 10,
         "day": 25,
         "name": [["司波", "深雪"], ["司波", "深雪"], ["Shiba", "Miyuki"]]
     },
@@ -81,7 +81,7 @@ $.events = [
         "key": "halloween8",
         "month": 10,
         "day": 24,
-        "name": "halloween",
+        "charatype": "halloween",
         "charaface": "azusa",
         "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
     },
@@ -89,7 +89,7 @@ $.events = [
         "key": "halloween7",
         "month": 10,
         "day": 25,
-        "name": "halloween",
+        "charatype": "halloween",
         "charaface": "honoka",
         "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
     },
@@ -97,7 +97,7 @@ $.events = [
         "key": "halloween6",
         "month": 10,
         "day": 26,
-        "name": "halloween",
+        "charatype": "halloween",
         "charaface": "mari",
         "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
     },
@@ -105,7 +105,7 @@ $.events = [
         "key": "halloween5",
         "month": 10,
         "day": 27,
-        "name": "halloween",
+        "charatype": "halloween",
         "charaface": "shizuku",
         "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
     },
@@ -113,7 +113,7 @@ $.events = [
         "key": "halloween4",
         "month": 10,
         "day": 28,
-        "name": "halloween",
+        "charatype": "halloween",
         "charaface": "erika",
         "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
     },
@@ -121,7 +121,7 @@ $.events = [
         "key": "halloween3",
         "month": 10,
         "day": 29,
-        "name": "halloween",
+        "charatype": "halloween",
         "charaface": "lina",
         "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
     },
@@ -129,7 +129,7 @@ $.events = [
         "key": "halloween2",
         "month": 10,
         "day": 30,
-        "name": "halloween",
+        "charatype": "halloween",
         "charaface": "miyuki",
         "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
     },
@@ -138,9 +138,35 @@ $.events = [
         "month": 10,
         "day": 31,
         "showDate": true,
-        "name": "halloween",
+        "charatype": "halloween",
         "charaface": "tatsuya",
         "text": ["灼熱のハロウィン", "烧焦的万圣节", "Scorched Halloween"]
+    },
+    {
+        "key": "enrollment-day",
+        "month": 4,
+        "day": 3,
+        "name": "enrollment-day",
+        "charaface": "miyuki",
+        "text": ["シブリングスクールの日！", "兄妹入学日！", "Sibling Enrollment Day!"]
+    },
+    {
+        "key": "first-meet-lina",
+        "month": 1,
+        "day": 1,
+        "showDate": true,
+        "charatype": "charaface",
+        "charaface": "lina",
+        "text": ["初対面のレナ。", "初见莉娜", "First meet Lina"]
+    },
+    {
+        "key": "succession",
+        "month": 12,
+        "day": 31,
+        "showDate": true,
+        "charatype": "charaface",
+        "charaface": "miyuki",
+        "text": ["相続。婚約。", "继承。订婚。", "Succession. Engagement."]
     }
 ];
 
@@ -155,22 +181,22 @@ $.months = [
 $.events.forEach(each => {
     let html = ``;
     let date = `${each.month}月${each.day}日 // ${each.month}月${each.day}日 // ${$.months[each.month - 1]} ${each.day}`;
-    if (each.type == "birthday") {
+    if (each.type == "birthday") { //Birthday is just a special type of event
         html = `
-        <div class="birthday ${each.key}" style="display: none;">
-            <span class= "charaface" style="background-image: url('charaface/${each.key}.png')" ></span>
+        <div class="event birthday ${each.key}" style="display: none;">
+            <span class="chara charaface" style="background-image: url('chara/charaface/${each.key}.png')" ></span>
             <span class="date" i18n>` + date + `</span>
             <span class="text" i18n>${each.name[0][1]}の誕生日おめでとう！ // ${each.name[1][1]}生日快乐！ // Happy ${each.name[2][1]} Day!</span>
         </div >`;
     } else if (each.type == "story") {
         html += `<div class="story ${each.key}" style="display: none;">`;
-        each.charaface.forEach(chara => html += `<span class="charaface ${chara}" style="background-image: url('chara/story/${chara}.png');"></span>`);
+        each.charaface.forEach(chara => html += `<span class="chara ${chara}" style="background-image: url('chara/story/${chara}.png');"></span>`);
         html += `</div>`;
     } else {
         each.type = 'event';
         html = `
         <div class="event ${each.key}" style="display: none;">
-            <span class= "charaface" style="background-image: url('chara/${each.name}/${each.charaface}.png')" ></span>
+            <span class= "chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
             <span class="date ${each.showDate ? `` : `hide`} + " i18n>${date}</span>
             <span class="text" i18n>${each.text.join("//")}</span>
         </div >`;
@@ -184,7 +210,7 @@ setInterval(function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // month = 10, day = 28;
+    month = 10, day = 25;
 
     $.events.forEach(each => {
         let id = `.special.event .${each.type}.${each.key}`;
