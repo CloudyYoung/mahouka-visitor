@@ -214,7 +214,7 @@ setInterval(function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    month = 1, day = 1;
+    // month = 1, day = 1;
 
     $.events.forEach(each => {
         let id = `.special.event .${each.type}.${each.key}`;
