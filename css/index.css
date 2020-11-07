@@ -232,7 +232,6 @@ body {
 
 
 .animated {
-  animation-duration: 1.4s;
   animation-fill-mode: both;
 }
 
@@ -269,10 +268,12 @@ body {
 }
 
 .fadeInLeft {
+  animation-duration: 1.4s;
   animation-name: fadeInLeft;
 }
 
 .fadeInRight {
+  animation-duration: 1.4s;
   animation-name: fadeInRight;
 }
 
@@ -309,11 +310,11 @@ body {
 }
 
 @keyframes fadeIn {
-  from {
+  0% {
     opacity: 0;
   }
 
-  to {
+  100% {
     opacity: 1;
   }
 }
