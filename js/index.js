@@ -11,9 +11,17 @@ $('body').prepend(`
     <div class="kv kv_chara_02 animated fadeInLeft delay-2"></div>
     <div class="kv kv_chara_03 animated fadeInRight delay-3"></div>
     <div class="kv_flare animated fadeIn delay-4"></div>
-    <div class="logo animated fadeIn delay-5"></div>
+    <div class="logo animated fadeIn delay-6"></div>
 `);
 
+// Clear all delays
+setTimeout(function () {
+    $(".animated").each((index, each) => {
+        for (t = 0; t <= 7; t++) {
+            $(each).removeClass(`delay-${t}`);
+        }
+    });
+}, 4000);
 
 // Dust
 setInterval(function () {

@@ -27,6 +27,7 @@ window.wallpaperPropertyListener = {
                         $.global_outstandRatio = [0, 0, 0];
                         $.kv_x_stand = [0, 0, 0];
                         $.global_degreeRatio = 0;
+                        $.mouse({ "clientX": 0, "clientY": 0 });
                         $('.kv').css('transition', 'none');
                         $('.bg').css('transition', 'none');
                         $(document).unbind("mousemove");
@@ -38,16 +39,9 @@ window.wallpaperPropertyListener = {
         // Mahouka Logo
         if (properties.mahouka_logo) {
             if (properties.mahouka_logo.value) {
-                $('.logo').css('--display', 'block');
+                $('.logo').css("display", "block");
             } else {
-                $('.logo').css('--display', 'none');
-            }
-        }
-
-        // Mahouka Logo Opacity
-        if (properties.mahouka_logo_opacity) {
-            if (properties.mahouka_logo_opacity.value) {
-                $('.logo').css('--opacity', properties.mahouka_logo_opacity.value / 10);
+                $('.logo').css("display", "none");
             }
         }
 

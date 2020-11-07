@@ -152,9 +152,7 @@ body {
 
 
 .logo {
-    --display: none;
-    --opacity: 0.8;
-    display: var(--display);
+    display: none;
     z-index: 1999;
     position: absolute;
     right: 50px;
@@ -167,8 +165,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: top right;
-    opacity: var(--opacity);
-    transition: opacity 0.7s ease 0.3s;
+    transition: opacity 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
 .console {
@@ -236,35 +233,35 @@ body {
 }
 
 .animated.delay-0{
-  animation-delay: 2.0s;
+  animation-delay: 1.0s;
 }
 
 .animated.delay-1 {
-  animation-delay: 2.3s;
+  animation-delay: 1.25s;
 }
 
 .animated.delay-2 {
-  animation-delay: 2.6s;
+  animation-delay: 1.5s;
 }
 
 .animated.delay-3 {
-  animation-delay: 2.9s;
+  animation-delay: 1.75s;
 }
 
 .animated.delay-4 {
-  animation-delay: 3.2s;
+  animation-delay: 2.0s;
 }
 
 .animated.delay-5 {
-  animation-delay: 3.5s;
+  animation-delay: 2.75s;
 }
 
 .animated.delay-6 {
-  animation-delay: 3.8s;
+  animation-delay: 3.0s;
 }
 
 .animated.delay-7 {
-  animation-delay: 4.1s;
+  animation-delay: 3.15s;
 }
 
 .fadeInLeft {
@@ -285,7 +282,7 @@ body {
   10%{
     opacity: 0;
   }
-  65% {
+  75% {
     opacity: 1;
   }
   100%{
@@ -301,7 +298,7 @@ body {
   10%{
     opacity: 0;
   }
-  65% {
+  75% {
     opacity: 1;
   }
   100%{
@@ -321,5 +318,20 @@ body {
 
 .fadeIn {
   animation-name: fadeIn;
-  animation-duration: 0.6s;
+  animation-duration: 0.7s;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+  animation-duration: 0.7s;
 }
