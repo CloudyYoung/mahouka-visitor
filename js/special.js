@@ -277,7 +277,7 @@ setInterval(function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    month = 12, day = 3;
+    // month = 12, day = 3;
 
     $.events.forEach(each => {
         let id = `.special.event .${each.type}.${each.key}`;
