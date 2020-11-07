@@ -1,6 +1,6 @@
 'use strict';
 
-$('body').append(`<canvas class="bg_canvas" id="bg_canvas"></canvas>`);
+$('body').append(`<canvas class="bg_canvas animated fadeIn delay-4" id="bg_canvas"></canvas>`);
 
 function _defineProperty(obj, x, value) {
   if (x in obj) {

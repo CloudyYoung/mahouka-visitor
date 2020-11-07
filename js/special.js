@@ -1,5 +1,5 @@
 
-$('body').append(`<div class="special event"></div>`);
+$('body').append(`<div class="special event animated fadeIn delay-7"></div>`);
 
 $.events = [
     {
