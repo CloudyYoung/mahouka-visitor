@@ -10,16 +10,20 @@ if (shortLang.indexOf('_') !== -1)
 
 
 $(() => {
-    // shortLang = 'zh';
+    // shortLang = 'ja';
+    index = 0;
+
+    if (shortLang == 'ja') {
+        index = 0;
+    } else if (shortLang == 'zh') {
+        index = 1;
+    } else {
+        index = 2;
+    }
+
     $('[i18n]').each(function () {
         $(this).attr('original-text', $(this).text());
         let arr = $(this).html().split("//");
-        if (shortLang == 'ja') {
-            $(this).html(arr[0].trim());
-        } else if (shortLang == "zh") {
-            $(this).html(arr[1].trim());
-        } else {
-            $(this).html(arr[2].trim());
-        }
+        $(this).html(arr[index].trim());
     });
 });
