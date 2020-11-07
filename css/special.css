@@ -89,12 +89,12 @@
     bottom: 0%;
 }
 
-.special.event div.illust {
+.special.event .illust {
     --ratio: calc(1500 / 1900);
     --height: 16rem;
     height: var(--height);
     text-align: center;
-    margin-right: 2rem;
+    margin-left: -3.4rem;
 }
 
 .special.event .illust .charaface-full {
