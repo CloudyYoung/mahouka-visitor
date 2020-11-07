@@ -88,7 +88,7 @@ $.events = [
         "day": 24,
         "charatype": "halloween",
         "charaface": "azusa",
-        "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
+        "text": ["ハッピーハロウィンウィーク！", "万圣周快乐！", "Happy Halloween Week!"]
     },
     {
         "key": "halloween-7",
@@ -96,7 +96,7 @@ $.events = [
         "day": 25,
         "charatype": "halloween",
         "charaface": "honoka",
-        "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
+        "text": ["ハッピーハロウィンウィーク！", "万圣周快乐！", "Happy Halloween Week!"]
     },
     {
         "key": "halloween-6",
@@ -104,7 +104,7 @@ $.events = [
         "day": 26,
         "charatype": "halloween",
         "charaface": "mari",
-        "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
+        "text": ["ハッピーハロウィンウィーク！", "万圣周快乐！", "Happy Halloween Week!"]
     },
     {
         "key": "halloween-5",
@@ -112,7 +112,7 @@ $.events = [
         "day": 27,
         "charatype": "halloween",
         "charaface": "shizuku",
-        "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
+        "text": ["ハッピーハロウィンウィーク！", "万圣周快乐！", "Happy Halloween Week!"]
     },
     {
         "key": "halloween-4",
@@ -120,7 +120,7 @@ $.events = [
         "day": 28,
         "charatype": "halloween",
         "charaface": "erika",
-        "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
+        "text": ["ハッピーハロウィンウィーク！", "万圣周快乐！", "Happy Halloween Week!"]
     },
     {
         "key": "halloween-3",
@@ -128,7 +128,7 @@ $.events = [
         "day": 29,
         "charatype": "halloween",
         "charaface": "lina",
-        "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
+        "text": ["ハッピーハロウィンウィーク！", "万圣周快乐！", "Happy Halloween Week!"]
     },
     {
         "key": "halloween-2",
@@ -136,7 +136,7 @@ $.events = [
         "day": 30,
         "charatype": "halloween",
         "charaface": "miyuki",
-        "text": ["ハッピーハロウィンウィーク！", "万圣节周快乐！", "Happy Halloween Week!"]
+        "text": ["ハッピーハロウィンウィーク！", "万圣周快乐！", "Happy Halloween Week!"]
     },
     {
         "key": "halloween-1",
@@ -156,7 +156,7 @@ $.events = [
         "name": "enrollment-day",
         "charatype": "charaface",
         "charaface": "miyuki",
-        "text": ["シブリングスクールの日！", "兄妹入学日！", "Sibling Enrollment Day!"]
+        "text": ["シブリングスクールの日", "兄妹入学日", "Enrollment Day"]
     },
     {
         "key": "first-meet-lina",
@@ -264,6 +264,7 @@ $.events.sort((a, b) => {
     return b.priority - a.priority;
 });
 
+// Append to html
 $.events.forEach(each => {
     $('.special.event').append(each.html);
 });
