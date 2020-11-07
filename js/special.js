@@ -3,28 +3,28 @@ $('body').append(`<div class="special event"></div>`);
 
 $.events = [
     {
-        "key": "1",
-        "type": "story",
+        "key": "story-1",
+        "type": "illust",
         "charaface": ["miyuki", "tatsuya", "angie"],
         "show": false
     }, {
-        "key": "2",
-        "type": "story",
+        "key": "story-2",
+        "type": "illust",
         "charaface": ["erika", "mikihiko"],
         "show": false
     }, {
-        "key": "3",
-        "type": "story",
+        "key": "story-3",
+        "type": "illust",
         "charaface": ["shizuku"],
         "show": false
     }, {
-        "key": "4",
-        "type": "story",
+        "key": "story-4",
+        "type": "illust",
         "charaface": ["mikihiko", "mizuki"],
         "show": false
     }, {
-        "key": "5",
-        "type": "story",
+        "key": "story-5",
+        "type": "illust",
         "charaface": ["miyuki", "lina-kimono", "honoka"],
         "show": true
     },
@@ -181,29 +181,48 @@ $.months = [
 ];
 
 
+
+$.events.makeCard = function (each) {
+    let date = `${each.year ? each.year + "年" : ""}${each.month}月${each.day}日 // ${each.year ? each.year + "年" : ""}${each.month}月${each.day}日 // ${$.months[each.month - 1]} ${each.day}${each.year ? ", " + each.year : ""}`;
+    return `
+    <div class="${each.type} ${each.key} ${Array.isArray(each.charaface) || !each.charaface ? "" : "has-side-chara"} card" style="display: none;">
+        <span class= "chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
+        <span class="date ${each.showDate ? `` : `hide`} + " i18n>${date}</span>
+        <span class="text" i18n>${each.text.join("//")}</span>
+    </div>`;
+}
+
+$.events.makeEvent = function (each) {
+    return $.events.makeCard(each);
+}
+
+$.events.makeBirthday = function (each) {
+    each.charatype = "charaface";
+    each.showDate = true;
+    each.charaface = each.key;
+    each.text = [`${each.name[0][1]}の誕生日おめでとう！`, `${each.name[1][1]}生日快乐！`, `Happy ${each.name[2][1]} Day!`];
+    return $.events.makeEvent(each);
+}
+
+$.events.makeIllust = function (each) {
+    html = `<div class="illust ${each.key}" style="display: none;">`;
+    each.charaface.forEach(chara => html += `<span class="charaface-full ${chara}" style="background-image: url('chara/story/${chara}.png');"></span>`);
+    html += `</div>`;
+    return html;
+}
+
+
 // Special Event
 $.events.forEach(each => {
     let html = ``;
     let date = `${each.year ? each.year + "年" : ""}${each.month}月${each.day}日 // ${each.year ? each.year + "年" : ""}${each.month}月${each.day}日 // ${$.months[each.month - 1]} ${each.day}${each.year ? ", " + each.year : ""}`;
-    if (each.type == "birthday") { //Birthday is just a special type of event
-        html = `
-        <div class="event birthday ${each.key} has-side-chara" style="display: none;">
-            <span class="chara charaface" style="background-image: url('chara/charaface/${each.key}.png')" ></span>
-            <span class="date" i18n>` + date + `</span>
-            <span class="text" i18n>${each.name[0][1]}の誕生日おめでとう！ // ${each.name[1][1]}生日快乐！ // Happy ${each.name[2][1]} Day!</span>
-        </div>`;
-    } else if (each.type == "story") {
-        html += `<div class="story ${each.key}" style="display: none;">`;
-        each.charaface.forEach(chara => html += `<span class="charaface-full ${chara}" style="background-image: url('chara/story/${chara}.png');"></span>`);
-        html += `</div>`;
+    if (each.type == "birthday") {
+        html = $.events.makeBirthday(each);
+    } else if (each.type == "illust") {
+        html = $.events.makeIllust(each);
     } else {
-        each.type = 'event';
-        html = `
-        <div class="event ${each.key} ${Array.isArray(each.charaface) || !each.charaface ? "" : "has-side-chara"}" style="display: none;">
-            <span class= "chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
-            <span class="date ${each.showDate ? `` : `hide`} + " i18n>${date}</span>
-            <span class="text" i18n>${each.text.join("//")}</span>
-        </div>`;
+        each.type = "event";
+        html = $.events.makeEvent(each);
     }
     $('.special.event').append(html);
 });
@@ -214,7 +233,7 @@ setInterval(function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // month = 1, day = 1;
+    month = 12, day = 31;
 
     $.events.forEach(each => {
         let id = `.special.event .${each.type}.${each.key}`;

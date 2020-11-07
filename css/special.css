@@ -11,7 +11,7 @@
     margin-top: 1.4rem;
 }
 
-.special.event .event {
+.special.event .card {
     position: relative;
     display: none;
     text-align: right;
@@ -27,15 +27,15 @@
     text-align: center;
 }
 
-.special.event .event:hover {
+.special.event .card:hover {
     opacity: 0.72;
 }
 
-.special.event .event.has-side-chara{
+.special.event .card.has-side-chara{
     padding-right: calc(var(--charaface-width) - 0.4rem);
 }
 
-.special.event .event .text {
+.special.event .card .text {
     font-size: 1.6rem;
     font-weight: 700;
     color: #fff;
@@ -44,7 +44,7 @@
     width: 100%;
 }
 
-.special.event .event .date {
+.special.event .card .date {
     color: #42BFB2;
     font-family: 'Roboto Condensed', 'Noto Serif JP';
     line-height: 1.4;
@@ -53,7 +53,12 @@
     font-weight: 600;
 }
 
-.special.event .event .chara {
+.special.event .card.has-side-chara .chara{
+    display: block !important;
+}
+
+.special.event .card .chara {
+    display: none;
     --height-rate: calc(var(--raw-width) / var(--raw-height));
     --height: calc(var(--charaface-height) * var(--height-rate));
     --width: var(--charaface-width);
@@ -64,7 +69,7 @@
     max-height: 9rem;
 }
 
-.special.event .event .chara {
+.special.event .card .chara {
     --raw-height: 550;
     --raw-width: 480;
     background-size: cover;
@@ -74,7 +79,7 @@
     bottom: 0%;
 }
 
-.special.event .event .chara.charaface {
+.special.event .card .chara.charaface {
     --raw-height: 128;
     --raw-width: 200;
     background-size: contain;
@@ -84,7 +89,7 @@
     bottom: 0%;
 }
 
-.special.event div.story {
+.special.event div.illust {
     --ratio: calc(1500 / 1900);
     --height: 16rem;
     height: var(--height);
@@ -92,7 +97,7 @@
     margin-right: 2rem;
 }
 
-.special.event .story .charaface-full {
+.special.event .illust .charaface-full {
     background-size: contain;
     background-repeat: no-repeat;
     background-origin: center;
