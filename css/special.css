@@ -67,6 +67,7 @@
     height: var(--height);
     width: var(--width);
     max-height: 9rem;
+    transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
 .special.event .card .chara {
@@ -94,10 +95,10 @@
     --height: 16rem;
     height: var(--height);
     text-align: center;
-    margin-left: -3.4rem;
+    margin-left: -3rem;
 }
 
-.special.event .illust .charaface-full {
+.special.event .illust .charaface {
     background-size: contain;
     background-repeat: no-repeat;
     background-origin: center;

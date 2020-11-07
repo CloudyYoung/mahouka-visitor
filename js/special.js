@@ -5,26 +5,31 @@ $.events = [
     {
         "key": "story-1",
         "type": "illust",
+        "charatype": "story",
         "charaface": ["miyuki", "tatsuya", "angie"],
         "show": false
     }, {
         "key": "story-2",
         "type": "illust",
+        "charatype": "story",
         "charaface": ["erika", "mikihiko"],
         "show": false
     }, {
         "key": "story-3",
         "type": "illust",
+        "charatype": "story",
         "charaface": ["shizuku"],
         "show": false
     }, {
         "key": "story-4",
         "type": "illust",
+        "charatype": "story",
         "charaface": ["mikihiko", "mizuki"],
         "show": false
     }, {
         "key": "story-5",
         "type": "illust",
+        "charatype": "story",
         "charaface": ["miyuki", "lina-kimono", "honoka"],
         "show": true
     },
@@ -135,6 +140,7 @@ $.events = [
     },
     {
         "key": "halloween-1",
+        "year": 2095,
         "month": 10,
         "day": 31,
         "showDate": true,
@@ -170,7 +176,7 @@ $.events = [
         "showDate": true,
         "charatype": "story",
         "charaface": ["miyuki", "tatsuya"],
-        "text": ["相続。婚約。", "继承。订婚。", "Succession. Engagement."]
+        "text": ["相続。婚約。", "继承。婚约。", "Succession. Engagement."]
     }
 ];
 
@@ -222,42 +228,79 @@ $.events.makeBirthday = function (each) {
 }
 
 $.events.makeIllust = function (each) {
-    let charaface = Array.isArray(each.charaface) ? each.charaface : Array.from(each.charaface);
+    let charaface = [];
+    if (Array.isArray(each.charaface)) charaface = each.charaface;
+    else if (each.charaface) charaface = [each.charaface];
     html = `<div class="illust ${each.key}" style="display: none;">`;
-    charaface.forEach(chara => html += `<span class="charaface-full ${chara}" style="background-image: url('chara/story/${chara}.png');"></span>`);
+    charaface.forEach(chara => html += `<span class="charaface ${chara}" style="background-image: url('chara/${each.charatype}/${chara}.png');"></span>`);
     html += `</div>`;
     return html;
 }
 
 
-// Special Event
+// Contruct all events
 $.events.forEach(each => {
     if (each.type == "birthday") {
-        $('.special.event').append($.events.makeBirthday(each));
+        each.html = $.events.makeBirthday(each);
     } else if (each.type == "illust") {
-        $('.special.event').prepend($.events.makeIllust(each));
+        each.html = $.events.makeIllust(each);
     } else {
-        $('.special.event').append($.events.makeEvent(each));
+        each.html = $.events.makeEvent(each);
+    }
+
+    if (each.type == "illust") {
+        each.priority = 500;
+    } else if (each.hasIllust && !each.hasSideChara) {
+        each.priority = 900;
+    } else if (each.hasIllust && each.hasSideChara) {
+        each.priority = 700;
+    } else {
+        each.priority = 100;
     }
 });
 
-$.events.on = [];
+// Sort events by priority
+$.events.sort((a, b) => {
+    return b.priority - a.priority;
+});
+
+$.events.forEach(each => {
+    $('.special.event').append(each.html);
+});
+
 
 // Current displaying events and their arrangement
 setInterval(function () {
+    $.events.shownIllust = null;
+
     let today = new Date();
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    month = 1, day = 1;
+    month = 12, day = 3;
 
     $.events.forEach(each => {
         let id = `.special.event .${each.type}.${each.key}`;
+        let illust_id = `.special.event .illust.${each.key}`;
         if ((each.month == month && each.day == day) || each.show) {
-            $(id).fadeIn();
-            $.console.special_event(each, true);
+            if (each.hasIllust && $.events.shownIllust == null) {
+                $.events.shownIllust = each;
+                $(id).fadeIn();
+                $(illust_id).fadeIn();
+                $.console.special_event(each, true);
+            } else if (each.type == "illust" && $.events.shownIllust == null) {
+                $.events.shownIllust = each;
+                $(id).fadeIn();
+                $.console.special_event(each, true);
+            } else if (each.type != "illust") {
+                if (each.hasSideChara) $(id).addClass("has-side-chara");
+                else $(id).removeClass("has-side-chara");
+                $(id).fadeIn();
+                $.console.special_event(each, true);
+            }
         } else {
             $(id).fadeOut();
+            $(illust_id).fadeOut();
             $.console.special_event(each, false);
         }
     });

@@ -205,8 +205,8 @@ body {
 
 .bg_canvas {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    bottom: 0px;
+    right: 0px;
     height: 100%;
     width: 100%;
     z-index: 1799 !important;

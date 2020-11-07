@@ -10,7 +10,7 @@ if (shortLang.indexOf('_') !== -1)
 
 
 $(() => {
-    // shortLang = 'zh';
+    shortLang = 'ja';
     $('[i18n]').each(function () {
         $(this).attr('original-text', $(this).text());
         let arr = $(this).html().split("//");
