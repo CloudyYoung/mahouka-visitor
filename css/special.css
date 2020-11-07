@@ -11,12 +11,11 @@
     margin-top: 1.4rem;
 }
 
-.special.event .event,
-.special.event .birthday {
+.special.event .event {
     position: relative;
     display: none;
     text-align: right;
-    background: rgba(0, 0, 0, 1);
+    background: rgba(0, 0, 0, 0.9);
     padding: 1.6rem 3rem;
     letter-spacing: normal;
     text-align: center;
@@ -29,8 +28,7 @@
     padding-right: calc(var(--charaface-width) - 0.4rem);
 }
 
-.special.event .event:hover,
-.special.event .birthday:hover {
+.special.event .event:hover {
     opacity: 0.72;
 }
 
@@ -43,8 +41,7 @@
     width: 100%;
 }
 
-.special.event .event .date,
-.special.event .birthday .date {
+.special.event .event .date {
     color: #42BFB2;
     font-family: 'Roboto Condensed', 'Noto Serif JP';
     line-height: 1.4;
