@@ -25,11 +25,14 @@
     height: auto;
     transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
     text-align: center;
-    padding-right: calc(var(--charaface-width) - 0.4rem);
 }
 
 .special.event .event:hover {
     opacity: 0.72;
+}
+
+.special.event .event.has-side-chara{
+    padding-right: calc(var(--charaface-width) - 0.4rem);
 }
 
 .special.event .event .text {
@@ -81,7 +84,7 @@
     bottom: 0%;
 }
 
-.special.event .story {
+.special.event div.story {
     --ratio: calc(1500 / 1900);
     --height: 16rem;
     height: var(--height);
@@ -89,7 +92,7 @@
     margin-right: 2rem;
 }
 
-.special.event .story .chara {
+.special.event .story .charaface-full {
     background-size: contain;
     background-repeat: no-repeat;
     background-origin: center;

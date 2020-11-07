@@ -25,13 +25,13 @@ $.events = [
     }, {
         "key": "5",
         "type": "story",
-        "charaface": ["miyuki", "lina-2", "honoka"],
+        "charaface": ["miyuki", "lina-kimono", "honoka"],
         "show": true
     },
     {
         "key": "miyuki",
         "type": "birthday",
-        "month": 10,
+        "month": 3,
         "day": 25,
         "name": [["司波", "深雪"], ["司波", "深雪"], ["Shiba", "Miyuki"]]
     },
@@ -144,62 +144,66 @@ $.events = [
     },
     {
         "key": "enrollment-day",
+        "year": 2095,
         "month": 4,
         "day": 3,
         "name": "enrollment-day",
+        "charatype": "charaface",
         "charaface": "miyuki",
         "text": ["シブリングスクールの日！", "兄妹入学日！", "Sibling Enrollment Day!"]
     },
     {
         "key": "first-meet-lina",
+        "year": 2096,
         "month": 1,
         "day": 1,
         "showDate": true,
-        "charatype": "charaface",
-        "charaface": "lina",
+        "charatype": "story",
+        "charaface": "lina-kimono",
         "text": ["初対面のレナ。", "初见莉娜", "First meet Lina"]
     },
     {
         "key": "succession",
+        "year": 2096,
         "month": 12,
         "day": 31,
         "showDate": true,
-        "charatype": "charaface",
-        "charaface": "miyuki",
+        "charatype": "story",
+        "charaface": ["miyuki", "tatsuya"],
         "text": ["相続。婚約。", "继承。订婚。", "Succession. Engagement."]
     }
 ];
 
 $.months = [
-    'January', 'February', 'March', 'April', 'May',
-    'June', 'July', 'August', 'September',
-    'October', 'November', 'December'
+    'Jan', 'Feb', 'Mar', 'Apr', 'May',
+    'Jun', 'Jul', 'Aug', 'Sep',
+    'Oct', 'Nov', 'Dec'
 ];
 
 
 // Special Event
 $.events.forEach(each => {
     let html = ``;
-    let date = `${each.month}月${each.day}日 // ${each.month}月${each.day}日 // ${$.months[each.month - 1]} ${each.day}`;
+    let date = `${each.year ? each.year + "年" : ""}${each.month}月${each.day}日 // ${each.year ? each.year + "年" : ""}${each.month}月${each.day}日 // ${$.months[each.month - 1]} ${each.day}${each.year ? ", " + each.year : ""}`;
     if (each.type == "birthday") { //Birthday is just a special type of event
         html = `
-        <div class="event birthday ${each.key}" style="display: none;">
+        <div class="event birthday ${each.key} has-side-chara" style="display: none;">
             <span class="chara charaface" style="background-image: url('chara/charaface/${each.key}.png')" ></span>
             <span class="date" i18n>` + date + `</span>
             <span class="text" i18n>${each.name[0][1]}の誕生日おめでとう！ // ${each.name[1][1]}生日快乐！ // Happy ${each.name[2][1]} Day!</span>
-        </div >`;
+        </div>`;
     } else if (each.type == "story") {
         html += `<div class="story ${each.key}" style="display: none;">`;
-        each.charaface.forEach(chara => html += `<span class="chara ${chara}" style="background-image: url('chara/story/${chara}.png');"></span>`);
+        each.charaface.forEach(chara => html += `<span class="charaface-full ${chara}" style="background-image: url('chara/story/${chara}.png');"></span>`);
         html += `</div>`;
     } else {
         each.type = 'event';
         html = `
-        <div class="event ${each.key}" style="display: none;">
+        <div class="event ${each.key} ${Array.isArray(each.charaface) || !each.charaface ? "" : "has-side-chara"}" style="display: none;">
             <span class= "chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
             <span class="date ${each.showDate ? `` : `hide`} + " i18n>${date}</span>
             <span class="text" i18n>${each.text.join("//")}</span>
-        </div >`;
+        </div>`;
     }
     $('.special.event').append(html);
 });
@@ -210,7 +214,7 @@ setInterval(function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    month = 10, day = 25;
+    month = 1, day = 1;
 
     $.events.forEach(each => {
         let id = `.special.event .${each.type}.${each.key}`;
