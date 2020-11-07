@@ -1,3 +1,8 @@
+
+:root {
+    --transition-charaface: all 0.4s ease-in-out 0.4s;
+}
+
 .special.event {
     --charaface-width: 12rem;
     --charaface-height: 12rem;
@@ -16,9 +21,9 @@
     position: relative;
     display: none;
     text-align: right;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 1);
     padding: 1.6rem 2.6rem;
-    border: 1px #fff solid;
+    /* border: 1px #fff solid; */
     letter-spacing: normal;
     text-align: center;
     text-overflow: ellipsis;
@@ -31,8 +36,9 @@
 
 .special.event .event:hover,
 .special.event .birthday:hover {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px rgba(255, 255, 255, 0.9) solid;
+    opacity: 0.72;
+    /* background: rgba(0, 0, 0, 0.7); */
+    /* border: 1px rgba(255, 255, 255, 0.9) solid; */
 }
 
 .special.event .event .text,
@@ -69,7 +75,7 @@
     bottom: 0%;
     height: var(--height);
     width: var(--width);
-    transition: var(--transition-charaface);
+    /* transition: var(--transition-charaface); */
 }
 
 .special.event .event {
@@ -91,7 +97,7 @@
 }
 
 .special.event .event:hover .charaface {
-    height: calc(var(--height) + 4rem);
+    /* height: calc(var(--height) + 4rem); */
 }
 
 .special.event .birthday .charaface {

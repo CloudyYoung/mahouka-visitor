@@ -10,7 +10,6 @@ html {
 
 :root {
     --transition: all 0.25s ease-out;
-    --transition-charaface: all 0.4s ease-in-out 0.4s;
 }
 
 @keyframes rotate-360 {
