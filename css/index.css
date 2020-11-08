@@ -151,7 +151,7 @@ body {
 }
 
 
-.logo {
+.logo{
     display: none;
     z-index: 1999;
     position: absolute;
@@ -165,7 +165,6 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: top right;
-    transition: opacity 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
 .console {
@@ -253,7 +252,7 @@ body {
 }
 
 .animated.delay-5 {
-  animation-delay: 2.75s;
+  animation-delay: 2.25s;
 }
 
 .animated.delay-6 {
