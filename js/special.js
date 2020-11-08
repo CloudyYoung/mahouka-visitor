@@ -153,6 +153,7 @@ $.events = [
         "year": 2095,
         "month": 4,
         "day": 3,
+        "showDate": true,
         "name": "enrollment-day",
         "charatype": "charaface",
         "charaface": "miyuki",
@@ -205,6 +206,9 @@ $.events.makeEvent = function (each) {
         each.hasIllust = true;
         each.hasSideChara = false;
         html += $.events.makeIllust(each);
+    } else if (each.charatype == "charaface") {
+        each.hasIllust = false;
+        each.hasSideChara = true;
     } else if (each.charaface) {
         each.hasIllust = true;
         each.hasSideChara = true;
