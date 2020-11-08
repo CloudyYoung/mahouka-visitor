@@ -12,6 +12,10 @@ $('body').append(`
                 <li class="02"></li>
                 <li class="03"></li>
             </ul>
+            <ul class="logo-console">
+                <li class="show"></li>
+                <li class="style"></li>
+            </ul>
             <ul class="flare-console"></ul>
             <ul class="dust-console"></ul>
             <ul class="special-event-console"></ul>
@@ -41,6 +45,12 @@ $.console = {
         } else {
             $(`.console .dust-console`).append(`<li class="${id}">dust_${id}: ${top.toFixed(4)}px</li>`);
         }
+    },
+    logo: function (show) { 
+        $(".console .logo-console .show").html(`logo: ${show}`);
+    },
+    logo_style: function (style) {
+        $(".console .logo-console .style").html(`logo_style: ${style}`);
     },
     special_event: function (event, show) {
         let id = `${event.type}-${event.key}`;

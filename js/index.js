@@ -5,7 +5,7 @@ $.global_outstandRatio = $.global_outstandRatioDefault;
 $.kv_x_stand = [0, 0, 0];
 $.kv_stand_ratio = [0.4, 0.76, 1.0];
 
-$('body').prepend(`
+$('body').append(`
     <div class="bg animated fadeIn delay-0"></div>
     <div class="kv kv_chara_01 animated fadeInLeft delay-1"></div>
     <div class="kv kv_chara_02 animated fadeInLeft delay-2"></div>

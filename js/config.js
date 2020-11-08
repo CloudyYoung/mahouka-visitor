@@ -40,9 +40,21 @@ window.wallpaperPropertyListener = {
         if (properties.mahouka_logo) {
             if (properties.mahouka_logo.value) {
                 $('.logo').css("display", "block");
+                $.console.logo(true);
             } else {
                 $('.logo').css("display", "none");
+                $.console.logo(false);
             }
+        }
+
+        // Mahouka Logo Style
+        if (properties.mahouka_logo_style) {
+            if (properties.mahouka_logo_style.value != "") {
+                $('.logo').removeClass("sp en").addClass(properties.mahouka_logo_style.value);
+            } else {
+                $('.logo').removeClass("sp en");
+            }
+            $.console.logo_style(properties.mahouka_logo_style.value);
         }
 
         // Character Amplitude X
