@@ -104,12 +104,11 @@
 			}
 		}
 	},
-	"preview": "wp04_2.jpg",
 	"preview" : "wp04_2.jpg",
 	"tags" : [ "Anime" ],
 	"title" : "The Irregular at Magic High School: Visitor Arc, Mahouka Koukou no Rettousei: Raihousha-hen",
 	"type" : "web",
-	"version" : 9,
+	"version" : 10,
 	"visibility" : "public",
 	"workshopid" : "1922527858",
 	"workshopurl" : "steam://url/CommunityFilePage/1922527858"
