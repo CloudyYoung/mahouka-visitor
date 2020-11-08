@@ -11,7 +11,7 @@ $('body').prepend(`
     <div class="kv kv_chara_02 animated fadeInLeft delay-2"></div>
     <div class="kv kv_chara_03 animated fadeInRight delay-3"></div>
     <div class="kv_flare animated fadeIn delay-4"></div>
-    <div class="animated fadeIn delay-6"><div class="logo"></div></div>
+    <div class="logo-wrapper animated fadeIn delay-6"><div class="logo"></div></div>
 `);
 
 // Clear all delays
