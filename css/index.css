@@ -155,8 +155,8 @@ body {
     display: none;
     z-index: 1999;
     position: absolute;
-    top: 4%;
-    right: 3%;
+    top: 40px;
+    right: 60px;
     height: 18%;
     width: 9%;
     max-height: 352px;
@@ -170,8 +170,7 @@ body {
 .logo.sp{
   height: 9%;
   width: 18%;
-  top: 6.5%;
-  right: 3%;
+  top: 70px;
   max-height: 138px;
   max-width: 445px;
   background-image: url('../img/logo_sp.png');
