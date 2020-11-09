@@ -57,14 +57,16 @@ setInterval(function () {
 }, 1500);
 
 
+
+let width = window.screen.width;
+let height = window.screen.height;
+
+$.console.screen(width, height);
+
 // Mouse
 $.mouse = function (e) {
 
-    let width = window.screen.width;
-    let height = window.screen.height;
-
-    $.console.screen(width, height);
-    $.console.mouse(e.clientX, e.clientY);
+    // $.console.mouse(e.clientX, e.clientY);
 
     let wr = e.clientX / width;
     let hr = e.clientY / height;
@@ -105,7 +107,7 @@ $.mouse = function (e) {
         if (index == 2 && kv_x_this < kv_03_over) kv_x_this = kv_03_over; // Make sure within screen
 
         $(obj).css({ "--x": `${kv_x_this}px`, "--y": `${kv_y_this}px` });
-        $.console.kv(`0${index + 1}`, kv_x_this, kv_y_this);
+        // $.console.kv(`0${index + 1}`, kv_x_this, kv_y_this);
     });
 
     let bg_xChangeRate = $('.bg').css('--x-change-rate');
@@ -114,12 +116,12 @@ $.mouse = function (e) {
     let bg_yPos = e.clientY * bg_yChangeRate;
 
     $('.bg').css({ '--x': `${bg_xPos}px`, '--y': `${bg_yPos}px` });
-    $.console.bg(bg_xPos, bg_yPos);
+    // $.console.bg(bg_xPos, bg_yPos);
 
     let flare_degreeChangeRate = $('.kv_flare').css('--degree-change-rate') * $.global_degreeRatio;
     let flare_degree = Math.atan2(e.clientY, width - e.clientX) * (180 / Math.PI) * flare_degreeChangeRate;
     $('.kv_flare').css('--degree', `${flare_degree}deg`);
-    $.console.flare(flare_degree);
+    // $.console.flare(flare_degree);
 
 }
 
