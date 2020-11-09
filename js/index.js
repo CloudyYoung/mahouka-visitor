@@ -7,12 +7,12 @@ $.kv_stand_ratio = [0.4, 0.76, 1.0];
 
 $('body').append(`
     <div class="bg animated fadeIn delay-0"></div>
+    <div class="dust-wrapper animated fadeIn delay-0"></div>
     <div class="kv kv_chara_01 animated fadeInLeft delay-1"></div>
     <div class="kv kv_chara_02 animated fadeInLeft delay-2"></div>
     <div class="kv kv_chara_03 animated fadeInRight delay-3"></div>
     <div class="kv_flare animated fadeIn delay-4"></div>
     <div class="logo-wrapper animated fadeIn delay-6"><div class="logo"></div></div>
-    <div class="dust-wrapper animated fadeIn delay-4"></div>
 `);
 
 // Clear all delays
