@@ -12,6 +12,7 @@ $('body').append(`
     <div class="kv kv_chara_03 animated fadeInRight delay-3"></div>
     <div class="kv_flare animated fadeIn delay-4"></div>
     <div class="logo-wrapper animated fadeIn delay-6"><div class="logo"></div></div>
+    <div class="dust-wrapper animated fadeIn delay-4"></div>
 `);
 
 // Clear all delays
@@ -44,7 +45,7 @@ setInterval(function () {
         return;
     }
 
-    $('body').append(dust);
+    $('.dust-wrapper').append(dust);
     $(`#${id}`).css({ 'top': `${top}px` });
     $.console.dust(id, top);
 
