@@ -167,7 +167,7 @@
 
 .special.event .illust.is-op .charaface{
     opacity: 1;
-    transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1) calc(var(--delay) + 0.1s);
+    transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1) calc(var(--delay) + 0.2s);
 }
 
 .special.event .illust .charaface:nth-child(1){
