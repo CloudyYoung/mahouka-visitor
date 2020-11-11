@@ -289,25 +289,27 @@ $.events.interval = function () {
     $.events.forEach(each => {
         let id = `.special.event .${each.type}.${each.key}`;
         let illust_id = `.special.event .illust.${each.key}`;
-        if ((each.month == month && each.day == day) || each.show) {
-            if (each.hasIllust && $.events.shownIllust == null) {
-                $.events.shownIllust = each;
-                $(id).show().addClass("is-op");
+        let isCandidate = (each.month == month && each.day == day) || each.show; // date is today or show
+
+        if (isCandidate && each.hasIllust && $.events.shownIllust == null) { // No previous illust & current has illust
+            $.events.shownIllust = each;
+            $(id).show().addClass("is-op");
+            $(illust_id).show().addClass("is-op");
+            $.console.special_event(each, true);
+        } else if (isCandidate && each.type == "illust" && $.events.shownIllust == null) { // Current is illust & no previous illust
+            $.events.shownIllust = each;
+            $(id).show().addClass("is-op");
+            $.console.special_event(each, true);
+        } else if (isCandidate && each.type != "illust") { // Current is not an illust
+            if (each.hasSideChara) {
+                $(id).addClass("has-side-chara");
+                $(illust_id).removeClass("is-op").hide();
+            } else {
                 $(illust_id).show().addClass("is-op");
-                $.console.special_event(each, true);
-            } else if (each.type == "illust" && $.events.shownIllust == null) {
-                $.events.shownIllust = each;
-                $(id).show().addClass("is-op");
-                $.console.special_event(each, true);
-            } else if (each.type != "illust") {
-                if (each.hasSideChara) {
-                    $(id).addClass("has-side-chara");
-                } else {
-                    $(id).removeClass("has-side-chara");
-                }
-                $(id).show().addClass("is-op");
-                $.console.special_event(each, true);
+                $(id).removeClass("has-side-chara");
             }
+            $(id).show().addClass("is-op");
+            $.console.special_event(each, true);
         } else {
             $(id).removeClass("is-op").hide();
             $(illust_id).removeClass("is-op").hide();
