@@ -356,3 +356,19 @@ body {
   animation-name: fadeOut;
   animation-duration: 0.7s;
 }
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, min(10%, 14rem), 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+  animation-duration: 0.7s;
+}
