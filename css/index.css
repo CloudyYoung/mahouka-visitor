@@ -300,10 +300,7 @@ body {
 @keyframes fadeInLeft {
   0% {
     opacity: 0;
-    transform: translate3d(max(-10%, -16rem), 0, 0);
-  }
-  10%{
-    opacity: 0;
+    transform: translate3d(max(-10%, -14rem), 0, 0);
   }
   75% {
     opacity: 1;
@@ -316,10 +313,7 @@ body {
 @keyframes fadeInRight {
   0% {
     opacity: 0;
-    transform: translate3d(min(10%, 16rem), 0, 0);
-  }
-  10%{
-    opacity: 0;
+    transform: translate3d(min(10%, 14rem), 0, 0);
   }
   75% {
     opacity: 1;
