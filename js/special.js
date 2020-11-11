@@ -1,5 +1,5 @@
 
-$('body').append(`<div class="special event animated fadeIn delay-7"></div>`);
+$('body').append(`<div class="special event"></div>`);
 
 $.events = [
     {
@@ -192,10 +192,12 @@ $.months = [
 $.events.makeCard = function (each) {
     let date = `${each.year ? each.year + "年" : ""}${each.month}月${each.day}日 // ${each.year ? each.year + "年" : ""}${each.month}月${each.day}日 // ${$.months[each.month - 1]} ${each.day}${each.year ? ", " + each.year : ""}`;
     return `
-    <div class="${each.type} ${each.key} card ${each.hasSideChara && !each.hasIllust ? "has-side-chara" : ""}" style="display: none;">
-        <span class= "chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
-        <span class="date ${each.showDate ? `` : `hide`} + " i18n>${date}</span>
-        <span class="text" i18n>${each.text.join("//")}</span>
+    <div class="${each.type} ${each.key} card ${each.hasSideChara && !each.hasIllust ? "has-side-chara" : ""}">
+        <div class="card-body">
+            <span class= "chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
+            <span class="date ${each.showDate ? `` : `hide`}" i18n>${date}</span>
+            <span class="text" i18n>${each.text.join("//")}</span>
+        </div>
     </div>`;
 }
 
@@ -235,7 +237,7 @@ $.events.makeIllust = function (each) {
     let charaface = [];
     if (Array.isArray(each.charaface)) charaface = each.charaface;
     else if (each.charaface) charaface = [each.charaface];
-    html = `<div class="illust ${each.key}" style="display: none;">`;
+    html = `<div class="illust ${each.key}">`;
     charaface.forEach(chara => html += `<span class="charaface ${chara}" style="background-image: url('chara/${each.charatype}/${chara}.png');"></span>`);
     html += `</div>`;
     return html;
@@ -275,14 +277,14 @@ $.events.forEach(each => {
 
 
 // Current displaying events and their arrangement
-setInterval(function () {
+$.events.interval = function () {
     $.events.shownIllust = null;
 
     let today = new Date();
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // month = 12, day = 31;
+    month = 12, day = 31;
 
     $.events.forEach(each => {
         let id = `.special.event .${each.type}.${each.key}`;
@@ -290,23 +292,33 @@ setInterval(function () {
         if ((each.month == month && each.day == day) || each.show) {
             if (each.hasIllust && $.events.shownIllust == null) {
                 $.events.shownIllust = each;
-                $(id).fadeIn();
-                $(illust_id).fadeIn();
+                $(id).show().addClass("is-op");
+                $(illust_id).show().addClass("is-op");
                 $.console.special_event(each, true);
             } else if (each.type == "illust" && $.events.shownIllust == null) {
                 $.events.shownIllust = each;
-                $(id).fadeIn();
+                $(id).show().addClass("is-op");
                 $.console.special_event(each, true);
             } else if (each.type != "illust") {
-                if (each.hasSideChara) $(id).addClass("has-side-chara");
-                else $(id).removeClass("has-side-chara");
-                $(id).fadeIn();
+                if (each.hasSideChara) {
+                    $(id).addClass("has-side-chara");
+                } else {
+                    $(id).removeClass("has-side-chara");
+                }
+                $(id).show().addClass("is-op");
                 $.console.special_event(each, true);
             }
         } else {
-            $(id).fadeOut();
-            $(illust_id).fadeOut();
+            $(id).removeClass("is-op").hide();
+            $(illust_id).removeClass("is-op").hide();
             $.console.special_event(each, false);
         }
     });
-}, 1000);
+};
+
+setTimeout(function () {
+    $.events.interval();
+    setInterval(() => {
+        $.events.interval();
+    }, 1000);
+}, 3150);
