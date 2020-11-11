@@ -321,4 +321,4 @@ setTimeout(function () {
     setInterval(() => {
         $.events.interval();
     }, 1000);
-}, 3150);
+}, 3000);
