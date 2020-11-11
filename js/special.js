@@ -280,7 +280,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // month = 12, day = 31;
+    month = 12, day = 31;
     return [month, day];
 }
 

@@ -31,6 +31,7 @@
     animation-name: fadeInUp;
     animation-duration: 0.8s;
     animation-delay: 0.5s;
+    transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
 .special.event .is-op.card:hover {
