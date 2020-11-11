@@ -275,16 +275,21 @@ $.events.forEach(each => {
     $('.special.event').append(each.html);
 });
 
-
-// Current displaying events and their arrangement
-$.events.interval = function () {
-    $.events.shownIllust = null;
-
+$.events.date = function () {
     let today = new Date();
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
     // month = 12, day = 31;
+    return [month, day];
+}
+
+
+// Current displaying events and their arrangement
+$.events.interval = function () {
+    $.events.shownIllust = null;
+
+    let [month, day] = $.events.date();
 
     $.events.forEach(each => {
         let id = `.special.event .${each.type}.${each.key}`;
