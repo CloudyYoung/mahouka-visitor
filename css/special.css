@@ -147,13 +147,9 @@
 .special.event .illust {
     --ratio: calc(1500 / 1900);
     --height: 16rem;
-    height: 0;
-    text-align: center;
-}
-
-.special.event .illust.is-op{
+    --delay: 0s;
     height: var(--height);
-    transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1) 1s;
+    text-align: center;
 }
 
 .special.event .illust .charaface {
@@ -164,6 +160,25 @@
     height: var(--height);
     width: calc(var(--ratio) * var(--height));
     display: inline-block;
+    opacity: 0;
     margin-left: -2rem;
     margin-right: -2rem;
+}
+
+.special.event .illust.is-op .charaface{
+    opacity: 1;
+    transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1) calc(var(--delay) + 0.3s);
+}
+
+.special.event .illust .charaface:nth-child(1){
+    --delay: 0s;
+}
+.special.event .illust .charaface:nth-child(2){
+    --delay: 0.1s;
+}
+.special.event .illust .charaface:nth-child(3){
+    --delay: 0.2s;
+}
+.special.event .illust .charaface:nth-child(4){
+    --delay: 0.3s;
 }
