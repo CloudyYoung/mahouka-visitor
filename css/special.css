@@ -66,15 +66,15 @@
 .special.event .card:before{
     top: 0px;
     left: 0px;
-    border-top: 0.3rem solid #000;
-    border-left: 0.3rem solid #000;
+    border-top: 0.22rem solid #000;
+    border-left: 0.22rem solid #000;
 }
 
 .special.event .card:after{
     right: 0px;
     bottom: 0px;
-    border-right: 0.3rem solid #000;
-    border-bottom: 0.3rem solid #000;
+    border-right: 0.22rem solid #000;
+    border-bottom: 0.22rem solid #000;
 }
 
 .special.event .is-op.card:before,
