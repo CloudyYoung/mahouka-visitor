@@ -288,12 +288,12 @@ body {
 }
 
 .fadeInLeft {
-  animation-duration: 1.4s;
+  animation-duration: 1.2s;
   animation-name: fadeInLeft;
 }
 
 .fadeInRight {
-  animation-duration: 1.4s;
+  animation-duration: 1.2s;
   animation-name: fadeInRight;
 }
 
