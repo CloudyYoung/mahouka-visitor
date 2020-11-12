@@ -310,8 +310,8 @@ $.events.interval = function () {
                 $(id).addClass("has-side-chara");
                 $(illust_id).removeClass("is-op").hide();
             } else {
-                $(illust_id).show().addClass("is-op");
                 $(id).removeClass("has-side-chara");
+                $(illust_id).show().addClass("is-op");
             }
             $(id).show().addClass("is-op");
             $.console.special_event(each, true);
