@@ -31,6 +31,12 @@ $.events = [
         "type": "illust",
         "charatype": "story",
         "charaface": ["miyuki", "lina-kimono", "honoka"],
+        "show": false
+    }, {
+        "key": "story-6",
+        "type": "illust",
+        "charatype": "story",
+        "charaface": ["tatsuya", "angie"],
         "show": true
     },
     {
