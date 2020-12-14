@@ -37,7 +37,13 @@ $.events = [
         "type": "illust",
         "charatype": "story",
         "charaface": ["tatsuya", "angie"],
-        "show": true
+        "show": false
+    }, {
+        "key": "story-7",
+        "charatype": "uniform",
+        "charaface": ["mari", "mayumi", "kanon", "kei", "subaru", "eimi", "takeaki", "sayaka", "katsuto", "hanzou", "azusa", "suzune"],
+        "text": ["Happy Graduation", "Happy Graduation", "Happy Graduation"],
+        "show": true,
     },
     {
         "key": "miyuki",
