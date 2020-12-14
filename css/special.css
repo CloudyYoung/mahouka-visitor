@@ -148,11 +148,15 @@
 }
 
 .special.event .illust {
-    --ratio: calc(1500 / 1900);
+    --ratio: calc(480 / 550);
     --height: 16rem;
     --delay: 0s;
     height: var(--height);
     text-align: center;
+}
+
+.special.event .illust.story{
+    --ratio: calc(1500 / 1900);
 }
 
 .special.event .illust .charaface {
