@@ -111,6 +111,14 @@
     font-weight: 600;
 }
 
+.special.event .charaface{
+    --shadow-width: 0.2rem;
+    filter: drop-shadow(var(--shadow-width) 0px 0 #fff) 
+          drop-shadow(calc(-1 * var(--shadow-width)) 0px 0 #fff)
+          drop-shadow(0px var(--shadow-width) 0 #fff) 
+          drop-shadow(0px calc(-1 * var(--shadow-width)) 0 #fff);
+}
+
 .special.event .card.has-side-chara .chara{
     display: block !important;
 }
