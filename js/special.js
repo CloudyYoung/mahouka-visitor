@@ -327,7 +327,7 @@ $.events.interval = function () {
 
     // Display specials
     $.events.onTimeTick++;
-    let switchSecond = 5; // amount of seconds to switch specials
+    let switchSecond = 30; // amount of seconds to switch specials
     if ($.events.onTimeTick % switchSecond == 0) {
         $.events.onTimeTick = 0;
 
