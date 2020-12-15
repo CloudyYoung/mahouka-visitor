@@ -169,7 +169,7 @@ $.events = [
     }, {
         "key": "graduation-class-2095",
         "charatype": "uniform",
-        "charaface": ["mayumi", "mari", "katsuto", "suzune"],
+        "charaface": [["mari", "mayumi"], ["katsuto", "suzune"]],
         "text": ["<span class='date'>2 0 9 5 年</span>卒業おめでとう！", "<span class='date'>第 2095 届</span>恭喜毕业！", "<span class='date'>Class 2095</span>Congrats on Graduation!"],
         "show": true,
     }
@@ -327,7 +327,7 @@ $.events.interval = function () {
 
     // Display specials
     $.events.onTimeTick++;
-    let switchSecond = 30; // amount of seconds to switch specials
+    let switchSecond = 5; // amount of seconds to switch specials
     if ($.events.onTimeTick % switchSecond == 0) {
         $.events.onTimeTick = 0;
 
@@ -352,10 +352,13 @@ $.events.interval = function () {
                 $(each_id).hide().removeClass("is-op");
                 $.console.special_event(each, false);
             }
-            if (each_illust_id != illust_id) {
-                $(each_illust_id).hide().removeClass("is-op");
-                $.console.special_event(each, false);
-            }
+
+            $(each_illust_id).each(each_illust => {
+                if (`${each_illust_id}.${each_illust}` != illust_id) {
+                    $(each_illust_id).hide().removeClass("is-op");
+                    $.console.special_event(each, false);
+                }
+            });
         })
 
         $(id).show().addClass("is-op");
