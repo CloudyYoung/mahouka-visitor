@@ -167,34 +167,16 @@ $.events = [
         "charaface": ["miyuki", "tatsuya"],
         "text": ["相続。婚約。", "继承。婚约。", "Succession. Engagement."]
     }, {
-        "key": "graduation-class-2097-1",
+        "key": "graduation-class-2097",
         "charatype": "uniform",
-        "charaface": ["katsuto", "hanzou"],
-        "text": ["2 0 9 7 年 卒業おめでとう！", "第 2097 届 恭喜毕业！", "Class 2097 Congratulations on Graduation!"],
-        "show": true,
-    }, {
-        "key": "graduation-class-2097-2",
-        "charatype": "uniform",
-        "charaface": ["mari", "mayumi"],
-        "text": ["2 0 9 7 年 卒業おめでとう！", "第 2097 届 恭喜毕业！", "Class 2097 Congratulations on Graduation!"],
-        "show": true,
-    }, {
-        "key": "graduation-class-2097-3",
-        "charatype": "uniform",
-        "charaface": ["azusa", "suzune"],
-        "text": ["2 0 9 7 年 卒業おめでとう！", "第 2097 届 恭喜毕业！", "Class 2097 Congratulations on Graduation!"],
-        "show": true,
-    }, {
-        "key": "graduation-class-2097-4",
-        "charatype": "uniform",
-        "charaface": ["kanon", "kei"],
-        "text": ["2 0 9 7 年 卒業おめでとう！", "第 2097 届 恭喜毕业！", "Class 2097 Congratulations on Graduation!"],
-        "show": true,
-    }, {
-        "key": "graduation-class-2097-5",
-        "charatype": "uniform",
-        "charaface": ["takeaki", "sayaka"],
-        "text": ["2 0 9 7 年 卒業おめでとう！", "第 2097 届 恭喜毕业！", "Class 2097 Congratulations on Graduation!"],
+        "charaface": [
+            ["katsuto", "hanzou"],
+            ["mari", "mayumi"],
+            ["azusa", "suzune"],
+            ["kanon", "kei"],
+            ["takeaki", "sayaka"]
+        ],
+        "text": ["<span class='date'>2 0 9 7 年</span> 卒業おめでとう！", "<span class='date'>第 2097 届</span> 恭喜毕业！", "<span class='date'>Class 2097</span> Congrats on Graduation!"],
         "show": true,
     }
 ];
@@ -222,19 +204,26 @@ $.events.makeCard = function (each) {
 $.events.makeEvent = function (each) {
     let html = ``;
     each.type = "event";
-    if (Array.isArray(each.charaface)) {
+    if (Array.isArray(each.charaface) && each.charaface.length > 0) {
         each.hasIllust = true;
+        each.hasIllustGroup = false;
         each.hasSideChara = false;
         html += $.events.makeIllust(each);
     } else if (each.charatype == "charaface") {
         each.hasIllust = false;
+        each.hasIllustGroup = false;
+        each.illustGroupAmount = 1;
         each.hasSideChara = true;
     } else if (each.charaface) {
         each.hasIllust = true;
+        each.hasIllustGroup = false;
+        each.illustGroupAmount = 1;
         each.hasSideChara = true;
         html += $.events.makeIllust(each);
     } else {
         each.hasIllust = false;
+        each.hasIllustGroup = false;
+        each.illustGroupAmount = 1;
         each.hasSideChara = false;
     }
     html += $.events.makeCard(each);
@@ -247,17 +236,40 @@ $.events.makeBirthday = function (each) {
     each.charaface = each.key;
     each.hasSideChara = true;
     each.hasIllust = false;
+    each.hasIllustGroup = false;
+    each.illustGroupAmount = 1;
     each.text = [`${each.name[0][1]}の誕生日おめでとう！`, `${each.name[1][1]}生日快乐！`, `Happy ${each.name[2][1]} Day!`];
     return $.events.makeCard(each);
 }
 
 $.events.makeIllust = function (each) {
-    let charaface = [];
-    if (Array.isArray(each.charaface)) charaface = each.charaface;
-    else if (each.charaface) charaface = [each.charaface];
-    html = `<div class="illust ${each.key} ${each.charatype}">`;
-    charaface.forEach(chara => html += `<span class="charaface ${chara}" style="background-image: url('chara/${each.charatype}/${chara}.png');"></span>`);
-    html += `</div>`;
+    let charaGroups = [];
+    if (Array.isArray(each.charaface) && each.charaface.length > 0 && Array.isArray(each.charaface[0])) {
+        charaGroups = each.charaface;
+        each.hasIllustGroup = true;
+        each.illustGroupAmount = each.charaface.length;
+    } else if (Array.isArray(each.charaface)) {
+        each.hasIllustGroup = false;
+        each.illustGroupAmount = 1;
+        charaGroups = [each.charaface];
+    } else if (each.charaface) {
+        each.hasIllustGroup = false;
+        each.illustGroupAmount = 1;
+        charaGroups = [[each.charaface]];
+    }
+
+    let groupIndex = 0;
+    let html = "";
+    charaGroups.forEach(charaGroup => {
+        html += `<div class="illust ${each.key} ${each.charatype} ${groupIndex}">`;
+        charaGroup.forEach(chara => {
+            html += `<span class="charaface ${chara}" style="background-image: url('chara/${each.charatype}/${chara}.png');"></span>`
+        });
+        html += `</div>`;
+
+        groupIndex++;
+    })
+
     return html;
 }
 
@@ -302,43 +314,61 @@ $.events.date = function () {
     return [month, day];
 }
 
+$.events.on = []
 
 // Current displaying events and their arrangement
+$.events.onIndex = 0;
+$.events.onTimeTick = -1;
 $.events.interval = function () {
-    $.events.shownIllust = null;
 
+    // List specials
     let [month, day] = $.events.date();
+    $.events.on = []
 
     $.events.forEach(each => {
-        let id = `.special.event .${each.type}.${each.key}`;
-        let illust_id = `.special.event .illust.${each.key}`;
-        let isCandidate = (each.month == month && each.day == day) || each.show; // date is today or show
-
-        if (isCandidate && each.hasIllust && $.events.shownIllust == null) { // No previous illust & current has illust
-            $.events.shownIllust = each;
-            $(id).show().addClass("is-op");
-            $(illust_id).show().addClass("is-op");
-            $.console.special_event(each, true);
-        } else if (isCandidate && each.type == "illust" && $.events.shownIllust == null) { // Current is illust & no previous illust
-            $.events.shownIllust = each;
-            $(id).show().addClass("is-op");
-            $.console.special_event(each, true);
-        } else if (isCandidate && each.type != "illust") { // Current is not an illust
-            if (each.hasSideChara) {
-                $(id).addClass("has-side-chara");
-                $(illust_id).removeClass("is-op").hide();
-            } else {
-                $(id).removeClass("has-side-chara");
-                $(illust_id).show().addClass("is-op");
-            }
-            $(id).show().addClass("is-op");
-            $.console.special_event(each, true);
-        } else {
-            $(id).removeClass("is-op").hide();
-            $(illust_id).removeClass("is-op").hide();
-            $.console.special_event(each, false);
+        if ((each.month == month && each.day == day) || each.show) {
+            $.events.on.push(each);
         }
     });
+
+    // Display specials
+    $.events.onTimeTick++;
+    let switchSecond = 30; // amount of seconds to switch specials
+    if ($.events.onTimeTick % switchSecond == 0) {
+        $.events.onTimeTick = 0;
+
+        let majorIndex = Math.floor($.events.onIndex);
+        let current = $.events.on[majorIndex];
+
+        let minorIndex = Math.floor(($.events.onIndex - majorIndex) * 100) / 100;
+        minorIndex = Math.ceil(minorIndex * current.illustGroupAmount);
+
+        let newMinor = (minorIndex + 1) / current.illustGroupAmount;
+        $.events.onIndex = majorIndex + newMinor;
+        $.events.onIndex %= $.events.on.length;
+
+        let id = `.special.event .${current.type}.${current.key}`;
+        let illust_id = `.special.event .illust.${current.key}.${minorIndex}`;
+
+        $.events.forEach(each => {
+            let each_id = `.special.event .${each.type}.${each.key}`;
+            let each_illust_id = `.special.event .illust.${each.key}`;
+
+            if (each_id != id) {
+                $(each_id).hide().removeClass("is-op");
+                $.console.special_event(each, false);
+            }
+            if (each_illust_id != illust_id) {
+                $(each_illust_id).hide().removeClass("is-op");
+                $.console.special_event(each, false);
+            }
+        })
+
+        $(id).show().addClass("is-op");
+        $(illust_id).show().addClass("is-op");
+        $.console.special_event(current, true);
+    }
+
 };
 
 setTimeout(function () {
