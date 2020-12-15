@@ -176,7 +176,7 @@ $.events = [
             ["kanon", "kei"],
             ["takeaki", "sayaka"]
         ],
-        "text": ["<span class='date'>2 0 9 7 年</span> 卒業おめでとう！", "<span class='date'>第 2097 届</span> 恭喜毕业！", "<span class='date'>Class 2097</span> Congrats on Graduation!"],
+        "text": ["<span class='date'>2 0 9 7 年</span>卒業おめでとう！", "<span class='date'>第 2097 届</span>恭喜毕业！", "<span class='date'>Class 2097</span>Congrats on Graduation!"],
         "show": true,
     }
 ];
