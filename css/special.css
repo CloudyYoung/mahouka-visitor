@@ -154,13 +154,13 @@
     --delay: 0s;
     height: var(--height);
     text-align: center;
-    --shadow-width: 1.4px;
+    --shadow-width: 0.22rem;
 }
 
 .special.event .illust.story{
     --ratio: calc(1500 / 1900);
     --height: 16rem;
-    --shadow-width: 0.9px;
+    --shadow-width: 0.16rem;
 }
 
 .special.event .illust .charaface {
@@ -175,9 +175,9 @@
     margin-left: -2rem;
     margin-right: -2rem;
     filter: drop-shadow(var(--shadow-width) 0px 0 #fff) 
-          drop-shadow(calc(-1 * var(--shadow-width)) 0px 0 #fff)
+          drop-shadow(calc(-0.76 * var(--shadow-width)) 0px 0 #fff)
           drop-shadow(0px var(--shadow-width) 0 #fff) 
-          drop-shadow(0px calc(-1 * var(--shadow-width)) 0 #fff);
+          drop-shadow(0px calc(-0.76 * var(--shadow-width)) 0 #fff);
 }
 
 .special.event .illust.is-op .charaface{
