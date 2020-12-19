@@ -170,7 +170,7 @@ $.events = [
         "key": "graduation-class-2095",
         "charatype": "uniform",
         "charaface": [["mari", "mayumi"], ["katsuto", "suzune"]],
-        "text": ["<span class='date'>2 0 9 5 年</span>卒業おめでとう！", "<span class='date'>第 2095 届</span>恭喜毕业！", "<span class='date'>Class 2095</span>Congrats on Graduation!"],
+        "text": ["<span class='date'>2 0 9 6 年</span>卒業おめでとう！", "<span class='date'>第 2096 届</span>恭喜毕业！", "<span class='date'>Class 2096</span>Congrats on Graduation!"],
         "show": true,
     }
 ];
