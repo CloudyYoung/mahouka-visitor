@@ -5,39 +5,52 @@ $.events = [
     {
         "key": "story-1",
         "type": "illust",
+        "display": "idle",
         "charatype": "story",
         "charaface": ["miyuki", "tatsuya", "angie"],
         "show": false
     }, {
         "key": "story-2",
         "type": "illust",
+        "display": "idle",
         "charatype": "story",
         "charaface": ["erika", "mikihiko"],
         "show": false
     }, {
         "key": "story-3",
         "type": "illust",
+        "display": "idle",
         "charatype": "story",
         "charaface": ["shizuku"],
         "show": false
     }, {
         "key": "story-4",
         "type": "illust",
+        "display": "idle",
         "charatype": "story",
         "charaface": ["mikihiko", "mizuki"],
         "show": false
     }, {
         "key": "story-5",
         "type": "illust",
+        "display": "idle",
         "charatype": "story",
         "charaface": ["miyuki", "lina-kimono", "honoka"],
         "show": false
     }, {
         "key": "story-6",
         "type": "illust",
+        "display": "idle",
         "charatype": "story",
         "charaface": ["tatsuya", "angie"],
         "show": false
+    }, {
+        "key": "story-7",
+        "display": "idle",
+        "charatype": "story",
+        "charaface": [["miyuki", "tatsuya"], ["lina-kimono", "lina", "angie"], ["erika", "leo"], ["mizuki", "mikihiko"], ["honoka", "shizuku"]],
+        "text": ["シーズン 2 終了おめでとうございます!", "来访者篇 动画完结撒花！", "Congrats on the End of Season!"],
+        "show": true,
     }, {
         "key": "miyuki",
         "type": "birthday",
@@ -167,18 +180,19 @@ $.events = [
         "charaface": ["miyuki", "tatsuya"],
         "text": ["相続。婚約。", "继承。婚约。", "Succession. Engagement."]
     }, {
-        "key": "graduation-class-2095",
+        "key": "graduation-class-2096",
+        "display": "idle",
         "charatype": "uniform",
         "charaface": [["mari", "mayumi"], ["katsuto", "suzune"]],
         "text": ["<span class='date'>2 0 9 6 年</span>卒業おめでとう！", "<span class='date'>第 2096 届</span>恭喜毕业！", "<span class='date'>Class 2096</span>Congrats on Graduation!"],
-        "show": true,
+        "show": false,
     }
 ];
 
 $.months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May',
-    'Jun', 'Jul', 'Aug', 'Sep',
-    'Oct', 'Nov', 'Dec'
+    'Jan', 'Feb', 'Mar', 'Apr',
+    'May', 'Jun', 'Jul', 'Aug',
+    'Sep', 'Oct', 'Nov', 'Dec'
 ];
 
 
@@ -270,6 +284,10 @@ $.events.makeIllust = function (each) {
 
 // Contruct all events
 $.events.forEach(each => {
+    if ((each.month && each.day) || (each.month && each.day && each.year)) {
+        each.display = "force";
+    }
+
     if (each.type == "birthday") {
         each.html = $.events.makeBirthday(each);
     } else if (each.type == "illust") {
@@ -280,9 +298,9 @@ $.events.forEach(each => {
 
     if (each.type == "illust") {
         each.priority = 500;
-    } else if (each.hasIllust && !each.hasSideChara) {
+    } else if (each.hasIllust && !each.hasSideChara && each.display != "idle") {
         each.priority = 900;
-    } else if (each.hasIllust && each.hasSideChara) {
+    } else if (each.hasIllust && each.hasSideChara && each.display != "idle") {
         each.priority = 700;
     } else {
         each.priority = 100;
@@ -313,17 +331,29 @@ $.events.on = []
 // Current displaying events and their arrangement
 $.events.onIndex = 0;
 $.events.onTimeTick = -1;
-$.events.interval = function () {
 
-    // List specials
+$.events.listEventsOn = function (kickIdle = false) {
     let [month, day] = $.events.date();
-    $.events.on = []
 
     $.events.forEach(each => {
-        if ((each.month == month && each.day == day) || each.show) {
-            $.events.on.push(each);
+        if ((each.month == month && each.day == day) || (each.show)) {
+            if (kickIdle && each.display == "force") {
+                $.events.on.push(each);
+            } else if (!kickIdle) {
+                $.events.on.push(each);
+            }
         }
     });
+}
+
+$.events.interval = function () {
+
+    // List all events
+    $.events.on = []
+    $.events.listEventsOn(true);
+    if ($.events.on.length == 0) {
+        $.events.listEventsOn(false);
+    }
 
     // Display specials
     $.events.onTimeTick++;

@@ -10,10 +10,10 @@ if (shortLang.indexOf('_') !== -1)
 
 
 $(() => {
-    // shortLang = 'zh';
+    // shortLang = 'ja';
     index = 0;
 
-    if (shortLang == 'ja') {
+    if (shortLang == 'ja' || shortLang == 'jp') {
         index = 0;
     } else if (shortLang == 'zh') {
         index = 1;
