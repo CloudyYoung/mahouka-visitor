@@ -3,7 +3,7 @@
     --charaface-height: 12rem;
     position: absolute;
     bottom: 10%;
-    right: 8rem;
+    right: 60px;
     z-index: 1899;
 }
 
@@ -152,15 +152,25 @@
     --ratio: calc(480 / 550);
     --height: 13.5rem;
     --delay: 0s;
+    --shadow-width: 0.22rem;
     height: var(--height);
     text-align: center;
-    --shadow-width: 0.22rem;
 }
 
 .special.event .illust.story{
     --ratio: calc(1500 / 1900);
     --height: 16rem;
     --shadow-width: 0.16rem;
+}
+
+.special.event .illust.anniversary{
+    --ratio: calc(30 / 12);
+    --height: 11rem;
+    --shadow-width: 0;
+}
+
+.special.event .illust.anniversary.is-op .charaface{
+    animation-name: fadeInUp !important;
 }
 
 .special.event .illust .charaface {

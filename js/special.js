@@ -186,6 +186,13 @@ $.events = [
         "charaface": [["mari", "mayumi"], ["katsuto", "suzune"]],
         "text": ["<span class='date'>2 0 9 6 年</span>卒業おめでとう！", "<span class='date'>第 2096 届</span>恭喜毕业！", "<span class='date'>Class 2096</span>Congrats on Graduation!"],
         "show": false,
+    }, {
+        "key": "anniversary",
+        "type": "illust",
+        "display": "idle",
+        "charatype": "10th-anniversary",
+        "charaface": "10th-anniversary",
+        "show": true,
     }
 ];
 
