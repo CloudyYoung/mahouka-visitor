@@ -9,7 +9,7 @@ html {
 }
 
 :root {
-    --transition: all 0.3s ease-out;
+    --transition: all 3s cubic-bezier(.02,.73,0,.92);
 }
 
 body {
