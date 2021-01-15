@@ -50,7 +50,7 @@ $.events = [
         "charatype": "story",
         "charaface": [["miyuki", "tatsuya"], ["lina-kimono", "lina", "angie"], ["erika", "leo"], ["mizuki", "mikihiko"], ["honoka", "shizuku"]],
         "text": ["シーズン 2 終了おめでとうございます!", "来访者篇 动画完结撒花！", "Congrats on the End of Season!"],
-        "show": true,
+        "show": false,
     }, {
         "key": "miyuki",
         "type": "birthday",
@@ -192,7 +192,7 @@ $.events = [
         "display": "idle",
         "charatype": "10th-anniversary",
         "charaface": "10th-anniversary",
-        "show": true,
+        "show": false,
     }
 ];
 
@@ -209,7 +209,7 @@ $.events.makeCard = function (each) {
     return `
     <div class="${each.type} ${each.key} card ${each.hasSideChara && !each.hasIllust ? "has-side-chara" : ""}">
         <div class="card-body">
-            <span class= "chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
+            <span class="chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
             <span class="date ${each.showDate ? `` : `hide`}" i18n>${date}</span>
             <span class="text" i18n>${each.text.join("//")}</span>
         </div>
