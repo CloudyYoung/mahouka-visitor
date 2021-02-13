@@ -12,6 +12,9 @@ $('body').append(`
                 <li class="02"></li>
                 <li class="03"></li>
             </ul>
+            <ul class="fluent-motion-console">
+                <li class="fluent-motion"></li>
+            </ul>
             <ul class="logo-console">
                 <li class="show"></li>
                 <li class="style"></li>
@@ -64,5 +67,8 @@ $.console = {
         } else {
             // Do nothing
         }
+    },
+    fluent_motion: function(on){
+        $(".console .fluent-motion-console .fluent-motion").html("fluent_motion: " + on);
     }
 }

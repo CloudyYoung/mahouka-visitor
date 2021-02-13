@@ -15,6 +15,8 @@ $('body').append(`
     <div class="logo-wrapper animated fadeIn delay-6"><div class="logo"></div></div>
 `);
 
+$("body").addClass("fluent-motion");
+
 // Clear all delays
 setTimeout(function () {
     $(".animated").each((index, each) => {
@@ -22,7 +24,7 @@ setTimeout(function () {
             $(each).removeClass(`delay-${t}`);
         }
     });
-}, 5200);
+}, 5600);
 
 // Dust
 setInterval(function () {
