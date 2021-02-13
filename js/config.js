@@ -5,32 +5,33 @@ window.wallpaperPropertyListener = {
         // Performance
         if (properties.movement_performance) {
             if (properties.movement_performance.value) {
+
+                // Remove performance class from body
+                $("body").removeClass("performance-high performance-simple performance-none");
+
                 switch (properties.movement_performance.value) {
                     case 'high': // All on
                         $.global_outstandRatio = $.global_outstandRatioDefault;
                         $.global_degreeRatio = 1;
-                        $('.kv').css('transition', 'var(--transition)');
-                        $('.bg').css('transition', 'var(--transition)');
                         $(document).unbind("mousemove");
                         $(document).mousemove($.mouse);
+                        $("body").addClass("performance-high");
                         break;
                     case 'simple': // Remove transition .3s ease and in/outstand
                         $.global_outstandRatio = [0, 0, 0];
                         $.kv_x_stand = [0, 0, 0];
                         $.global_degreeRatio = 0;
-                        $('.kv').css('transition', 'none');
-                        $('.bg').css('transition', 'none');
                         $(document).unbind("mousemove");
                         $(document).mousemove($.mouse);
+                        $("body").addClass("performance-simple");
                         break;
                     case 'none': // All static
                         $.global_outstandRatio = [0, 0, 0];
                         $.kv_x_stand = [0, 0, 0];
                         $.global_degreeRatio = 0;
                         $.mouse({ "clientX": 0, "clientY": 0 });
-                        $('.kv').css('transition', 'none');
-                        $('.bg').css('transition', 'none');
                         $(document).unbind("mousemove");
+                        $("body").addClass("performance-none");
                         break;
                 }
             }
@@ -55,6 +56,16 @@ window.wallpaperPropertyListener = {
                 $('.logo').removeClass("sp en");
             }
             $.console.logo_style(properties.mahouka_logo_style.value);
+        }
+
+        // Fluent Motion
+        if(properties.fluent_motion){
+            if(properties.fluent_motion.value){
+                $("body").addClass("fluent-motion");
+            } else {
+                $("body").removeClass("fluent-motion");
+            }
+            $.console.fluent_motion(properties.fluent_motion.value);
         }
 
         // Character Amplitude X

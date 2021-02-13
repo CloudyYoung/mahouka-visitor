@@ -16,6 +16,8 @@ $('body').append(`
     <div class="widget"></div>
 `);
 
+$("body").addClass("fluent-motion");
+
 // Clear all delays
 setTimeout(function () {
     $(".animated").each((index, each) => {

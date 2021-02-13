@@ -10,9 +10,10 @@
 			{
 				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
 				"fraction" : true,
+				"index" : 6,
 				"max" : 10,
 				"min" : 1,
-				"order" : 105,
+				"order" : 106,
 				"precision" : 2,
 				"step" : 0.10000000000000001,
 				"text" : "Background amplitude",
@@ -23,9 +24,10 @@
 			{
 				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
 				"fraction" : true,
+				"index" : 4,
 				"max" : 10,
 				"min" : 1,
-				"order" : 103,
+				"order" : 104,
 				"precision" : 2,
 				"step" : 0.10000000000000001,
 				"text" : "Character amplitude x",
@@ -36,9 +38,10 @@
 			{
 				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
 				"fraction" : true,
+				"index" : 5,
 				"max" : 10,
 				"min" : 1,
-				"order" : 104,
+				"order" : 105,
 				"precision" : 2,
 				"step" : 0.10000000000000001,
 				"text" : "Character amplitude y",
@@ -47,13 +50,24 @@
 			},
 			"developer_console" : 
 			{
-				"order" : 108,
+				"index" : 9,
+				"order" : 109,
 				"text" : "Developer console",
 				"type" : "bool",
 				"value" : false
 			},
+			"fluent_motion" : 
+			{
+				"condition" : "movement_performance.value == \"high\"",
+				"index" : 3,
+				"order" : 103,
+				"text" : "Fluent motion",
+				"type" : "bool",
+				"value" : true
+			},
 			"mahouka_logo" : 
 			{
+				"index" : 1,
 				"order" : 101,
 				"text" : "Mahouka logo",
 				"type" : "bool",
@@ -62,6 +76,7 @@
 			"mahouka_logo_style" : 
 			{
 				"condition" : "mahouka_logo.value == true",
+				"index" : 2,
 				"options" : 
 				[
 					{
@@ -87,6 +102,7 @@
 			},
 			"movement_performance" : 
 			{
+				"index" : 0,
 				"options" : 
 				[
 					{
@@ -109,7 +125,8 @@
 			},
 			"particles" : 
 			{
-				"order" : 106,
+				"index" : 7,
+				"order" : 107,
 				"text" : "Particles",
 				"type" : "bool",
 				"value" : true
@@ -123,7 +140,8 @@
 			},
 			"specials" : 
 			{
-				"order" : 107,
+				"index" : 8,
+				"order" : 108,
 				"text" : "Specials",
 				"type" : "bool",
 				"value" : true
