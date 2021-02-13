@@ -306,7 +306,7 @@ body {
     transform: translate3d(max(-26%, -26rem), 0, 0);
   }
 
-  4% {
+  3% {
     opacity: 0;
   }
 
@@ -326,7 +326,7 @@ body {
     transform: translate3d(min(26%, 26rem), 0, 0);
   }
 
-  4% {
+  3% {
     opacity: 0;
   }
 
