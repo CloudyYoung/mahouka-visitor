@@ -22,7 +22,7 @@ setTimeout(function () {
             $(each).removeClass(`delay-${t}`);
         }
     });
-}, 4000);
+}, 5200);
 
 // Dust
 setInterval(function () {
