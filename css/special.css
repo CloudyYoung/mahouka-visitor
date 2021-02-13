@@ -1,22 +1,27 @@
-.special.event {
-    --charaface-width: 12rem;
-    --charaface-height: 12rem;
+.widget {
     position: absolute;
     bottom: 10%;
     right: 60px;
     z-index: 1899;
 }
 
-.special.event .card, .special.event .illust {
+.widget .events {
+    --charaface-width: 12rem;
+    --charaface-height: 12rem;
+}
+
+.widget .events .card,
+.widget .events .illust {
     opacity: 0;
     margin-top: 1.4rem;
 }
 
-.special.event .card.is-op, .special.event .illust.is-op{
+.widget .events .card.is-op,
+.widget .events .illust.is-op {
     opacity: 1;
 }
 
-.special.event .card {
+.widget .events .card {
     position: relative;
     letter-spacing: normal;
     text-align: center;
@@ -27,23 +32,23 @@
     box-sizing: border-box;
 }
 
-.special.event .is-op.card{
+.widget .events .is-op.card {
     animation-name: fadeInUp;
     animation-duration: 0.8s;
     animation-delay: 0.5s;
     transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
-.special.event .is-op.card:hover {
+.widget .events .is-op.card:hover {
     opacity: 0.72;
 }
 
-.special.event .is-op.card:hover:before,
-.special.event .is-op.card:hover:after{
+.widget .events .is-op.card:hover:before,
+.widget .events .is-op.card:hover:after {
     display: none;
 }
 
-.special.event .card .card-body{
+.widget .events .card .card-body {
     opacity: 0;
     background: rgba(0, 0, 0, 0.82);
     padding: 1.6rem 3rem;
@@ -51,12 +56,12 @@
     transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1) 1s;
 }
 
-.special.event .card.is-op .card-body{
+.widget .events .card.is-op .card-body {
     opacity: 1;
 }
 
-.special.event .card:before,
-.special.event .card:after{
+.widget .events .card:before,
+.widget .events .card:after {
     content: '';
     width: 0%;
     height: 0%;
@@ -66,33 +71,33 @@
     pointer-events: none;
 }
 
-.special.event .card:before{
+.widget .events .card:before {
     top: 0px;
     left: 0px;
     border-top: 0.22rem solid #000;
     border-left: 0.22rem solid #000;
 }
 
-.special.event .card:after{
+.widget .events .card:after {
     right: 0px;
     bottom: 0px;
     border-right: 0.22rem solid #000;
     border-bottom: 0.22rem solid #000;
 }
 
-.special.event .is-op.card:before,
-.special.event .is-op.card:after{
+.widget .events .is-op.card:before,
+.widget .events .is-op.card:after {
     width: 100%;
     height: 100%;
     opacity: 1;
     transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.5s, height 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.5s, opacity 0s ease 0.5s;
 }
 
-.special.event .card.has-side-chara .card-body{
+.widget .events .card.has-side-chara .card-body {
     padding-right: calc(var(--charaface-width) - 0.6rem);
 }
 
-.special.event .card-body .text {
+.widget .events .card-body .text {
     font-size: 1.6rem;
     font-weight: 700;
     line-height: 1.4;
@@ -102,7 +107,7 @@
     width: 100%;
 }
 
-.special.event .card-body .date {
+.widget .events .card-body .date {
     color: #42BFB2;
     font-family: 'Roboto Condensed';
     line-height: 1.4;
@@ -111,11 +116,11 @@
     font-weight: 600;
 }
 
-.special.event .card.has-side-chara .chara{
+.widget .events .card.has-side-chara .chara {
     display: block !important;
 }
 
-.special.event .card-body .chara {
+.widget .events .card-body .chara {
     --height-rate: calc(var(--raw-width) / var(--raw-height));
     --height: calc(var(--charaface-height) * var(--height-rate));
     --width: var(--charaface-width);
@@ -128,7 +133,7 @@
     max-height: 9rem;
 }
 
-.special.event .card-body .chara {
+.widget .events .card-body .chara {
     --raw-height: 550;
     --raw-width: 480;
     background-size: cover;
@@ -138,7 +143,7 @@
     bottom: 0%;
 }
 
-.special.event .card-body .chara.charaface {
+.widget .events .card-body .chara.charaface {
     --raw-height: 128;
     --raw-width: 200;
     background-size: contain;
@@ -148,7 +153,7 @@
     bottom: 0%;
 }
 
-.special.event .illust {
+.widget .events .illust {
     --ratio: calc(480 / 550);
     --height: 13.5rem;
     --delay: 0s;
@@ -157,23 +162,23 @@
     text-align: center;
 }
 
-.special.event .illust.story{
+.widget .events .illust.story {
     --ratio: calc(1500 / 1900);
     --height: 16rem;
     --shadow-width: 0.16rem;
 }
 
-.special.event .illust.anniversary{
+.widget .events .illust.anniversary {
     --ratio: calc(30 / 12);
     --height: 11rem;
     --shadow-width: 0;
 }
 
-.special.event .illust.anniversary.is-op .charaface{
+.widget .events .illust.anniversary.is-op .charaface {
     animation-name: fadeInUp !important;
 }
 
-.special.event .illust .charaface {
+.widget .events .illust .charaface {
     background-size: contain;
     background-repeat: no-repeat;
     background-origin: center;
@@ -184,13 +189,10 @@
     opacity: 0;
     margin-left: -2rem;
     margin-right: -2rem;
-    filter: drop-shadow(var(--shadow-width) 0px 0 #fff) 
-          drop-shadow(calc(-0.76 * var(--shadow-width)) 0px 0 #fff)
-          drop-shadow(0px var(--shadow-width) 0 #fff) 
-          drop-shadow(0px calc(-0.76 * var(--shadow-width)) 0 #fff);
+    filter: drop-shadow(var(--shadow-width) 0px 0 #fff) drop-shadow(calc(-0.76 * var(--shadow-width)) 0px 0 #fff) drop-shadow(0px var(--shadow-width) 0 #fff) drop-shadow(0px calc(-0.76 * var(--shadow-width)) 0 #fff);
 }
 
-.special.event .illust.is-op .charaface{
+.widget .events .illust.is-op .charaface {
     --animation-duration: 1.8s;
     opacity: 1;
     transition: opacity 0s linear calc(var(--delay) + var(--animation-duration));
@@ -199,15 +201,18 @@
     animation-delay: var(--delay);
 }
 
-.special.event .illust .charaface:nth-child(1){
+.widget .events .illust .charaface:nth-child(1) {
     --delay: 0s;
 }
-.special.event .illust .charaface:nth-child(2){
+
+.widget .events .illust .charaface:nth-child(2) {
     --delay: 0.1s;
 }
-.special.event .illust .charaface:nth-child(3){
+
+.widget .events .illust .charaface:nth-child(3) {
     --delay: 0.2s;
 }
-.special.event .illust .charaface:nth-child(4){
+
+.widget .events .illust .charaface:nth-child(4) {
     --delay: 0.3s;
 }

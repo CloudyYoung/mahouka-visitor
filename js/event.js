@@ -1,5 +1,5 @@
 
-$('body').append(`<div class="special event"></div>`);
+$('.widget').append(`<div class="events"></div>`);
 
 $.events = [
     {
@@ -321,7 +321,7 @@ $.events.sort((a, b) => {
 
 // Append to html
 $.events.forEach(each => {
-    $('.special.event').append(each.html);
+    $('.widget .events').append(each.html);
 });
 
 $.events.date = function () {
@@ -329,7 +329,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // month = 12, day = 31;
+    month = 12, day = 31;
     return [month, day];
 }
 
@@ -378,12 +378,12 @@ $.events.interval = function () {
         $.events.onIndex = majorIndex + newMinor;
         $.events.onIndex %= $.events.on.length;
 
-        let id = `.special.event .${current.type}.${current.key}`;
-        let illust_id = `.special.event .illust.${current.key}.${minorIndex}`;
+        let id = `.widget .events .${current.type}.${current.key}`;
+        let illust_id = `.widget .events .illust.${current.key}.${minorIndex}`;
 
         $.events.forEach(each => {
-            let each_id = `.special.event .${each.type}.${each.key}`;
-            let each_illust_id = `.special.event .illust.${each.key}`;
+            let each_id = `.widget .events .${each.type}.${each.key}`;
+            let each_illust_id = `.widget .events .illust.${each.key}`;
 
             if (each_id != id) {
                 $(each_id).hide().removeClass("is-op");
