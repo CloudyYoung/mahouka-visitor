@@ -24,7 +24,7 @@
 				"ui_performance" : "Performance",
 				"ui_simple" : "Simple",
 				"ui_static" : "Static",
-				"ui_widgets" : "Widgets"
+				"ui_widget" : "Widgets"
 			},
 			"zh-chs" : 
 			{
@@ -44,7 +44,7 @@
 				"ui_performance" : "表现",
 				"ui_simple" : "简单",
 				"ui_static" : "静态",
-				"ui_widgets" : "小组件"
+				"ui_widget" : "小组件"
 			}
 		},
 		"properties" : 
@@ -181,11 +181,11 @@
 				"type" : "color",
 				"value" : "0 0 0"
 			},
-			"widgets" : 
+			"widget" : 
 			{
 				"index" : 8,
 				"order" : 108,
-				"text" : "ui_widgets",
+				"text" : "ui_widget",
 				"type" : "bool",
 				"value" : true
 			}
