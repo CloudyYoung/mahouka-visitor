@@ -16,7 +16,7 @@ $('body').append(`
     <div class="widget"></div>
 `);
 
-$("body").addClass("fluent-motion");
+$("body").addClass("smooth-movement");
 
 // Clear all delays
 setTimeout(function () {

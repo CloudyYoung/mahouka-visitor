@@ -12,8 +12,8 @@ $('body').append(`
                 <li class="02"></li>
                 <li class="03"></li>
             </ul>
-            <ul class="fluent-motion-console">
-                <li class="fluent-motion"></li>
+            <ul class="smooth-movement-console">
+                <li class="smooth-movement"></li>
             </ul>
             <ul class="logo-console">
                 <li class="show"></li>
@@ -21,7 +21,7 @@ $('body').append(`
             </ul>
             <ul class="flare-console"></ul>
             <ul class="dust-console"></ul>
-            <ul class="special-event-console"></ul>
+            <ul class="widget-event-console"></ul>
         </ul>
     </div>
 `);
@@ -49,26 +49,26 @@ $.console = {
             $(`.console .dust-console`).append(`<li class="${id}">dust_${id}: ${top.toFixed(4)}px</li>`);
         }
     },
-    logo: function (show) { 
+    logo: function (show) {
         $(".console .logo-console .show").html(`logo: ${show}`);
     },
     logo_style: function (style) {
         $(".console .logo-console .style").html(`logo_style: ${style}`);
     },
-    special_event: function (event, show) {
+    widget_event: function (event, show) {
         let id = `${event.type}-${event.key}`;
         let values = [];
         if (event.month && event.day) values.push(event.month + "," + event.day);
         if (event.charaface) values.push(event.charaface)
-        if (show && $(`.console .special-event-console .${id}`).length == 0) {
-            $(`.console .special-event-console`).append(`<li class="${id}">${event.type}_${event.key}: ${values}</li>`);
+        if (show && $(`.console .widget-event-console .${id}`).length == 0) {
+            $(`.console .widget-event-console`).append(`<li class="${id}">${event.type}_${event.key}: ${values}</li>`);
         } else if (!show) {
-            $(`.console .special-event-console .${id}`).remove();
+            $(`.console .widget-event-console .${id}`).remove();
         } else {
             // Do nothing
         }
     },
-    fluent_motion: function(on){
-        $(".console .fluent-motion-console .fluent-motion").html("fluent_motion: " + on);
+    smooth_movement: function (on) {
+        $(".console .smooth-movement-console .smooth-movement").html("smooth_movement: " + on);
     }
 }

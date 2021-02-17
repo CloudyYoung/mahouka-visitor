@@ -51,7 +51,7 @@
 .widget .events .card .card-body {
     opacity: 0;
     background: rgba(0, 0, 0, 0.82);
-    padding: 1.6rem 3rem;
+    padding: 1.8rem 3rem;
     box-sizing: border-box;
     transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1) 1s;
 }
@@ -215,4 +215,115 @@
 
 .widget .events .illust .charaface:nth-child(4) {
     --delay: 0.3s;
+}
+
+.widget .music {
+    position: relative;
+    height: 6.448rem;
+    margin-top: 1rem;
+    padding: 0px 0 0 0;
+    color: #fff;
+    background: #000;
+    line-height: 1em;
+    overflow: hidden;
+    display: flex;
+    gap: 10px;
+    padding: 0rem 1.54rem;
+}
+
+.widget .music .sources {
+    display: none;
+}
+
+.widget .music .control {
+    display: flex;
+    align-items: center;
+}
+
+.widget .music .control.secondary {
+    margin-left: auto;
+    gap: 0.6rem;
+}
+
+.widget .music .control button {
+    border-radius: 0;
+    border: 0;
+    cursor: pointer;
+    transition: 0.3s all ease-in;
+    text-indent: -9999px;
+    width: 3.38rem;
+    height: 3.38rem;
+    overflow: hidden;
+    cursor: pointer;
+    margin: auto;
+    outline: none;
+    transition: none;
+}
+
+.widget .music .control.secondary button {
+    width: 2.457rem;
+    height: 2.457rem;
+}
+
+.widget .music .control .play {
+    background: url(../img/btn_play_on.png) center center no-repeat;
+    background-size: 100% auto;
+}
+
+.widget .music .control .stop {
+    background: url(../img/btn_stop_on.png) center center no-repeat;
+    background-size: 100% auto;
+}
+
+.widget .music .control .repeat {
+    background: url(../img/btn_repeat.svg) center center no-repeat;
+    background-size: 100% auto;
+}
+
+.widget .music .control .list {
+    background: url(../img/btn_list.svg) center center no-repeat;
+    background-size: 100% auto;
+}
+
+.widget .music .control .repeat-one {
+    background: url(../img/btn_repeat_one.svg) center center no-repeat;
+    background-size: 100% auto;
+}
+
+.widget .music .control .shuffle {
+    background: url(../img/btn_shuffle.svg) center center no-repeat;
+    background-size: 100% auto;
+}
+
+.widget .music .content {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 1.6rem;
+}
+
+.widget .music .content .title {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "ヒラギノ角ゴ ProN W3", Hiragino Kaku Gothic ProN, "游ゴシック", YuGothic, Arial, "メイリオ", Meiryo, sans-serif;
+    margin: 0px;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.widget .music .content .no {
+    font-family: 'Roboto Condensed';
+    color: #42BFB2;
+    font-weight: 600;
+    font-size: 1.9rem;
+    margin-bottom: 0.08rem;
+}
+
+.widget .music .progress {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 0.16rem;
+    background-color: #42BFB2;
+    box-shadow: 0rem 2rem 8rem 1.8rem #42BFB2;
+    z-index: 1;
+    transition: 0.5s linear;
 }

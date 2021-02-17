@@ -59,13 +59,13 @@ window.wallpaperPropertyListener = {
         }
 
         // Fluent Motion
-        if(properties.fluent_motion){
-            if(properties.fluent_motion.value){
-                $("body").addClass("fluent-motion");
+        if (properties.smooth_movement) {
+            if (properties.smooth_movement.value) {
+                $("body").addClass("smooth-movement");
             } else {
-                $("body").removeClass("fluent-motion");
+                $("body").removeClass("smooth-movement");
             }
-            $.console.fluent_motion(properties.fluent_motion.value);
+            $.console.smooth_movement(properties.smooth_movement.value);
         }
 
         // Character Amplitude X
@@ -107,11 +107,11 @@ window.wallpaperPropertyListener = {
         }
 
         // Console
-        if (properties.specials) {
-            if (properties.specials.value) {
-                $('.special').show();
+        if (properties.widget) {
+            if (properties.widget.value) {
+                $('.widget').show();
             } else {
-                $('.special').hide();
+                $('.widget').hide();
             }
         }
 
