@@ -12,7 +12,6 @@
 				"ui_character_amplitude_x" : "Character horizontal amplitude",
 				"ui_character_amplitude_y" : "Character vertical amplitude",
 				"ui_developer_console" : "Developer console",
-				"ui_smooth_movement" : "Character Smooth Movement",
 				"ui_high" : "High",
 				"ui_logo" : "Logo",
 				"ui_logo_horizontal" : "Default Horizontal",
@@ -23,8 +22,15 @@
 				"ui_particles" : "Particles",
 				"ui_performance" : "Performance",
 				"ui_simple" : "Simple",
+				"ui_smooth_movement" : "Character Smooth Movement",
 				"ui_static" : "Static",
-				"ui_widget" : "Widgets"
+				"ui_widget" : "Widgets",
+				"ui_music": "Music",
+				"ui_repeat_track": "Repeat Track",
+				"ui_playback_mode": "Playback Mode",
+				"ui_repeat": "Repeat",
+				"ui_repeat_one": "Repeat One",
+				"ui_shuffle": "Shuffle"
 			},
 			"zh-chs" : 
 			{
@@ -32,7 +38,6 @@
 				"ui_character_amplitude_x" : "角色横向移动幅度",
 				"ui_character_amplitude_y" : "角色纵向移动幅度",
 				"ui_developer_console" : "开发者面板",
-				"ui_smooth_movement" : "角色平滑移动",
 				"ui_high" : "高",
 				"ui_logo" : "图标",
 				"ui_logo_horizontal" : "默认横板",
@@ -43,8 +48,15 @@
 				"ui_particles" : "粒子",
 				"ui_performance" : "表现",
 				"ui_simple" : "简单",
+				"ui_smooth_movement" : "角色平滑移动",
 				"ui_static" : "静态",
-				"ui_widget" : "小组件"
+				"ui_widget" : "小组件",
+				"ui_music": "音乐",
+				"ui_repeat_track": "循环曲目",
+				"ui_playback_mode": "播放模式",
+				"ui_repeat": "全部循环",
+				"ui_repeat_one": "单曲循环",
+				"ui_shuffle": "随机"
 			}
 		},
 		"properties" : 
@@ -91,22 +103,117 @@
 				"type" : "slider",
 				"value" : 6
 			},
+			"repeat_track" : 
+			{
+				"condition" : "widget.value == true && music.value == true && playback_mode.value == 1",
+				"index" : 12,
+				"options" : 
+				[
+					{
+						"label" : "01 Vibrant",
+						"value" : 0
+					},
+					{
+						"label" : "02 mikamik amore",
+						"value" : 1
+					},
+					{
+						"label" : "03 The visitor",
+						"value" : 2
+					},
+					{
+						"label" : "04 Army of her",
+						"value" : 3
+					},
+					{
+						"label" : "05 Clover",
+						"value" : 4
+					},
+					{
+						"label" : "06 The parasite smiles",
+						"value" : 5
+					},
+					{
+						"label" : "07 Explanation",
+						"value" : 6
+					},
+					{
+						"label" : "08 Twitch",
+						"value" : 7
+					},
+					{
+						"label" : "09 Kalimba",
+						"value" : 8
+					},
+					{
+						"label" : "10 Resistance",
+						"value" : 9
+					},
+					{
+						"label" : "11 Crists1",
+						"value" : 10
+					},
+					{
+						"label" : "12 Grab it",
+						"value" : 11
+					},
+					{
+						"label" : "13 Irritated",
+						"value" : 12
+					},
+					{
+						"label" : "14 Crisis2",
+						"value" : 13
+					},
+					{
+						"label" : "15 Crisis3",
+						"value" : 14
+					},
+					{
+						"label" : "16 The final hit",
+						"value" : 15
+					},
+					{
+						"label" : "17 Saudade",
+						"value" : 16
+					},
+					{
+						"label" : "18 Spirits",
+						"value" : 17
+					},
+					{
+						"label" : "19 Trackers & fugitives",
+						"value" : 18
+					},
+					{
+						"label" : "20 Concerned",
+						"value" : 19
+					},
+					{
+						"label" : "21 Tatsuya 2.0",
+						"value" : 20
+					},
+					{
+						"label" : "22 Miyuki 2.0",
+						"value" : 21
+					},
+					{
+						"label" : "23 Fearful valentine",
+						"value" : 22
+					}
+				],
+				"order" : 112,
+				"text" : "ui_repeat_track",
+				"type" : "combo",
+				"value" : 0
+			},
 			"developer_console" : 
 			{
 				"index" : 9,
-				"order" : 109,
+				"order" : 199,
 				"text" : "ui_developer_console",
 				"type" : "bool",
 				"value" : false
-			},
-			"smooth_movement" : 
-			{
-				"condition" : "movement_performance.value == \"high\"",
-				"index" : 1,
-				"order" : 101,
-				"text" : "ui_smooth_movement",
-				"type" : "bool",
-				"value" : true
 			},
 			"mahouka_logo" : 
 			{
@@ -166,6 +273,15 @@
 				"type" : "combo",
 				"value" : "high"
 			},
+			"music" : 
+			{
+				"condition" : "widget.value == true",
+				"index" : 10,
+				"order" : 110,
+				"text" : "ui_music",
+				"type" : "bool",
+				"value" : true
+			},
 			"particles" : 
 			{
 				"index" : 7,
@@ -174,12 +290,45 @@
 				"type" : "bool",
 				"value" : true
 			},
+			"playback_mode" : 
+			{
+				"condition" : "widget.value == true && music.value == true",
+				"index" : 11,
+				"options" : 
+				[
+					{
+						"label" : "ui_repeat",
+						"value" : 0
+					},
+					{
+						"label" : "ui_repeat_one",
+						"value" : 1
+					},
+					{
+						"label" : "ui_shuffle",
+						"value" : 2
+					}
+				],
+				"order" : 111,
+				"text" : "ui_playback_mode",
+				"type" : "combo",
+				"value" : 0
+			},
 			"schemecolor" : 
 			{
 				"order" : 0,
 				"text" : "ui_browse_properties_scheme_color",
 				"type" : "color",
 				"value" : "0 0 0"
+			},
+			"smooth_movement" : 
+			{
+				"condition" : "movement_performance.value == \"high\"",
+				"index" : 1,
+				"order" : 101,
+				"text" : "ui_smooth_movement",
+				"type" : "bool",
+				"value" : true
 			},
 			"widget" : 
 			{

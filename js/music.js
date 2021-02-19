@@ -1,56 +1,71 @@
 $(".widget").append(`
-    <div class="music">
+    <div class="music animated fadeIn delay-7">
         <div class="control">
             <button class="play-status play"></button>
         </div>
         <div class="content">
-            <p class="no">01</p>
-            <p class="title">Vibrant</p>
+            <p class="no"></p>
+            <p class="title"></p>
         </div>
-        <div class="control secondary">
-            <button class="play-mode"></button>
-            <button class="list"></button>
-        </div>
+        <div class="control secondary"></div>
         
         <div class="sources"></div>
         <div class="progress"></div>
     </div>
 `);
 
-
-$(".widget .music .control.secondary .play-mode").click((e) => {
-    var playModes = ["repeat", "repeat-one", "shuffle"];
-
-    $(".widget .music .control.secondary .play-mode").removeClass(playModes);
-
-    $.musicPlayMode++;
-    if ($.musicPlayMode >= playModes.length) {
-        $.musicPlayMode = 0;
-    }
-
-    $(".widget .music .control.secondary .play-mode").addClass(playModes[$.musicPlayMode]);
-});
-$(".widget .music .control.secondary .play-mode").addClass("repeat");
-
-
 $(".widget .music .control .play-status").click((e) => {
-    $(e.target).toggleClass("play stop");
-
-    if ($(e.target).hasClass("play")) {
-        // Stopped
-        $(".widget .music .sources audio").get(0).pause();
-    } else if ($(e.target).hasClass("stop")) {
-        // Playing
-        $(`.widget .music .sources audio.${$.musicPlaying + 1}`).get(0).play();
+    if ($.album.playing) {
+        $.album.pause();
+    } else {
+        $.album.play();
     }
 });
 
 
+$.album = {};
+$.album.on = null;
+$.album.playing = false;
+$.album.playbackMode = 0; // 0 Repeat, 1 Repeat One, 2 Random
+$.album.playlist = [];
+$.album.repeatTrack = null;
+$.album.play = function () {
+    $(".widget .music .sources audio").trigger("pause");
+    $.album.on.dom.play();
+}
+$.album.pause = function () {
+    $(".widget .music .sources audio").trigger("pause");
+}
+$.album.playback = function () {
+    if ($.album.playlist.length == 0) {
+        $.album.generatePlaylist();
+    }
+    $.album.on = $.album.playlist.shift();
+    $(".widget .music .content .title").text($.album.on.title);
+    $(".widget .music .content .no").text($.album.on.no.toString().padStart(2, "0"));
+    $(".widget .music .progress").css("width", `0%`);
+    $.album.on.dom.currentTime = 0;
+    $.album.play();
+}
+$.album.generatePlaylist = function () {
+    $.album.playlist = [];
+    switch ($.album.playbackMode) {
+        case 0: // Repeat
+            $.album.playlist = $.album.tracks.slice();
+            break;
 
-$.musicPlaying = 0;
-$.musicPlayMode = 0; // 0 Repeat, 1 Repeat One, 2 Random
+        case 1: // Repeat One
+            for (let t = 0; t < 10; t++) {
+                $.album.playlist.push($.album.repeatTrack);
+            }
+            break;
 
-$.album = [
+        case 2: // Shuffle
+            $.album.playlist = $.album.tracks.slice().sort(() => Math.random() - 0.5);;
+            break;
+    }
+}
+$.album.tracks = [
     {
         title: "Vibrant",
         no: 1,
@@ -142,58 +157,52 @@ $.album = [
     {
         title: "Fearful valentine",
         no: 23,
-    },
-    {
-        title: "sample",
-        no: 24,
     }
 ];
-
-
-$.album.forEach((each) => {
+$.album.tracks.forEach((each) => {
     $(".widget .music .sources").append(`
-        <audio class="${each.no}" src="album/${each.title}.ogg" type="audio/ogg" controls no="${each.no}" title="${each.title}" crossOrigin="anonymous"></audio>
+        <audio class="${each.no}" controls no="${each.no}" title="${each.title}" preload="none">
+            <source src="src/album/${each.title}.m4a" type="audio/wav">
+            <source src="album/${each.title}.ogg" type="audio/ogg">
+        </audio>
     `);
+    each.dom = $(`.widget .music .sources audio.${each.no}`).get(0);
 });
 
+
 $(document).ready(function () {
+
+    $.album.generatePlaylist();
+    $.album.playback();
+
     $(".widget .music .sources audio").each((index, each) => {
         each.addEventListener("canplay", (e) => {
             // console.log("can play", each);
         });
 
         each.addEventListener("playing", (e) => {
-            $(".widget .music .control .play-status").removeClass("play").addClass("pause");
-            $(".widget .music .content .title").text($.album[$.musicPlaying].title);
-            $(".widget .music .content .no").text($.album[$.musicPlaying].no.toString().padStart(2, "0"));
+            $(".widget .music .control .play-status").removeClass("play").addClass("stop");
+            $(".widget .music .content .title").text($.album.on.title);
+            $(".widget .music .content .no").text($.album.on.no.toString().padStart(2, "0"));
+            if ($.album.on.dom.currentTime == 0) {
+                $(".widget .music .progress").css("width", `0%`);
+            }
+            $.album.playing = true;
         });
 
         each.addEventListener("pause", (e) => {
-            $(".widget .music .control .play-status").removeClass("pause").addClass("play");
+            $(".widget .music .control .play-status").removeClass("stop").addClass("play");
+            $.album.playing = false;
         });
 
-        each.addEventListener("timeupdate", function () {
+        each.addEventListener("timeupdate", (e) => {
             let percent = (each.currentTime / each.duration) * 100;
             $(".widget .music .progress").css("width", `${percent}%`);
         });
 
         each.addEventListener("ended", (e) => {
-            $(".widget .music .control .play-status").removeClass("pause").addClass("play");
-
-            if ($.musicPlayMode == 0) {
-                // Repeat
-                $.musicPlaying++;
-
-                if ($.musicPlaying >= $.album.length) {
-                    $.musicPlaying = 0;
-                }
-
-                $(`.widget .music .sources audio.${$.musicPlaying + 1}`).get(0).play();
-            } else if ($.musicPlayMode == 1) {
-                // Repeat One
-                $(`.widget .music .sources audio.${$.musicPlaying + 1}`).get(0).currentTime = 0;
-                $(`.widget .music .sources audio.${$.musicPlaying + 1}`).get(0).play();
-            }
+            $(".widget .music .control .play-status").removeClass("stop").addClass("play");
+            $.album.playback();
         });
     });
 });

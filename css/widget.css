@@ -230,6 +230,10 @@
     padding: 0rem 1.54rem;
 }
 
+.widget .music *{
+    z-index: 999;
+}
+
 .widget .music .sources {
     display: none;
 }
@@ -237,7 +241,7 @@
 .widget .music .control {
     display: flex;
     align-items: center;
-    margin-right: 1rem;
+    margin-right: 1.34rem;
 }
 
 .widget .music .control.secondary {
@@ -322,7 +326,7 @@
     font-family: 'Roboto Condensed';
     color: #42BFB2;
     font-weight: 600;
-    font-size: 1.9rem;
+    font-size: 1.8rem;
     margin-bottom: 0.08rem;
     margin-right: 0.4rem;
 }
@@ -331,10 +335,9 @@
     position: absolute;
     bottom: 0px;
     left: 0px;
-    /* height: 0.16rem; */
     height: 2%;
     background-color: #42BFB2;
     box-shadow: 0rem 2rem 8rem 1.8rem #42BFB2;
     z-index: 1;
-    transition: 0.5s linear;
+    z-index: 9;
 }

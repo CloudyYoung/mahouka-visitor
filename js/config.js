@@ -123,5 +123,36 @@ window.wallpaperPropertyListener = {
                 $('.console').css('--display', 'none');
             }
         }
+
+        // Repeat Track
+        if (properties.repeat_track) {
+            // Repeat One
+            $.album.repeatTrack = $.album.tracks[properties.repeat_track.value];
+            if ($.album.playbackMode == 1) {
+                $.album.generatePlaylist();
+                $.album.playback();
+            }
+        }
+
+        // Playback Mode
+        if (properties.playback_mode) {
+            if ($.album.playbackMode == properties.playback_mode.value) {
+                return;
+            }
+            $.album.playbackMode = properties.playback_mode.value;
+            $.album.generatePlaylist();
+            $.album.playback();
+        }
+
+        // Music
+        if (properties.music) {
+            if (properties.music.value) {
+                $.album.playback();
+                $('.widget .music').show();
+            } else {
+                $.album.pause();
+                $('.widget .music').hide();
+            }
+        }
     }
 }
