@@ -204,3 +204,9 @@ $(document).ready(function () {
         });
     });
 });
+
+$('.widget').on('event', function (e, on) {
+    if (on) {
+
+    }
+});
