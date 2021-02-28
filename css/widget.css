@@ -3,6 +3,7 @@
     bottom: 10%;
     right: 60px;
     z-index: 1899;
+    width: min(35%, 35rem);
 }
 
 .widget .events {
