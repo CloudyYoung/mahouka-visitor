@@ -7,8 +7,6 @@ $(".widget").append(`
             <p class="no"></p>
             <p class="title"></p>
         </div>
-        <div class="control secondary"></div>
-        
         <div class="sources"></div>
         <div class="progress"></div>
     </div>
@@ -55,7 +53,7 @@ $.album.generatePlaylist = function () {
             break;
 
         case 1: // Repeat One
-            for (let t = 0; t < 10; t++) {
+            for (let t = 0; t <= 20; t++) {
                 $.album.playlist.push($.album.repeatTrack);
             }
             break;
