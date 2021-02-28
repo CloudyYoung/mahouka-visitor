@@ -4,7 +4,6 @@ $.events = [
     {
         key: "story-1",
         type: "illust",
-        display: "idle",
         charatype: "story",
         charaface: ["miyuki", "tatsuya", "angie"],
         show: false,
@@ -12,7 +11,6 @@ $.events = [
     {
         key: "story-2",
         type: "illust",
-        display: "idle",
         charatype: "story",
         charaface: ["erika", "mikihiko"],
         show: false,
@@ -20,7 +18,6 @@ $.events = [
     {
         key: "story-3",
         type: "illust",
-        display: "idle",
         charatype: "story",
         charaface: ["shizuku"],
         show: false,
@@ -28,7 +25,6 @@ $.events = [
     {
         key: "story-4",
         type: "illust",
-        display: "idle",
         charatype: "story",
         charaface: ["mikihiko", "mizuki"],
         show: false,
@@ -36,7 +32,6 @@ $.events = [
     {
         key: "story-5",
         type: "illust",
-        display: "idle",
         charatype: "story",
         charaface: ["miyuki", "lina-kimono", "honoka"],
         show: false,
@@ -44,14 +39,12 @@ $.events = [
     {
         key: "story-6",
         type: "illust",
-        display: "idle",
         charatype: "story",
         charaface: ["tatsuya", "angie"],
         show: false,
     },
     {
         key: "story-7",
-        display: "idle",
         charatype: "story",
         charaface: [
             ["miyuki", "tatsuya"],
@@ -271,7 +264,6 @@ $.events = [
     },
     {
         key: "graduation-class-2096",
-        display: "idle",
         charatype: "uniform",
         charaface: [
             ["mari", "mayumi"],
@@ -287,7 +279,6 @@ $.events = [
     {
         key: "anniversary",
         type: "illust",
-        display: "idle",
         charatype: "10th-anniversary",
         charaface: "10th-anniversary",
         show: false,
@@ -309,59 +300,41 @@ $.months = [
     "Dec",
 ];
 
-$.events.makeCard = function (each) {
-    let date = `${each.year ? each.year + "年" : ""}${each.month}月${each.day
-        }日 // ${each.year ? each.year + "年" : ""}${each.month}月${each.day}日 // ${$.months[each.month - 1]
-        } ${each.day}${each.year ? ", " + each.year : ""}`;
+$.events.makeText = function (each) {
+    let date = `${each.year ? `${each.year}年` : ""}${each.month}月${each.day}日 // 
+                ${each.year ? `${each.year}年` : ""}${each.month}月${each.day}日 // 
+                ${$.months[each.month - 1]} ${each.day}${each.year ? `, ${each.year}` : ""}`;
+
     return `
-    <div class="${each.type} ${each.key} card ${each.hasSideChara && !each.hasIllust ? "has-side-chara" : ""
-        }">
-        <div class="card-body">
-            <span class="chara ${each.charatype
-        }" style="background-image: url('chara/${each.charatype}/${each.charaface
-        }.png')" ></span>
-            <span class="date ${each.showDate ? `` : `hide`
-        }" i18n>${date}</span>
+    <div class="${each.type} ${each.key} text">
+        <div class="text-body">
+            <span class="chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
+            <span class="date ${each.showDate ? "" : "hide"}" i18n>${date}</span>
             <span class="text" i18n>${each.text.join("//")}</span>
         </div>
     </div>`;
 };
 
+// Make Event Card
 $.events.makeEvent = function (each) {
-    let html = ``;
     each.type = "event";
-    if (Array.isArray(each.charaface) && each.charaface.length > 0) {
+    each.hasIllust = false;      // Default value
+    each.hasIllustGroup = false; // Default value
+    each.illustGroupAmount = 0;  // Default value
+
+    if (each.charaface) { // Has charaface, make Illustration + Text
         each.hasIllust = true;
-        each.hasIllustGroup = false;
-        each.hasSideChara = false;
-        html += $.events.makeIllust(each);
-    } else if (each.charatype == "charaface") {
-        each.hasIllust = false;
-        each.hasIllustGroup = false;
-        each.illustGroupAmount = 1;
-        each.hasSideChara = true;
-    } else if (each.charaface) {
-        each.hasIllust = true;
-        each.hasIllustGroup = false;
-        each.illustGroupAmount = 1;
-        each.hasSideChara = true;
-        html += $.events.makeIllust(each);
-    } else {
-        each.hasIllust = false;
-        each.hasIllustGroup = false;
-        each.illustGroupAmount = 1;
-        each.hasSideChara = false;
+        return $.events.makeIllust(each) + $.events.makeText(each);
+    } else { // No charaface, make only Text
+        return $.events.makeText(each);
     }
-    html += $.events.makeCard(each);
-    return html;
 };
 
 $.events.makeBirthday = function (each) {
-    each.charatype = "charaface";
     each.showDate = true;
+    each.charatype = "story";
     each.charaface = each.key;
-    each.hasSideChara = true;
-    each.hasIllust = false;
+    each.hasIllust = true;
     each.hasIllustGroup = false;
     each.illustGroupAmount = 1;
     each.text = [
@@ -369,29 +342,26 @@ $.events.makeBirthday = function (each) {
         `${each.name[1][1]}生日快乐！`,
         `Happy ${each.name[2][1]} Day!`,
     ];
-    return $.events.makeCard(each);
+    return $.events.makeIllust(each) + $.events.makeText(each);
 };
 
+// Make Illustrations
 $.events.makeIllust = function (each) {
     let charaGroups = [];
-    if (
-        Array.isArray(each.charaface) &&
+    if (Array.isArray(each.charaface) &&
         each.charaface.length > 0 &&
-        Array.isArray(each.charaface[0])
-    ) {
+        Array.isArray(each.charaface[0])) { // Has multiple groups, and each group has multiple characters
         charaGroups = each.charaface;
         each.hasIllustGroup = true;
         each.illustGroupAmount = each.charaface.length;
-    } else if (Array.isArray(each.charaface)) {
+    } else if (Array.isArray(each.charaface)) { // Has a single group of characters
         each.hasIllustGroup = false;
         each.illustGroupAmount = 1;
         charaGroups = [each.charaface];
-    } else if (each.charaface) {
+    } else if (each.charaface) { // Has only a character
         each.hasIllustGroup = false;
         each.illustGroupAmount = 1;
-        charaGroups = [
-            [each.charaface]
-        ];
+        charaGroups = [[each.charaface]];
     }
 
     let groupIndex = 0;
@@ -402,7 +372,6 @@ $.events.makeIllust = function (each) {
             html += `<span class="charaface ${chara}" style="background-image: url('chara/${each.charatype}/${chara}.png');"></span>`;
         });
         html += `</div>`;
-
         groupIndex++;
     });
 
@@ -411,10 +380,6 @@ $.events.makeIllust = function (each) {
 
 // Contruct all events
 $.events.forEach((each) => {
-    if ((each.month && each.day) || (each.month && each.day && each.year)) {
-        each.display = "force";
-    }
-
     if (each.type == "birthday") {
         each.html = $.events.makeBirthday(each);
     } else if (each.type == "illust") {
@@ -423,11 +388,9 @@ $.events.forEach((each) => {
         each.html = $.events.makeEvent(each);
     }
 
-    if (each.type == "illust") {
-        each.priority = 500;
-    } else if (each.hasIllust && !each.hasSideChara && each.display != "idle") {
+    if (each.type == "birthday") { // Birthday
         each.priority = 900;
-    } else if (each.hasIllust && each.hasSideChara && each.display != "idle") {
+    } else if (each.type == "event" && each.hasIllust) { // Event Text + Illustration
         each.priority = 700;
     } else {
         each.priority = 100;
@@ -444,83 +407,75 @@ $.events.forEach((each) => {
     $(".widget .events").append(each.html);
 });
 
+// Date function
 $.events.date = function () {
     let today = new Date();
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // (month = 12), (day = 31);
+    // (month = 3), (day = 25);
     return [month, day];
 };
 
+// On events
 $.events.on = [];
 
 // Current displaying events and their arrangement
-$.events.onIndex = 0;
+$.events.onIndex = 0.0; // Decimal, integer part represents index of event, decimal part represents index of illust group
 $.events.onTimeTick = -1;
 
-$.events.listEventsOn = function (kickIdle = false) {
+// List all events for date
+$.events.listEventsOn = function () {
     let [month, day] = $.events.date();
+    $.events.on = [];
 
     $.events.forEach((each) => {
         if ((each.month == month && each.day == day) || each.show) {
-            if (kickIdle && each.display == "force") {
-                $.events.on.push(each);
-            } else if (!kickIdle) {
-                $.events.on.push(each);
-            }
+            $.events.on.push(each);
         }
     });
 };
 
+// Display events
 $.events.interval = function () {
     // List all events
-    $.events.on = [];
-    $.events.listEventsOn(true);
-    if ($.events.on.length == 0) {
-        $.events.listEventsOn(false);
-    }
+    $.events.listEventsOn();
 
+    // No event is on
     if ($.events.on.length == 0) {
+        $(".widget .events > div").removeClass("is-op").hide();
         return;
     }
 
     // Display widgets
     $.events.onTimeTick++;
     let switchSecond = 30; // amount of seconds to switch widgets
-    if ($.events.onTimeTick % switchSecond == 0) {
+
+    if ($.events.onTimeTick % switchSecond == 0) { // Cycle
         $.events.onTimeTick = 0;
 
-        let majorIndex = Math.floor($.events.onIndex);
+        // Current event
+        let majorIndex = Math.floor($.events.onIndex); // Event index
         let current = $.events.on[majorIndex];
 
-        let minorIndex = Math.floor(($.events.onIndex - majorIndex) * 100) / 100;
+        // Current illust group
+        let minorIndex = Math.floor(($.events.onIndex - majorIndex) * 100) / 100; // Illust group index
         minorIndex = Math.ceil(minorIndex * current.illustGroupAmount);
 
-        let newMinor = (minorIndex + 1) / current.illustGroupAmount;
+        // Next illust group
+        let newMinor = (minorIndex + 1) / current.illustGroupAmount; // Next illust group index -> decimal
         $.events.onIndex = majorIndex + newMinor;
         $.events.onIndex %= $.events.on.length;
 
+        // Dom ids
         let id = `.widget .events .${current.type}.${current.key}`;
         let illust_id = `.widget .events .illust.${current.key}.${minorIndex}`;
 
-        $.events.forEach((each) => {
-            let each_id = `.widget .events .${each.type}.${each.key}`;
-            let each_illust_id = `.widget .events .illust.${each.key}`;
+        // Hide not to show items
+        $(".widget .events > div").not(id).removeClass("is-op").hide();
+        $(".widget .events > div").not(illust_id).removeClass("is-op").hide();
 
-            if (each_id != id) {
-                $(each_id).hide().removeClass("is-op");
-                $.console.widget_event(each, false);
-            }
-
-            $(each_illust_id).each((each_illust) => {
-                if (`${each_illust_id}.${each_illust}` != illust_id) {
-                    $(each_illust_id).hide().removeClass("is-op");
-                    $.console.widget_event(each, false);
-                }
-            });
-        });
-
+        // Show event
         $(id).show().addClass("is-op");
         $(illust_id).show().addClass("is-op");
         $.console.widget_event(current, true);
@@ -529,7 +484,13 @@ $.events.interval = function () {
 
 setTimeout(function () {
     $.events.interval();
+    let [lastMonth, lastDay] = [null, null];
     setInterval(() => {
-        $.events.interval();
+        let [nowMonth, nowDay] = $.events.date();
+        if (nowMonth != lastMonth || nowDay != lastDay) {
+            lastMonth = nowMonth;
+            lastDay = nowDay;
+            $.events.interval();
+        }
     }, 1000);
 }, 3000);

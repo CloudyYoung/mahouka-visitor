@@ -10,18 +10,18 @@
     --charaface-height: 12rem;
 }
 
-.widget .events .card,
+.widget .events .text,
 .widget .events .illust {
     opacity: 0;
     margin-top: 1.4rem;
 }
 
-.widget .events .card.is-op,
+.widget .events .text.is-op,
 .widget .events .illust.is-op {
     opacity: 1;
 }
 
-.widget .events .card {
+.widget .events .text {
     position: relative;
     letter-spacing: normal;
     text-align: center;
@@ -30,25 +30,25 @@
     height: auto;
     text-align: center;
     box-sizing: border-box;
-}
-
-.widget .events .is-op.card {
-    animation-name: fadeInUp;
-    animation-duration: 0.8s;
-    animation-delay: 0.5s;
     transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
-.widget .events .is-op.card:hover {
+.widget .events .is-op.text {
+    animation-name: fadeInUp;
+    animation-duration: 0.8s;
+    animation-delay: 0.5s;
+}
+
+.widget .events .is-op.text:hover {
     opacity: 0.72;
 }
 
-.widget .events .is-op.card:hover:before,
-.widget .events .is-op.card:hover:after {
+.widget .events .is-op.text:hover:before,
+.widget .events .is-op.text:hover:after {
     display: none;
 }
 
-.widget .events .card .card-body {
+.widget .events .text .text-body {
     opacity: 0;
     background: rgba(0, 0, 0, 0.82);
     padding: 1.8rem 3rem;
@@ -56,12 +56,12 @@
     transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1) 1s;
 }
 
-.widget .events .card.is-op .card-body {
+.widget .events .text.is-op .text-body {
     opacity: 1;
 }
 
-.widget .events .card:before,
-.widget .events .card:after {
+.widget .events .text:before,
+.widget .events .text:after {
     content: '';
     width: 0%;
     height: 0%;
@@ -71,33 +71,29 @@
     pointer-events: none;
 }
 
-.widget .events .card:before {
+.widget .events .text:before {
     top: 0px;
     left: 0px;
     border-top: 0.22rem solid #000;
     border-left: 0.22rem solid #000;
 }
 
-.widget .events .card:after {
+.widget .events .text:after {
     right: 0px;
     bottom: 0px;
     border-right: 0.22rem solid #000;
     border-bottom: 0.22rem solid #000;
 }
 
-.widget .events .is-op.card:before,
-.widget .events .is-op.card:after {
+.widget .events .is-op.text:before,
+.widget .events .is-op.text:after {
     width: 100%;
     height: 100%;
     opacity: 1;
     transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.5s, height 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.5s, opacity 0s ease 0.5s;
 }
 
-.widget .events .card.has-side-chara .card-body {
-    padding-right: calc(var(--charaface-width) - 0.6rem);
-}
-
-.widget .events .card-body .text {
+.widget .events .text-body .text {
     font-size: 1.6rem;
     font-weight: 700;
     line-height: 1.4;
@@ -105,52 +101,17 @@
     margin-bottom: 0.2rem;
     text-align: center;
     width: 100%;
+    opacity: 1;
 }
 
-.widget .events .card-body .date {
+.widget .events .text-body .date {
     color: #42BFB2;
     font-family: 'Roboto Condensed';
     line-height: 1.4;
-    margin-right: 1.1rem;
+    margin-right: 0.9rem;
     font-size: 1.8rem;
     font-weight: 600;
-}
-
-.widget .events .card.has-side-chara .chara {
-    display: block !important;
-}
-
-.widget .events .card-body .chara {
-    --height-rate: calc(var(--raw-width) / var(--raw-height));
-    --height: calc(var(--charaface-height) * var(--height-rate));
-    --width: var(--charaface-width);
-    display: none;
-    pointer-events: none;
-    background-repeat: no-repeat;
-    position: absolute;
-    height: var(--height);
-    width: var(--width);
-    max-height: 9rem;
-}
-
-.widget .events .card-body .chara {
-    --raw-height: 550;
-    --raw-width: 480;
-    background-size: cover;
-    background-origin: top center;
-    background-position: top center;
-    right: 0%;
-    bottom: 0%;
-}
-
-.widget .events .card-body .chara.charaface {
-    --raw-height: 128;
-    --raw-width: 200;
-    background-size: contain;
-    background-origin: right bottom;
-    background-position: right bottom;
-    right: 0%;
-    bottom: 0%;
+    opacity: 1;
 }
 
 .widget .events .illust {
@@ -230,7 +191,7 @@
     padding: 0rem 1.54rem;
 }
 
-.widget .music *{
+.widget .music * {
     z-index: 999;
 }
 
@@ -264,19 +225,19 @@
     transition: none;
 }
 
-.widget .music .control button{
+.widget .music .control button {
     margin-right: 0.4rem;
 }
 
 
-.widget .music .control button:last-child{
+.widget .music .control button:last-child {
     margin-right: 0;
 }
 
 
 .widget .music .control.secondary button {
-    width: 2.457rem;
-    height: 2.457rem;
+    width: 2.6rem;
+    height: 2.6rem;
 }
 
 .widget .music .control .play {
@@ -286,26 +247,6 @@
 
 .widget .music .control .stop {
     background: url(../img/btn_stop_on.png) center center no-repeat;
-    background-size: 100% auto;
-}
-
-.widget .music .control .repeat {
-    background: url(../img/btn_repeat.svg) center center no-repeat;
-    background-size: 100% auto;
-}
-
-.widget .music .control .list {
-    background: url(../img/btn_list.svg) center center no-repeat;
-    background-size: 100% auto;
-}
-
-.widget .music .control .repeat-one {
-    background: url(../img/btn_repeat_one.svg) center center no-repeat;
-    background-size: 100% auto;
-}
-
-.widget .music .control .shuffle {
-    background: url(../img/btn_shuffle.svg) center center no-repeat;
     background-size: 100% auto;
 }
 
@@ -335,7 +276,7 @@
     position: absolute;
     bottom: 0px;
     left: 0px;
-    height: 2%;
+    height: 4%;
     background-color: #42BFB2;
     box-shadow: 0rem 2rem 8rem 1.8rem #42BFB2;
     z-index: 1;
