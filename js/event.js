@@ -231,17 +231,17 @@ $.events = [
         charaface: "tatsuya",
         text: ["灼熱のハロウィン", "烧焦的万圣节", "Scorched Halloween"],
     },
-    {
-        key: "enrollment-day",
-        year: 2095,
-        month: 4,
-        day: 3,
-        showDate: true,
-        name: "enrollment-day",
-        charatype: "charaface",
-        charaface: "miyuki",
-        text: ["シブリングスクールの日", "兄妹入学日", "Enrollment Day"],
-    },
+    // {
+    //     key: "enrollment-day",
+    //     year: 2095,
+    //     month: 4,
+    //     day: 3,
+    //     showDate: true,
+    //     name: "enrollment-day",
+    //     charatype: "uniform",
+    //     charaface: ["mari", "mayumi"],
+    //     text: ["シブリングスクールの日", "兄妹入学日", "Enrollment Day"],
+    // },
     {
         key: "first-meet-lina",
         year: 2096,
@@ -283,7 +283,27 @@ $.events = [
         charaface: "10th-anniversary",
         show: false,
     },
+    // {
+    //     key: "2096-student-council",
+    //     year: 2096,
+    //     month: 10,
+    //     day: 1,
+    //     showDate: true,
+    //     charatype: "uniform",
+    //     charaface: ["miyuki", "tatsuya", "minami", "izumi", "honoka"],
+    // },
+    // {
+    //     key: "2096-science-competition",
+    //     year: 2096,
+    //     month: 10,
+    //     day: 28,
+    //     showDate: true, charatype: "uniform",
+    //     charaface: ["honoka"],
+    // }
 ];
+
+// TODO: Add main characters uniform images
+// TODO: Edit birthday illustration display (small + tall version)
 
 $.months = [
     "Jan",
@@ -443,9 +463,14 @@ $.events.interval = function () {
 
     // No event is on
     if ($.events.on.length == 0) {
-        $(".widget .events > div").removeClass("is-op").hide();
+        $(".widget .events > div").removeClass("is-op").delay(800).hide(0);
+        $(".widget").trigger("event", [false]); // Trigger event
         return;
+    } else {
+        $(".widget").trigger("event", [true]); // Trigger event
     }
+
+    console.log(999);
 
     // Display widgets
     $.events.onTimeTick++;
@@ -483,10 +508,12 @@ $.events.interval = function () {
 };
 
 setTimeout(function () {
-    $.events.interval();
-    let [lastMonth, lastDay] = [null, null];
+    let [lastMonth, lastDay] = [null, null]; // Last check time
+
     setInterval(() => {
         let [nowMonth, nowDay] = $.events.date();
+
+        // Only if last check time is different from now time, run interval
         if (nowMonth != lastMonth || nowDay != lastDay) {
             lastMonth = nowMonth;
             lastDay = nowDay;
