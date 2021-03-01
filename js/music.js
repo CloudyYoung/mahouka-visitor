@@ -170,8 +170,8 @@ $.album.tracks.forEach((each) => {
 
 $(document).ready(function () {
 
-    $.album.generatePlaylist();
-    $.album.playback();
+    // $.album.generatePlaylist();
+    // $.album.playback();
 
     $(".widget .music .sources audio").each((index, each) => {
         each.addEventListener("canplay", (e) => {
