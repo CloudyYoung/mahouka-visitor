@@ -274,7 +274,7 @@ $.events = [
             "<span class='date'>第 2096 届</span>恭喜毕业！",
             "<span class='date'>Class 2096</span>Congrats on Graduation!",
         ],
-        show: false,
+        show: true,
     },
     {
         key: "anniversary",
@@ -439,85 +439,83 @@ $.events.date = function () {
 
 // On events
 $.events.on = [];
+$.events.lmonth = null;
+$.events.lday = null;
+$.events.today = function () {
 
-// Current displaying events and their arrangement
-$.events.onIndex = 0.0; // Decimal, integer part represents index of event, decimal part represents index of illust group
-$.events.onTimeTick = -1;
-
-// List all events for date
-$.events.listEventsOn = function () {
+    // Check date
     let [month, day] = $.events.date();
-    $.events.on = [];
+    if (month == $.events.lmonth && day == $.events.lday) {
+        return;
+    }
 
+    // Update date
+    $.events.lmonth = month, $.events.lday = day;
+
+    // List all events for date
+    $.events.on = [];
     $.events.forEach((each) => {
         if ((each.month == month && each.day == day) || each.show) {
             $.events.on.push(each);
         }
     });
-};
 
-// Display events
-$.events.interval = function () {
-    // List all events
-    $.events.listEventsOn();
+    // Tick
+    $.events.tick();
+
+    // Update console
+    $.console.widget_event($.events.on);
 
     // No event is on
     if ($.events.on.length == 0) {
         $(".widget .events > div").removeClass("is-op").delay(800).hide(0);
         $(".widget").trigger("event", [false]); // Trigger event
-        return;
     } else {
         $(".widget").trigger("event", [true]); // Trigger event
     }
+}
 
-    console.log(999);
 
-    // Display widgets
-    $.events.onTimeTick++;
-    let switchSecond = 30; // amount of seconds to switch widgets
+$.events.onIndex = 0.0; // Decimal, integer part represents index of event, decimal part represents index of illust group
+$.events.tick = function () {
 
-    if ($.events.onTimeTick % switchSecond == 0) { // Cycle
-        $.events.onTimeTick = 0;
-
-        // Current event
-        let majorIndex = Math.floor($.events.onIndex); // Event index
-        let current = $.events.on[majorIndex];
-
-        // Current illust group
-        let minorIndex = Math.floor(($.events.onIndex - majorIndex) * 100) / 100; // Illust group index
-        minorIndex = Math.ceil(minorIndex * current.illustGroupAmount);
-
-        // Next illust group
-        let newMinor = (minorIndex + 1) / current.illustGroupAmount; // Next illust group index -> decimal
-        $.events.onIndex = majorIndex + newMinor;
-        $.events.onIndex %= $.events.on.length;
-
-        // Dom ids
-        let id = `.widget .events .${current.type}.${current.key}`;
-        let illust_id = `.widget .events .illust.${current.key}.${minorIndex}`;
-
-        // Hide not to show items
-        $(".widget .events > div").not(id).removeClass("is-op").hide();
-        $(".widget .events > div").not(illust_id).removeClass("is-op").hide();
-
-        // Show event
-        $(id).show().addClass("is-op");
-        $(illust_id).show().addClass("is-op");
-        $.console.widget_event(current, true);
+    if ($.events.on.length == 0) {
+        return; // Nothing to tick
     }
+
+    // Current event
+    let majorIndex = Math.floor($.events.onIndex); // Event index
+    let current = $.events.on[majorIndex];
+
+    // Current illust group
+    let minorIndex = Math.floor(($.events.onIndex - majorIndex) * 100) / 100; // Illust group index
+    minorIndex = Math.ceil(minorIndex * current.illustGroupAmount);
+
+    // Dom ids
+    let id = `.widget .events .${current.type}.${current.key}`;
+    let illust_id = `.widget .events .illust.${current.key}.${minorIndex}`;
+
+    // Hide not to show items
+    $(".widget .events > div").not(id).not(illust_id).removeClass("is-op").hide();
+
+    // Show event
+    $(id).show().addClass("is-op");
+    $(illust_id).show().addClass("is-op");
+
+    // Console
+    $.console.widget_event_tick($.events.onIndex, majorIndex, minorIndex);
+
+    // Next illust group
+    let nextMinorIndex = (minorIndex + 1) / current.illustGroupAmount; // Next illust group index -> decimal
+    $.events.onIndex = majorIndex + nextMinorIndex;
+    $.events.onIndex %= $.events.on.length;
 };
 
 setTimeout(function () {
-    let [lastMonth, lastDay] = [null, null]; // Last check time
-
     setInterval(() => {
-        let [nowMonth, nowDay] = $.events.date();
-
-        // Only if last check time is different from now time, run interval
-        if (nowMonth != lastMonth || nowDay != lastDay) {
-            lastMonth = nowMonth;
-            lastDay = nowDay;
-            $.events.interval();
-        }
+        $.events.today();
     }, 1000);
+    setInterval(() => {
+        $.events.tick();
+    }, 30 * 1000);
 }, 3000);

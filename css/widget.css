@@ -14,7 +14,7 @@
 .widget .events .text,
 .widget .events .illust {
     opacity: 0;
-    margin-top: 1.4rem;
+    margin-top: 1.1rem;
 }
 
 .widget .events .text.is-op,
@@ -182,7 +182,7 @@
 .widget .music {
     position: relative;
     height: 6.448rem;
-    margin-top: 1rem;
+    margin-top: 1.1rem;
     padding: 0px 0 0 0;
     color: #fff;
     background: #000;
