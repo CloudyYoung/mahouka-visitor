@@ -21,9 +21,8 @@ $("body").addClass("smooth-movement");
 // Clear all delays
 setTimeout(function () {
     $(".animated").each((index, each) => {
-        for (t = 0; t <= 7; t++) {
-            $(each).removeClass(`delay-${t}`);
-        }
+        $(each).removeClass(`delay-0 delay-1 delay-2 delay-3 delay-4 delay-5 delay-6 delay-7`);
+        $(each).removeClass("animated fadeIn fadeInRight fadeInLeft fadeInUp fadeInDown fadeOut");
     });
 }, 4000);
 
