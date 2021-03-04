@@ -303,7 +303,7 @@ $.events = [
 ];
 
 // TODO: Add main characters uniform images
-// TODO: Edit birthday illustration display (small + tall version)
+// TODO: Mayumi's birthday illustration display (small + tall version)
 
 $.months = [
     "Jan",
@@ -435,7 +435,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    (month = 3), (day = 25);
+    (month = 8), (day = 1);
     return [month, day];
 };
 
