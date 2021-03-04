@@ -75,13 +75,12 @@
 }
 .widget .events .illusts {
   --ratio: calc(480 / 550);
-  --height: 13.5rem;
   --delay: 0s;
   --shadow-width: 0.22rem;
-  height: var(--height);
   text-align: center;
 }
 .widget .events .illusts .charaface {
+  --height: 13.5rem;
   background-size: contain;
   background-repeat: no-repeat;
   background-origin: center;

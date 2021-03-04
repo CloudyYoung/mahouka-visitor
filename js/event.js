@@ -479,8 +479,8 @@ $.events.tick = function () {
 
     // Hide not to show items & show event
     $(".widget .events .card").not(id).removeClass("is-op").hide();
-    $(`.widget .events .card${id} .illusts`).not(illust_id).removeClass("is-op").hide();
     $(`.widget .events .card${id}`).show().addClass("is-op");
+    $(`.widget .events .card${id} .illusts`).not(illust_id).removeClass("is-op").hide();
     $(`.widget .events .card${id} .illusts${illust_id}`).show().addClass("is-op");
 
     // Console
