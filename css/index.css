@@ -178,11 +178,13 @@ body {
     margin-top: 0%;
     left: 100%;
   }
+
   to {
     margin-top: 50%;
     left: -200px;
   }
 }
+
 /** LOGO **/
 .logo-wrapper {
   z-index: 1999;
@@ -270,10 +272,12 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
+
 .iframe,
 .hide {
   display: none;
@@ -333,41 +337,51 @@ body {
     opacity: 0;
     transform: translate3d(max(-10%, -16rem), 0, 0);
   }
+
   10% {
     opacity: 0;
   }
+
   75% {
     opacity: 1;
   }
+
   100% {
     transform: translate3d(0, 0, 0);
   }
 }
+
 @keyframes fadeInRight {
   0% {
     opacity: 0;
     transform: translate3d(min(10%, 16rem), 0, 0);
   }
+
   10% {
     opacity: 0;
   }
+
   75% {
     opacity: 1;
   }
+
   100% {
     transform: translate3d(0, 0, 0);
   }
 }
+
 /** FADEIN LEFT / RIGHT **/
 /** FADE IN / OUT **/
 @keyframes fadeIn {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
 }
+
 .fadeIn {
   animation-name: fadeIn;
   animation-duration: 0.7s;
@@ -377,10 +391,12 @@ body {
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
 }
+
 .fadeOut {
   animation-name: fadeOut;
   animation-duration: 0.7s;
@@ -391,11 +407,13 @@ body {
     opacity: 0;
     transform: translate3d(0, min(10%, 16rem), 0);
   }
+
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 }
+
 .fadeInUp {
   animation-name: fadeInUp;
   animation-duration: 0.7s;

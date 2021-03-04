@@ -1,18 +1,28 @@
 $(".widget").append(`
-    <div class="music animated fadeIn delay-7">
-        <div class="control">
-            <button class="play-status play"></button>
-        </div>
-        <div class="content">
-            <p class="no"></p>
-            <p class="title"></p>
+    <div class="music">
+        <div class="player" style="display: none;">
+            <div class="progress"></div>
+            <div class="control">
+                <button class="play-status play"></button>
+            </div>
+            <div class="content">
+                <p class="no"></p>
+                <p class="title"></p>
+            </div>
         </div>
         <div class="sources"></div>
-        <div class="progress"></div>
     </div>
 `);
 
-$(".widget .music .control .play-status").click((e) => {
+$(".widget .events").append(`
+    <div class="mini player" style="display: none;">
+        <div class="control">
+            <button class="play-status play"></button>
+        </div>
+    </div>
+`);
+
+$(".widget .player .control .play-status").click((e) => {
     if ($.album.playing) {
         $.album.pause();
     } else {
@@ -39,9 +49,9 @@ $.album.playback = function () {
         $.album.generatePlaylist();
     }
     $.album.on = $.album.playlist.shift();
-    $(".widget .music .content .title").text($.album.on.title);
-    $(".widget .music .content .no").text($.album.on.no.toString().padStart(2, "0"));
-    $(".widget .music .progress").css("width", `0%`);
+    $(".widget .player .content .title").text($.album.on.title);
+    $(".widget .player .content .no").text($.album.on.no.toString().padStart(2, "0"));
+    $(".widget .player .progress").css("width", `0%`);
     $.album.on.dom.currentTime = 0;
     $.album.play();
 }
@@ -170,7 +180,7 @@ $.album.tracks.forEach((each) => {
 
 $(document).ready(function () {
 
-    // $.album.generatePlaylist();
+    $.album.generatePlaylist();
     // $.album.playback();
 
     $(".widget .music .sources audio").each((index, each) => {
@@ -179,27 +189,27 @@ $(document).ready(function () {
         });
 
         each.addEventListener("playing", (e) => {
-            $(".widget .music .control .play-status").removeClass("play").addClass("stop");
-            $(".widget .music .content .title").text($.album.on.title);
-            $(".widget .music .content .no").text($.album.on.no.toString().padStart(2, "0"));
+            $(".widget .player .control .play-status").removeClass("play").addClass("stop");
+            $(".widget .player .content .title").text($.album.on.title);
+            $(".widget .player .content .no").text($.album.on.no.toString().padStart(2, "0"));
             if ($.album.on.dom.currentTime == 0) {
-                $(".widget .music .progress").css("width", `0%`);
+                $(".widget .player .progress").css("width", `0%`);
             }
             $.album.playing = true;
         });
 
         each.addEventListener("pause", (e) => {
-            $(".widget .music .control .play-status").removeClass("stop").addClass("play");
+            $(".widget .player .control .play-status").removeClass("stop").addClass("play");
             $.album.playing = false;
         });
 
         each.addEventListener("timeupdate", (e) => {
             let percent = (each.currentTime / each.duration) * 100;
-            $(".widget .music .progress").css("width", `${percent}%`);
+            $(".widget .player .progress").css("width", `${percent}%`);
         });
 
         each.addEventListener("ended", (e) => {
-            $(".widget .music .control .play-status").removeClass("stop").addClass("play");
+            $(".widget .player .control .play-status").removeClass("stop").addClass("play");
             $.album.playback();
         });
     });
@@ -207,6 +217,10 @@ $(document).ready(function () {
 
 $('.widget').on('event', function (e, on) {
     if (on) {
-
+        $(".widget .music .player").hide();
+        $(".widget .mini.player").delay(500).fadeIn();
+    } else {
+        $(".widget .music .player").fadeIn(800);
+        $(".widget .mini.player").fadeOut();
     }
 });

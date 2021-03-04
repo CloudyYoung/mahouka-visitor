@@ -408,7 +408,7 @@ $.events.forEach((each) => {
         each.html = $.events.makeEvent(each);
     }
 
-    each.html = `<div class="card ${each.key} ${each.type}">` + each.html + `</div>`;
+    each.html = `<div class="card ${each.key} ${each.type}" style="display: none;">` + each.html + `</div>`;
 
     if (each.type == "birthday") { // Birthday
         each.priority = 900;
@@ -435,7 +435,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    (month = 8), (day = 1);
+    // (month = 8), (day = 1);
     return [month, day];
 };
 

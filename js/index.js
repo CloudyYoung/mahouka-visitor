@@ -57,7 +57,7 @@ setInterval(function () {
         $.console.dust(id, top);
     }, 1000 * 14);
 
-}, 1500);
+}, 1000);
 
 
 

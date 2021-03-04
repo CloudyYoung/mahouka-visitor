@@ -3,7 +3,7 @@
     bottom: 10%;
     right: 60px;
     z-index: 1899;
-    width: min(35%, 35rem);
+    /* width: min(35%, 35rem); */
 }
 
 /** WIDGET EVENTS **/
@@ -198,12 +198,15 @@
     margin-right: -8rem;
 }
 
-/** WIDGET MUSIC **/
+/** WIDGET MUSIC & PLAYER **/
 
-.widget .music {
+.widget .music .sources {
+    display: none;
+}
+
+.widget .player {
     position: relative;
     height: 6.448rem;
-    margin-top: 1.1rem;
     padding: 0px 0 0 0;
     color: #fff;
     background: #000;
@@ -211,28 +214,21 @@
     overflow: hidden;
     display: flex;
     padding: 0rem 1.54rem;
+    width: 32rem;
 }
 
-.widget .music * {
-    z-index: 999;
-}
-
-.widget .music .sources {
-    display: none;
-}
-
-.widget .music .control {
+.widget .player .control {
     display: flex;
     align-items: center;
     margin-right: 1.34rem;
 }
 
-.widget .music .control.secondary {
+.widget .player .control.secondary {
     margin-left: auto;
     margin-right: 0;
 }
 
-.widget .music .control button {
+.widget .player .control button {
     border-radius: 0;
     border: 0;
     cursor: pointer;
@@ -247,45 +243,45 @@
     transition: none;
 }
 
-.widget .music .control button {
+.widget .player .control button {
     margin-right: 0.4rem;
 }
 
 
-.widget .music .control button:last-child {
+.widget .player .control button:last-child {
     margin-right: 0;
 }
 
 
-.widget .music .control.secondary button {
+.widget .player .control.secondary button {
     width: 2.6rem;
     height: 2.6rem;
 }
 
-.widget .music .control .play {
+.widget .player .control .play {
     background: url(../img/btn_play_on.png) center center no-repeat;
     background-size: 100% auto;
 }
 
-.widget .music .control .stop {
+.widget .player .control .stop {
     background: url(../img/btn_stop_on.png) center center no-repeat;
     background-size: 100% auto;
 }
 
-.widget .music .content {
+.widget .player .content {
     display: flex;
     align-items: center;
     font-size: 1.6rem;
 }
 
-.widget .music .content .title {
+.widget .player .content .title {
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "ヒラギノ角ゴ ProN W3", Hiragino Kaku Gothic ProN, "游ゴシック", YuGothic, Arial, "メイリオ", Meiryo, sans-serif;
     margin: 0px;
     font-size: 1.6rem;
     font-weight: 500;
 }
 
-.widget .music .content .no {
+.widget .player .content .no {
     font-family: 'Roboto Condensed';
     color: #42BFB2;
     font-weight: 600;
@@ -294,7 +290,7 @@
     margin-right: 0.4rem;
 }
 
-.widget .music .progress {
+.widget .player .progress {
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -303,4 +299,24 @@
     box-shadow: 0rem 2rem 8rem 1.8rem #42BFB2;
     z-index: 1;
     z-index: 9;
+}
+
+.widget .mini.player {
+    --button-height: 4rem;
+    position: absolute;
+    height: 6rem;
+    width: var(--button-height);
+    bottom: 0px;
+    left: 0px;
+    background-color: transparent;
+    transform: translateX(-100%);
+}
+
+.widget .mini.player .control {
+    margin: 0px;
+}
+
+.widget .mini.player .control button {
+    height: var(--button-height);
+    width: var(--button-height);
 }
