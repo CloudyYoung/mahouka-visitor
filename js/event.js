@@ -377,7 +377,7 @@ $.events.makeIllust = function (each) {
     let groupIndex = 0;
     let html = "";
     charaGroups.forEach((charaGroup) => {
-        html += `<div class="illust ${groupIndex}">`;
+        html += `<div class="illusts ${groupIndex}">`;
         charaGroup.forEach((chara) => {
             html += `<span class="charaface ${chara} ${each.charatype}" style="background-image: url('chara/${each.charatype}/${chara}.png');"></span>`;
         });
@@ -482,12 +482,12 @@ $.events.tick = function () {
 
     // Dom ids
     let id = `.${current.key}.${current.type}`; // Card id
-    let illust_id = `.illust.${minorIndex}`;    // Illust group id
+    let illust_id = `.illusts.${minorIndex}`;    // Illust group id
     console.log(illust_id, minorIndex);
 
     // Hide not to show items & show event
     $(".widget .events .card").not(id).removeClass("is-op").hide();
-    $(`.widget .events .card${id} .illust`).not(illust_id).removeClass("is-op").hide();
+    $(`.widget .events .card${id} .illusts`).not(illust_id).removeClass("is-op").hide();
     $(id).show().addClass("is-op");
     $(illust_id).show().addClass("is-op");
 
@@ -499,6 +499,8 @@ $.events.tick = function () {
     $.events.onIndex = majorIndex + nextMinorIndex;
     $.events.onIndex %= $.events.on.length;
 };
+
+// $(".card").show().addClass("is-op");
 
 setTimeout(function () {
     $.events.today();

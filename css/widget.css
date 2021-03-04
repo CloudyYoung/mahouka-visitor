@@ -10,7 +10,7 @@
   --charaface-height: 12rem;
 }
 .widget .events .texts,
-.widget .events .illust {
+.widget .events .illusts {
   opacity: 0;
   margin-top: 1.4rem;
 }
@@ -73,7 +73,7 @@
   font-weight: 600;
   opacity: 1;
 }
-.widget .events .illust {
+.widget .events .illusts {
   --ratio: calc(480 / 550);
   --height: 13.5rem;
   --delay: 0s;
@@ -81,7 +81,7 @@
   height: var(--height);
   text-align: center;
 }
-.widget .events .illust .charaface {
+.widget .events .illusts .charaface {
   background-size: contain;
   background-repeat: no-repeat;
   background-origin: center;
@@ -94,30 +94,30 @@
   margin-right: -2rem;
   filter: drop-shadow(var(--shadow-width) 0px 0 #fff) drop-shadow(calc(-0.76 * var(--shadow-width)) 0px 0 #fff) drop-shadow(0px var(--shadow-width) 0 #fff) drop-shadow(0px calc(-0.76 * var(--shadow-width)) 0 #fff);
 }
-.widget .events .illust .charaface:nth-child(1) {
+.widget .events .illusts .charaface:nth-child(1) {
   --delay: 0s;
 }
-.widget .events .illust .charaface:nth-child(2) {
+.widget .events .illusts .charaface:nth-child(2) {
   --delay: 0.1s;
 }
-.widget .events .illust .charaface:nth-child(3) {
+.widget .events .illusts .charaface:nth-child(3) {
   --delay: 0.2s;
 }
-.widget .events .illust .charaface:nth-child(4) {
+.widget .events .illusts .charaface:nth-child(4) {
   --delay: 0.3s;
 }
-.widget .events .illust .charaface.story {
+.widget .events .illusts .charaface.story {
   --ratio: calc(1500 / 1900);
   --height: 16rem;
   --shadow-width: 0.16rem;
 }
-.widget .events .illust .charaface.anniversary {
+.widget .events .illusts .charaface.anniversary {
   --ratio: calc(30 / 12);
   --height: 11rem;
   --shadow-width: 0;
 }
 .widget .events .card.is-op .texts,
-.widget .events .card.is-op .illust {
+.widget .events .card.is-op .illusts {
   opacity: 1;
 }
 .widget .events .card.is-op .texts {
@@ -140,7 +140,7 @@
 .widget .events .card.is-op .texts .text-body {
   opacity: 1;
 }
-.widget .events .card.is-op .illust .charaface {
+.widget .events .card.is-op .illusts .charaface {
   --animation-duration: 1.8s;
   opacity: 1;
   transition: opacity 0s linear calc(var(--delay) + var(--animation-duration));
@@ -148,18 +148,18 @@
   animation-name: fadeInLeft;
   animation-delay: var(--delay);
 }
-.widget .events .card.is-op .illust .charaface.anniversary {
+.widget .events .card.is-op .illusts .charaface.anniversary {
   animation-name: fadeInUp !important;
 }
-.widget .events .card.birthday .illust {
+.widget .events .card.birthday .illusts {
   height: 46rem;
 }
-.widget .events .card.birthday .illust .charaface.story:nth-child(1) {
+.widget .events .card.birthday .illusts .charaface.story:nth-child(1) {
   --height: 16rem;
   margin-right: -4rem;
   margin-bottom: 5rem;
 }
-.widget .events .card.birthday .illust .charaface.story:nth-child(2) {
+.widget .events .card.birthday .illusts .charaface.story:nth-child(2) {
   --height: 46rem;
   --ratio: 0.6715;
   margin-left: -5rem;

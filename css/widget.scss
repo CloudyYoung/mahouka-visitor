@@ -9,7 +9,7 @@
         --charaface-height: 12rem;
 
         .texts,
-        .illust {
+        .illusts {
             opacity: 0;
             margin-top: 1.4rem;
         }
@@ -81,7 +81,7 @@
             }
         }
 
-        .illust {
+        .illusts {
             --ratio: calc(480 / 550);
             --height: 13.5rem;
             --delay: 0s;
@@ -135,7 +135,7 @@
         .card.is-op {
 
             .texts,
-            .illust {
+            .illusts {
                 opacity: 1;
             }
 
@@ -167,7 +167,7 @@
                 }
             }
 
-            .illust {
+            .illusts {
                 .charaface {
                     --animation-duration: 1.8s;
                     opacity: 1;
@@ -183,7 +183,7 @@
             }
         }
 
-        .card.birthday .illust {
+        .card.birthday .illusts {
             height: 46rem;
 
             .charaface.story {
