@@ -3,7 +3,6 @@
     bottom: 10%;
     right: 60px;
     z-index: 1899;
-    /* width: min(35%, 35rem); */
 }
 
 /** WIDGET EVENTS **/
@@ -209,7 +208,7 @@
     height: 6.448rem;
     padding: 0px 0 0 0;
     color: #fff;
-    background: #000;
+    background: rgba(0, 0, 0, 0.82);
     line-height: 1em;
     overflow: hidden;
     display: flex;
