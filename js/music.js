@@ -1,5 +1,5 @@
 $(".widget").append(`
-    <div class="music">
+    <div class="music animated fadeIn delay-7">
         <div class="player" style="display: none;">
             <div class="progress"></div>
             <div class="control">
@@ -15,9 +15,11 @@ $(".widget").append(`
 `);
 
 $(".widget .events").append(`
-    <div class="mini player" style="display: none;">
-        <div class="control">
-            <button class="play-status play"></button>
+    <div class="music" style="display: none;">
+        <div class="mini player" style="display: none;">
+            <div class="control">
+                <button class="play-status play"></button>
+            </div>
         </div>
     </div>
 `);
@@ -177,7 +179,6 @@ $.album.tracks.forEach((each) => {
     each.dom = $(`.widget .music .sources audio.${each.no}`).get(0);
 });
 
-
 $(document).ready(function () {
 
     $.album.generatePlaylist();
@@ -215,12 +216,28 @@ $(document).ready(function () {
     });
 });
 
+$.player = {};
+$.player.mode = 0; // 0: Music normal player, 1: Mini player
+$.player.open = function () {
+    switch ($.player.mode) {
+        case 0:
+            $(".widget .music .player").fadeIn(800);
+            $(".widget .music .mini.player").hide();
+            break;
+
+        case 1:
+            $(".widget .music .player").hide();
+            $(".widget .music .mini.player").delay(500).fadeIn();
+            break;
+    }
+}
+
 $('.widget').on('event', function (e, on) {
     if (on) {
-        $(".widget .music .player").hide();
-        $(".widget .mini.player").delay(500).fadeIn();
+        $.player.mode = 1;
     } else {
-        $(".widget .music .player").fadeIn(800);
-        $(".widget .mini.player").fadeOut();
+        $.player.mode = 0;
     }
+    $.player.open();
+
 });

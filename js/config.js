@@ -148,6 +148,7 @@ window.wallpaperPropertyListener = {
         if (properties.music) {
             if (properties.music.value) {
                 $.album.playback();
+                $.player.open();
                 $('.widget .music').show();
             } else {
                 $.album.pause();

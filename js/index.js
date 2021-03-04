@@ -3,7 +3,7 @@ $.global_degreeRatio = 1;
 $.global_outstandRatioDefault = [0.1, 0.1, 0.1];
 $.global_outstandRatio = $.global_outstandRatioDefault;
 $.kv_x_stand = [0, 0, 0];
-$.kv_stand_ratio = [0.4, 0.76, 1.0];
+$.kv_stand_ratio = [0.33, 0.66, 1.0];
 
 $('body').append(`
     <div class="bg animated fadeIn delay-0"></div>
@@ -57,7 +57,7 @@ setInterval(function () {
         $.console.dust(id, top);
     }, 1000 * 14);
 
-}, 1000);
+}, 1500);
 
 
 

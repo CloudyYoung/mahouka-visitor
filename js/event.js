@@ -359,8 +359,8 @@ $.events.makeBirthday = function (each) {
     each.illustGroupAmount = 1;
     each.text = [
         `${each.name[0][1]}の誕生日おめでとう！`,
-        `${each.name[1][1]}生日快乐！`,
-        `Happy ${each.name[2][1]} Day!`,
+        `${each.name[1][1]}，生日快乐！`,
+        `Happy birthday, ${each.name[2][1]}!`,
     ];
     return $.events.makeIllust(each) + $.events.makeText(each);
 };
@@ -435,7 +435,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // (month = 8), (day = 1);
+    // (month = 4), (day = 24);
     return [month, day];
 };
 
@@ -510,6 +510,8 @@ $.events.tick = function () {
 };
 
 setTimeout(function () {
+    $.events.today();
+
     setInterval(() => {
         $.events.today();
     }, 1000);

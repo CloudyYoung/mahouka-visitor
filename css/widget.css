@@ -33,6 +33,7 @@
     text-align: center;
     box-sizing: border-box;
     transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+    min-width: 32rem;
 }
 
 .widget .events .card.is-op .texts {
@@ -194,7 +195,7 @@
     --height: 46rem;
     --ratio: 0.6715;
     margin-left: -5rem;
-    margin-right: -8rem;
+    margin-right: -6rem;
 }
 
 /** WIDGET MUSIC & PLAYER **/
@@ -240,21 +241,12 @@
     margin: auto;
     outline: none;
     transition: none;
-}
-
-.widget .player .control button {
     margin-right: 0.4rem;
+    transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-
-.widget .player .control button:last-child {
-    margin-right: 0;
-}
-
-
-.widget .player .control.secondary button {
-    width: 2.6rem;
-    height: 2.6rem;
+.widget .player .control button:hover {
+    opacity: 0.8;
 }
 
 .widget .player .control .play {
