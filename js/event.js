@@ -6,7 +6,7 @@ $.events = [
         type: "illust",
         charatype: "story",
         charaface: ["miyuki", "tatsuya", "angie"],
-        show: true,
+        show: false,
     },
     {
         key: "story-2",
@@ -324,37 +324,6 @@ $.events.makeText = function (each) {
     </div>`;
 };
 
-// Make Event Card
-$.events.makeEvent = function (each) {
-    each.type = "event";
-    each.showDate = each.showDate ? each.showDate : false;
-    each.hasIllust = false;      // Default value
-    each.hasIllustGroup = false; // Default value
-    each.illustGroupAmount = 0;  // Default value
-
-    if (each.charaface) { // Has charaface, make Illustration + Text
-        each.hasIllust = true;
-        return $.events.makeIllust(each) + $.events.makeText(each);
-    } else { // No charaface, make only Text
-        return $.events.makeText(each);
-    }
-};
-
-$.events.makeBirthday = function (each) {
-    each.showDate = true;
-    each.charatype = "story";
-    each.charaface = [each.key, `${each.key}-tall`];
-    each.hasIllust = true;
-    each.hasIllustGroup = false;
-    each.illustGroupAmount = 1;
-    each.text = [
-        `${each.name[0][1]}の誕生日おめでとう！`,
-        `${each.name[1][1]}，生日快乐！`,
-        `Happy birthday, ${each.name[2][1]}!`,
-    ];
-    return $.events.makeIllust(each) + $.events.makeText(each);
-};
-
 // Make Illustrations
 $.events.makeIllust = function (each) {
     let charaGroups = [];
@@ -362,16 +331,13 @@ $.events.makeIllust = function (each) {
         each.charaface.length > 0 &&
         Array.isArray(each.charaface[0])) { // Has multiple groups, and each group has multiple characters
         charaGroups = each.charaface;
-        each.hasIllustGroup = true;
         each.illustGroupAmount = each.charaface.length;
     } else if (Array.isArray(each.charaface)) { // Has a single group of characters
-        each.hasIllustGroup = false;
-        each.illustGroupAmount = 1;
         charaGroups = [each.charaface];
-    } else if (each.charaface) { // Has only a character
-        each.hasIllustGroup = false;
         each.illustGroupAmount = 1;
+    } else if (each.charaface) { // Has only a character
         charaGroups = [[each.charaface]];
+        each.illustGroupAmount = 1;
     }
 
     let groupIndex = 0;
@@ -386,6 +352,32 @@ $.events.makeIllust = function (each) {
     });
 
     return html;
+};
+
+// Make Event Card
+$.events.makeEvent = function (each) {
+    each.type = "event";
+    each.showDate = each.showDate ? each.showDate : false;
+    each.hasIllust = each.charaface ? true : false;
+
+    if (each.hasIllust) { // Has charaface, make Illustration + Text
+        return $.events.makeIllust(each) + $.events.makeText(each);
+    } else { // No charaface, make only Text
+        return $.events.makeText(each);
+    }
+};
+
+$.events.makeBirthday = function (each) {
+    each.showDate = true;
+    each.charatype = "story";
+    each.charaface = [each.key, `${each.key}-tall`];
+    each.hasIllust = true;
+    each.text = [
+        `${each.name[0][1]}の誕生日おめでとう！`,
+        `${each.name[1][1]}，生日快乐！`,
+        `Happy birthday, ${each.name[2][1]}!`,
+    ];
+    return $.events.makeIllust(each) + $.events.makeText(each);
 };
 
 // Contruct all events
@@ -425,7 +417,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // (month = 8), (day = 1);
+    (month = 8), (day = 1);
     return [month, day];
 };
 
@@ -481,13 +473,13 @@ $.events.tick = function () {
     minorIndex = Math.ceil(minorIndex * current.illustGroupAmount);
 
     // Dom ids
-    let id = `.${current.key}.${current.type}`; // Card id
-    let illust_id = `.illusts.${minorIndex}`;    // Illust group id
+    let id = `.widget .events .card.${current.key}.${current.type}`; // Card id
+    let illust_id = id + ` .illusts.${minorIndex}`;    // Illust group id
     console.log(illust_id, minorIndex);
 
     // Hide not to show items & show event
     $(".widget .events .card").not(id).removeClass("is-op").hide();
-    $(`.widget .events .card${id} .illusts`).not(illust_id).removeClass("is-op").hide();
+    $(`.widget .events .card .illusts`).not(illust_id).removeClass("is-op").hide();
     $(id).show().addClass("is-op");
     $(illust_id).show().addClass("is-op");
 
