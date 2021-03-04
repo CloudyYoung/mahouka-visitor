@@ -417,7 +417,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // (month = 8), (day = 1);
+    (month = 8), (day = 1);
     return [month, day];
 };
 
@@ -484,7 +484,7 @@ $.events.tick = function () {
     // Hide not to show items & show event
     $(".widget .events .card").not(id).removeClass("is-op").hide();
     $(`.widget .events .card${id}`).show().addClass("is-op");
-    $(`.widget .events .card .illusts`).removeClass("is-op").hide();
+    $(`.widget .events .card .illusts`).not(illust_id).removeClass("is-op").hide();
     $(`.widget .events .card${id} .illusts${illust_id}`).show().addClass("is-op");
 
     // Console
