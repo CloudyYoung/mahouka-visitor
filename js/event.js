@@ -56,9 +56,9 @@ $.events = [
         text: [
             "シーズン 2 終了おめでとうございます!",
             "来访者篇 动画完结撒花！",
-            "Congrats on the End of Season!",
+            "Congrats on Season Finale!",
         ],
-        show: false,
+        show: true,
     },
     {
         key: "miyuki",
@@ -327,6 +327,7 @@ $.events.makeText = function (each) {
 // Make Event Card
 $.events.makeEvent = function (each) {
     each.type = "event";
+    each.showDate = each.showDate ? each.showDate : false;
     each.hasIllust = false;      // Default value
     each.hasIllustGroup = false; // Default value
     each.illustGroupAmount = 0;  // Default value
@@ -376,9 +377,9 @@ $.events.makeIllust = function (each) {
     let groupIndex = 0;
     let html = "";
     charaGroups.forEach((charaGroup) => {
-        html += `<div class="illust ${each.charatype} ${groupIndex}">`;
+        html += `<div class="illust ${groupIndex}">`;
         charaGroup.forEach((chara) => {
-            html += `<span class="charaface ${chara}" style="background-image: url('chara/${each.charatype}/${chara}.png');"></span>`;
+            html += `<span class="charaface ${chara} ${each.charatype}" style="background-image: url('chara/${each.charatype}/${chara}.png');"></span>`;
         });
         html += `</div>`;
         groupIndex++;
@@ -451,9 +452,6 @@ $.events.today = function () {
         }
     });
 
-    // Tick
-    $.events.tick();
-
     // Update console
     $.console.widget_event($.events.on);
 
@@ -483,11 +481,15 @@ $.events.tick = function () {
     minorIndex = Math.ceil(minorIndex * current.illustGroupAmount);
 
     // Dom ids
-    let id = `.card.${current.key}.${current.type}`;
+    let id = `.${current.key}.${current.type}`; // Card id
+    let illust_id = `.illust.${minorIndex}`;    // Illust group id
+    console.log(illust_id, minorIndex);
 
     // Hide not to show items & show event
     $(".widget .events .card").not(id).removeClass("is-op").hide();
+    $(`.widget .events .card${id} .illust`).not(illust_id).removeClass("is-op").hide();
     $(id).show().addClass("is-op");
+    $(illust_id).show().addClass("is-op");
 
     // Console
     $.console.widget_event_tick($.events.onIndex, majorIndex, minorIndex);
@@ -500,10 +502,12 @@ $.events.tick = function () {
 
 setTimeout(function () {
     $.events.today();
+    $.events.tick();
 
     setInterval(() => {
         $.events.today();
     }, 1000);
+
     setInterval(() => {
         $.events.tick();
     }, 30 * 1000);
