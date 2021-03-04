@@ -30,7 +30,6 @@
 				"ui_simple" : "Simple",
 				"ui_smooth_movement" : "Character Smooth Movement",
 				"ui_static" : "Static",
-				"ui_widget" : "Widgets",
 				"ui_volume": "Volume"
 			},
 			"zh-chs" : 
@@ -42,10 +41,10 @@
 				"ui_high" : "高",
 				"ui_logo" : "图标",
 				"ui_logo_horizontal" : "默认横板",
-				"ui_logo_horizontal_en" : "英语横板",
+				"ui_logo_horizontal_en" : "英文横板",
 				"ui_logo_style" : "图标样式",
 				"ui_logo_vertical" : "默认竖版",
-				"ui_logo_vertical_en" : "英语竖版",
+				"ui_logo_vertical_en" : "英文竖版",
 				"ui_music" : "音乐",
 				"ui_particles" : "粒子",
 				"ui_performance" : "表现",
@@ -57,7 +56,6 @@
 				"ui_simple" : "简单",
 				"ui_smooth_movement" : "角色平滑移动",
 				"ui_static" : "静态",
-				"ui_widget" : "小组件",
 				"ui_volume": "音量"
 			}
 		},
@@ -173,12 +171,11 @@
 			},
 			"music" : 
 			{
-				"condition" : "widget.value == true",
 				"index" : 9,
 				"order" : 109,
 				"text" : "ui_music",
 				"type" : "bool",
-				"value" : true
+				"value" : false
 			},
 			"particles" : 
 			{
@@ -190,7 +187,7 @@
 			},
 			"playback_mode" : 
 			{
-				"condition" : "widget.value == true && music.value == true",
+				"condition" : "music.value == true",
 				"index" : 10,
 				"options" : 
 				[
@@ -214,7 +211,7 @@
 			},
 			"repeat_track" : 
 			{
-				"condition" : "widget.value == true && music.value == true && playback_mode.value == 1",
+				"condition" : "music.value == true && playback_mode.value == 1",
 				"index" : 11,
 				"options" : 
 				[
@@ -334,7 +331,7 @@
 			},
 			"volume" : 
 			{
-				"condition" : "widget.value == true && music.value == true",
+				"condition" : "music.value == true",
 				"fraction" : true,
 				"index" : 13,
 				"max" : 100,
@@ -345,14 +342,6 @@
 				"text" : "ui_volume",
 				"type" : "slider",
 				"value" : 20
-			},
-			"widget" : 
-			{
-				"index" : 8,
-				"order" : 108,
-				"text" : "ui_widget",
-				"type" : "bool",
-				"value" : true
 			}
 		}
 	},

@@ -107,20 +107,22 @@ window.wallpaperPropertyListener = {
         }
 
         // Console
-        if (properties.widget) {
-            if (properties.widget.value) {
-                $('.widget').show();
-            } else {
-                $('.widget').hide();
-            }
-        }
-
-        // Console
         if (properties.developer_console) {
             if (properties.developer_console.value) {
                 $('.console').css('--display', 'block');
             } else {
                 $('.console').css('--display', 'none');
+            }
+        }
+
+        // Music
+        if (properties.music) {
+            if (properties.music.value) {
+                $('.widget .music').show();
+                $.album.playback();
+            } else {
+                $('.widget .music').hide();
+                $.album.pause();
             }
         }
 
@@ -134,6 +136,13 @@ window.wallpaperPropertyListener = {
             }
         }
 
+        // Volume
+        if (properties.volume) {
+            $.album.tracks.forEach((each) => {
+                each.dom.volume = properties.volume.value / 100;
+            });
+        }
+
         // Playback Mode
         if (properties.playback_mode) {
             if ($.album.playbackMode == properties.playback_mode.value) {
@@ -142,24 +151,6 @@ window.wallpaperPropertyListener = {
             $.album.playbackMode = properties.playback_mode.value;
             $.album.generatePlaylist();
             $.album.playback();
-        }
-
-        // Music
-        if (properties.music) {
-            if (properties.music.value) {
-                $.album.playback();
-                $('.widget .music').show();
-            } else {
-                $.album.pause();
-                $('.widget .music').hide();
-            }
-        }
-
-        // Volume
-        if (properties.volume) {
-            $.album.tracks.forEach((each) => {
-                each.dom.volume = properties.volume.value / 100;
-            });
         }
     }
 }

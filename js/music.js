@@ -222,7 +222,7 @@ $.player.mode = 0; // 0: Music normal player, 1: Mini player
 $.player.open = function () {
     switch ($.player.mode) {
         case 0:
-            $(".widget .music .player").fadeIn(800);
+            $(".widget .music .player").fadeIn();
             $(".widget .music .mini.player").hide();
             break;
 
