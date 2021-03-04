@@ -274,7 +274,7 @@ $.events = [
             "<span class='date'>第 2096 届</span>恭喜毕业！",
             "<span class='date'>Class 2096</span>Congrats on Graduation!",
         ],
-        show: true,
+        show: false,
     },
     {
         key: "anniversary",
@@ -326,7 +326,7 @@ $.events.makeText = function (each) {
                 ${$.months[each.month - 1]} ${each.day}${each.year ? `, ${each.year}` : ""}`;
 
     return `
-    <div class="${each.type} ${each.key} text">
+    <div class="texts">
         <div class="text-body">
             <span class="chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
             <span class="date ${each.showDate ? "" : "hide"}" i18n>${date}</span>
@@ -353,7 +353,7 @@ $.events.makeEvent = function (each) {
 $.events.makeBirthday = function (each) {
     each.showDate = true;
     each.charatype = "story";
-    each.charaface = each.key;
+    each.charaface = [each.key, `${each.key}-tall`];
     each.hasIllust = true;
     each.hasIllustGroup = false;
     each.illustGroupAmount = 1;
@@ -387,7 +387,7 @@ $.events.makeIllust = function (each) {
     let groupIndex = 0;
     let html = "";
     charaGroups.forEach((charaGroup) => {
-        html += `<div class="illust ${each.key} ${each.charatype} ${groupIndex}">`;
+        html += `<div class="illust ${each.charatype} ${groupIndex}">`;
         charaGroup.forEach((chara) => {
             html += `<span class="charaface ${chara}" style="background-image: url('chara/${each.charatype}/${chara}.png');"></span>`;
         });
@@ -407,6 +407,8 @@ $.events.forEach((each) => {
     } else {
         each.html = $.events.makeEvent(each);
     }
+
+    each.html = `<div class="card ${each.key} ${each.type}">` + each.html + `</div>`;
 
     if (each.type == "birthday") { // Birthday
         each.priority = 900;
@@ -433,7 +435,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // (month = 3), (day = 25);
+    (month = 3), (day = 25);
     return [month, day];
 };
 
@@ -492,15 +494,11 @@ $.events.tick = function () {
     minorIndex = Math.ceil(minorIndex * current.illustGroupAmount);
 
     // Dom ids
-    let id = `.widget .events .${current.type}.${current.key}`;
-    let illust_id = `.widget .events .illust.${current.key}.${minorIndex}`;
+    let id = `.card.${current.key}.${current.type}`;
 
-    // Hide not to show items
-    $(".widget .events > div").not(id).not(illust_id).removeClass("is-op").hide();
-
-    // Show event
+    // Hide not to show items & show event
+    $(".widget .events .card").not(id).removeClass("is-op").hide();
     $(id).show().addClass("is-op");
-    $(illust_id).show().addClass("is-op");
 
     // Console
     $.console.widget_event_tick($.events.onIndex, majorIndex, minorIndex);
