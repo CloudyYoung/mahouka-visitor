@@ -30,33 +30,7 @@
 				"ui_simple" : "Simple",
 				"ui_smooth_movement" : "Character Smooth Movement",
 				"ui_static" : "Static",
-				"ui_volume": "Volume"
-			},
-			"zh-chs" : 
-			{
-				"ui_background_amplitude" : "背景移动幅度",
-				"ui_character_amplitude_x" : "角色横向移动幅度",
-				"ui_character_amplitude_y" : "角色纵向移动幅度",
-				"ui_developer_console" : "开发者面板",
-				"ui_high" : "高",
-				"ui_logo" : "图标",
-				"ui_logo_horizontal" : "默认横版",
-				"ui_logo_horizontal_en" : "英文横版",
-				"ui_logo_style" : "图标样式",
-				"ui_logo_vertical" : "默认竖版",
-				"ui_logo_vertical_en" : "英文竖版",
-				"ui_music" : "音乐",
-				"ui_particles" : "粒子",
-				"ui_performance" : "表现",
-				"ui_playback_mode" : "播放模式",
-				"ui_repeat" : "全部循环",
-				"ui_repeat_one" : "单曲循环",
-				"ui_repeat_track" : "循环曲目",
-				"ui_shuffle" : "随机",
-				"ui_simple" : "简单",
-				"ui_smooth_movement" : "角色平滑移动",
-				"ui_static" : "静态",
-				"ui_volume": "音量"
+				"ui_volume" : "Volume"
 			},
 			"ja-jp" : 
 			{
@@ -82,7 +56,33 @@
 				"ui_simple" : "簡明",
 				"ui_smooth_movement" : "スムーズなキャラクターの動き",
 				"ui_static" : "定置",
-				"ui_volume": "おおきさ"
+				"ui_volume" : "おおきさ"
+			},
+			"zh-chs" : 
+			{
+				"ui_background_amplitude" : "背景移动幅度",
+				"ui_character_amplitude_x" : "角色横向移动幅度",
+				"ui_character_amplitude_y" : "角色纵向移动幅度",
+				"ui_developer_console" : "开发者面板",
+				"ui_high" : "高",
+				"ui_logo" : "图标",
+				"ui_logo_horizontal" : "默认横版",
+				"ui_logo_horizontal_en" : "英文横版",
+				"ui_logo_style" : "图标样式",
+				"ui_logo_vertical" : "默认竖版",
+				"ui_logo_vertical_en" : "英文竖版",
+				"ui_music" : "音乐",
+				"ui_particles" : "粒子",
+				"ui_performance" : "表现",
+				"ui_playback_mode" : "播放模式",
+				"ui_repeat" : "全部循环",
+				"ui_repeat_one" : "单曲循环",
+				"ui_repeat_track" : "循环曲目",
+				"ui_shuffle" : "随机",
+				"ui_simple" : "简单",
+				"ui_smooth_movement" : "角色平滑移动",
+				"ui_static" : "静态",
+				"ui_volume" : "音量"
 			}
 		},
 		"properties" : 
@@ -374,8 +374,8 @@
 	"preview" : "wp04_2.jpg",
 	"tags" : [ "Anime" ],
 	"title" : "魔法科高校的劣等生: 来访者篇",
-	"type" : "web",
-	"version" : 17,
+	"type" : "Web",
+	"version" : 18,
 	"visibility" : "public",
 	"workshopid" : "1922527858",
 	"workshopurl" : "steam://url/CommunityFilePage/1922527858"
