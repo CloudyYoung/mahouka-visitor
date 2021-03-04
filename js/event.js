@@ -58,7 +58,7 @@ $.events = [
             "来访者篇 动画完结撒花！",
             "Congrats on Season Finale!",
         ],
-        show: false,
+        show: true,
     },
     {
         key: "miyuki",
@@ -417,7 +417,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    (month = 8), (day = 1);
+    // (month = 8), (day = 1);
     return [month, day];
 };
 
@@ -473,15 +473,15 @@ $.events.tick = function () {
     minorIndex = Math.ceil(minorIndex * current.illustGroupAmount);
 
     // Dom ids
-    let id = `.widget .events .card.${current.key}.${current.type}`; // Card id
-    let illust_id = id + ` .illusts.${minorIndex}`;    // Illust group id
-    console.log(illust_id, minorIndex);
+    let id = `.${current.key}.${current.type}`; // Card id
+    let illust_id = `.${minorIndex}`;    // Illust group id
+    console.log(illust_id);
 
     // Hide not to show items & show event
     $(".widget .events .card").not(id).removeClass("is-op").hide();
-    $(`.widget .events .card .illusts`).not(illust_id).removeClass("is-op").hide();
-    $(id).show().addClass("is-op");
-    $(illust_id).show().addClass("is-op");
+    $(`.widget .events .card${id} .illusts`).not(illust_id).removeClass("is-op").hide();
+    $(`.widget .events .card${id}`).show().addClass("is-op");
+    $(`.widget .events .card${id} .illusts${illust_id}`).show().addClass("is-op");
 
     // Console
     $.console.widget_event_tick($.events.onIndex, majorIndex, minorIndex);

@@ -116,11 +116,8 @@
   --height: 11rem;
   --shadow-width: 0;
 }
-.widget .events .card.is-op .texts,
-.widget .events .card.is-op .illusts {
-  opacity: 1;
-}
 .widget .events .card.is-op .texts {
+  opacity: 1;
   animation-name: fadeInUp;
   animation-duration: 0.8s;
   animation-delay: 0.5s;
@@ -140,7 +137,10 @@
 .widget .events .card.is-op .texts .text-body {
   opacity: 1;
 }
-.widget .events .card.is-op .illusts .charaface {
+.widget .events .illusts.is-op {
+  opacity: 1;
+}
+.widget .events .illusts.is-op .charaface {
   --animation-duration: 1.8s;
   opacity: 1;
   transition: opacity 0s linear calc(var(--delay) + var(--animation-duration));
@@ -148,7 +148,7 @@
   animation-name: fadeInLeft;
   animation-delay: var(--delay);
 }
-.widget .events .card.is-op .illusts .charaface.anniversary {
+.widget .events .illusts.is-op .charaface.anniversary {
   animation-name: fadeInUp !important;
 }
 .widget .events .card.birthday .illusts {
