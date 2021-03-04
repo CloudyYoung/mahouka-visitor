@@ -185,19 +185,19 @@
 
         .birthday .illust.story {
             height: 46rem;
-        }
 
-        .birthday .illust.story .charaface:nth-child(1) {
-            --height: 16rem;
-            margin-right: -4rem;
-            margin-bottom: 5rem;
-        }
+            .charaface:nth-child(1) {
+                --height: 16rem;
+                margin-right: -4rem;
+                margin-bottom: 5rem;
+            }
 
-        .birthday .illust.story .charaface:nth-child(2) {
-            --height: 46rem;
-            --ratio: 0.6715;
-            margin-left: -5rem;
-            margin-right: -6rem;
+            .charaface:nth-child(2) {
+                --height: 46rem;
+                --ratio: 0.6715;
+                margin-left: -5rem;
+                margin-right: -6rem;
+            }
         }
     }
 
