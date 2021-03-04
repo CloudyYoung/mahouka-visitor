@@ -447,6 +447,10 @@ $.events.today = function () {
     // Update console
     $.console.widget_event($.events.on);
 
+    // Tick
+    $.events.onIndex = 0;
+    $.events.tick();
+
     // No event is on
     if ($.events.on.length == 0) {
         $(".widget .events > div").removeClass("is-op").delay(800).hide(0);
@@ -480,7 +484,7 @@ $.events.tick = function () {
     // Hide not to show items & show event
     $(".widget .events .card").not(id).removeClass("is-op").hide();
     $(`.widget .events .card${id}`).show().addClass("is-op");
-    $(`.widget .events .card${id} .illusts`).not(illust_id).removeClass("is-op").hide();
+    $(`.widget .events .card .illusts`).removeClass("is-op").hide();
     $(`.widget .events .card${id} .illusts${illust_id}`).show().addClass("is-op");
 
     // Console
@@ -496,7 +500,6 @@ $.events.tick = function () {
 
 setTimeout(function () {
     $.events.today();
-    $.events.tick();
 
     setInterval(() => {
         $.events.today();
