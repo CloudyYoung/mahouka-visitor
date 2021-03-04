@@ -40,8 +40,8 @@
 				"ui_developer_console" : "开发者面板",
 				"ui_high" : "高",
 				"ui_logo" : "图标",
-				"ui_logo_horizontal" : "默认横板",
-				"ui_logo_horizontal_en" : "英文横板",
+				"ui_logo_horizontal" : "默认横版",
+				"ui_logo_horizontal_en" : "英文横版",
 				"ui_logo_style" : "图标样式",
 				"ui_logo_vertical" : "默认竖版",
 				"ui_logo_vertical_en" : "英文竖版",
@@ -57,6 +57,32 @@
 				"ui_smooth_movement" : "角色平滑移动",
 				"ui_static" : "静态",
 				"ui_volume": "音量"
+			},
+			"ja-jp" : 
+			{
+				"ui_background_amplitude" : "背景の移動量",
+				"ui_character_amplitude_x" : "キャラの横移動範囲",
+				"ui_character_amplitude_y" : "キャラの横移動範囲",
+				"ui_developer_console" : "開発者パネル",
+				"ui_high" : "高",
+				"ui_logo" : "ロゴマーク",
+				"ui_logo_horizontal" : "デフォルトの水平版",
+				"ui_logo_horizontal_en" : "英語水平版",
+				"ui_logo_style" : "アイコンスタイル",
+				"ui_logo_vertical" : "デフォルトの垂直版",
+				"ui_logo_vertical_en" : "英语垂直版",
+				"ui_music" : "BGM",
+				"ui_particles" : "粒子",
+				"ui_performance" : "表现",
+				"ui_playback_mode" : "再生モード",
+				"ui_repeat" : "フルサイクル",
+				"ui_repeat_one" : "シングルトラックサイクル",
+				"ui_repeat_track" : "ラックループ",
+				"ui_shuffle" : "適当に",
+				"ui_simple" : "簡明",
+				"ui_smooth_movement" : "スムーズなキャラクターの動き",
+				"ui_static" : "定置",
+				"ui_volume": "おおきさ"
 			}
 		},
 		"properties" : 
