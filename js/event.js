@@ -231,17 +231,6 @@ $.events = [
         charaface: "tatsuya",
         text: ["灼熱のハロウィン", "烧焦的万圣节", "Scorched Halloween"],
     },
-    // {
-    //     key: "enrollment-day",
-    //     year: 2095,
-    //     month: 4,
-    //     day: 3,
-    //     showDate: true,
-    //     name: "enrollment-day",
-    //     charatype: "uniform",
-    //     charaface: ["mari", "mayumi"],
-    //     text: ["シブリングスクールの日", "兄妹入学日", "Enrollment Day"],
-    // },
     {
         key: "first-meet-lina",
         year: 2096,

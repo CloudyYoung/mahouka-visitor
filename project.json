@@ -19,18 +19,19 @@
 				"ui_logo_style" : "Logo Style",
 				"ui_logo_vertical" : "Default Vertical",
 				"ui_logo_vertical_en" : "Vertical English",
+				"ui_music" : "Music",
 				"ui_particles" : "Particles",
 				"ui_performance" : "Performance",
+				"ui_playback_mode" : "Playback Mode",
+				"ui_repeat" : "Repeat",
+				"ui_repeat_one" : "Repeat One",
+				"ui_repeat_track" : "Repeat Track",
+				"ui_shuffle" : "Shuffle",
 				"ui_simple" : "Simple",
 				"ui_smooth_movement" : "Character Smooth Movement",
 				"ui_static" : "Static",
 				"ui_widget" : "Widgets",
-				"ui_music": "Music",
-				"ui_repeat_track": "Repeat Track",
-				"ui_playback_mode": "Playback Mode",
-				"ui_repeat": "Repeat",
-				"ui_repeat_one": "Repeat One",
-				"ui_shuffle": "Shuffle"
+				"ui_volume": "Volume"
 			},
 			"zh-chs" : 
 			{
@@ -45,18 +46,19 @@
 				"ui_logo_style" : "图标样式",
 				"ui_logo_vertical" : "默认竖版",
 				"ui_logo_vertical_en" : "英语竖版",
+				"ui_music" : "音乐",
 				"ui_particles" : "粒子",
 				"ui_performance" : "表现",
+				"ui_playback_mode" : "播放模式",
+				"ui_repeat" : "全部循环",
+				"ui_repeat_one" : "单曲循环",
+				"ui_repeat_track" : "循环曲目",
+				"ui_shuffle" : "随机",
 				"ui_simple" : "简单",
 				"ui_smooth_movement" : "角色平滑移动",
 				"ui_static" : "静态",
 				"ui_widget" : "小组件",
-				"ui_music": "音乐",
-				"ui_repeat_track": "循环曲目",
-				"ui_playback_mode": "播放模式",
-				"ui_repeat": "全部循环",
-				"ui_repeat_one": "单曲循环",
-				"ui_shuffle": "随机"
+				"ui_volume": "音量"
 			}
 		},
 		"properties" : 
@@ -103,10 +105,117 @@
 				"type" : "slider",
 				"value" : 6
 			},
+			"developer_console" : 
+			{
+				"index" : 12,
+				"order" : 900,
+				"text" : "ui_developer_console",
+				"type" : "bool",
+				"value" : false
+			},
+			"mahouka_logo" : 
+			{
+				"index" : 5,
+				"order" : 105,
+				"text" : "ui_logo",
+				"type" : "bool",
+				"value" : false
+			},
+			"mahouka_logo_style" : 
+			{
+				"condition" : "mahouka_logo.value == true",
+				"index" : 6,
+				"options" : 
+				[
+					{
+						"label" : "ui_logo_vertical",
+						"value" : ""
+					},
+					{
+						"label" : "ui_logo_horizontal",
+						"value" : "sp"
+					},
+					{
+						"label" : "ui_logo_vertical_en",
+						"value" : "en"
+					},
+					{
+						"label" : "ui_logo_horizontal_en",
+						"value" : "sp en"
+					}
+				],
+				"order" : 106,
+				"text" : "ui_logo_style",
+				"type" : "combo"
+			},
+			"movement_performance" : 
+			{
+				"index" : 0,
+				"options" : 
+				[
+					{
+						"label" : "ui_high",
+						"value" : "high"
+					},
+					{
+						"label" : "ui_simple",
+						"value" : "simple"
+					},
+					{
+						"label" : "ui_static",
+						"value" : "none"
+					}
+				],
+				"order" : 100,
+				"text" : "ui_performance",
+				"type" : "combo",
+				"value" : "high"
+			},
+			"music" : 
+			{
+				"condition" : "widget.value == true",
+				"index" : 9,
+				"order" : 109,
+				"text" : "ui_music",
+				"type" : "bool",
+				"value" : true
+			},
+			"particles" : 
+			{
+				"index" : 7,
+				"order" : 107,
+				"text" : "ui_particles",
+				"type" : "bool",
+				"value" : true
+			},
+			"playback_mode" : 
+			{
+				"condition" : "widget.value == true && music.value == true",
+				"index" : 10,
+				"options" : 
+				[
+					{
+						"label" : "ui_repeat",
+						"value" : 0
+					},
+					{
+						"label" : "ui_repeat_one",
+						"value" : 1
+					},
+					{
+						"label" : "ui_shuffle",
+						"value" : 2
+					}
+				],
+				"order" : 110,
+				"text" : "ui_playback_mode",
+				"type" : "combo",
+				"value" : 0
+			},
 			"repeat_track" : 
 			{
 				"condition" : "widget.value == true && music.value == true && playback_mode.value == 1",
-				"index" : 12,
+				"index" : 11,
 				"options" : 
 				[
 					{
@@ -202,115 +311,8 @@
 						"value" : 22
 					}
 				],
-				"order" : 112,
-				"text" : "ui_repeat_track",
-				"type" : "combo",
-				"value" : 0
-			},
-			"developer_console" : 
-			{
-				"index" : 9,
-				"order" : 199,
-				"text" : "ui_developer_console",
-				"type" : "bool",
-				"value" : false
-			},
-			"mahouka_logo" : 
-			{
-				"index" : 5,
-				"order" : 105,
-				"text" : "ui_logo",
-				"type" : "bool",
-				"value" : false
-			},
-			"mahouka_logo_style" : 
-			{
-				"condition" : "mahouka_logo.value == true",
-				"index" : 6,
-				"options" : 
-				[
-					{
-						"label" : "ui_logo_vertical",
-						"value" : ""
-					},
-					{
-						"label" : "ui_logo_horizontal",
-						"value" : "sp"
-					},
-					{
-						"label" : "ui_logo_vertical_en",
-						"value" : "en"
-					},
-					{
-						"label" : "ui_logo_horizontal_en",
-						"value" : "sp en"
-					}
-				],
-				"order" : 106,
-				"text" : "ui_logo_style",
-				"type" : "combo"
-			},
-			"movement_performance" : 
-			{
-				"index" : 0,
-				"options" : 
-				[
-					{
-						"label" : "ui_high",
-						"value" : "high"
-					},
-					{
-						"label" : "ui_simple",
-						"value" : "simple"
-					},
-					{
-						"label" : "ui_static",
-						"value" : "none"
-					}
-				],
-				"order" : 100,
-				"text" : "ui_performance",
-				"type" : "combo",
-				"value" : "high"
-			},
-			"music" : 
-			{
-				"condition" : "widget.value == true",
-				"index" : 10,
-				"order" : 110,
-				"text" : "ui_music",
-				"type" : "bool",
-				"value" : true
-			},
-			"particles" : 
-			{
-				"index" : 7,
-				"order" : 107,
-				"text" : "ui_particles",
-				"type" : "bool",
-				"value" : true
-			},
-			"playback_mode" : 
-			{
-				"condition" : "widget.value == true && music.value == true",
-				"index" : 11,
-				"options" : 
-				[
-					{
-						"label" : "ui_repeat",
-						"value" : 0
-					},
-					{
-						"label" : "ui_repeat_one",
-						"value" : 1
-					},
-					{
-						"label" : "ui_shuffle",
-						"value" : 2
-					}
-				],
 				"order" : 111,
-				"text" : "ui_playback_mode",
+				"text" : "ui_repeat_track",
 				"type" : "combo",
 				"value" : 0
 			},
@@ -329,6 +331,20 @@
 				"text" : "ui_smooth_movement",
 				"type" : "bool",
 				"value" : true
+			},
+			"volume" : 
+			{
+				"condition" : "widget.value == true && music.value == true",
+				"fraction" : true,
+				"index" : 13,
+				"max" : 100,
+				"min" : 0,
+				"order" : 113,
+				"precision" : 1,
+				"step" : 1,
+				"text" : "ui_volume",
+				"type" : "slider",
+				"value" : 20
 			},
 			"widget" : 
 			{

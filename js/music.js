@@ -177,6 +177,7 @@ $.album.tracks.forEach((each) => {
         </audio>
     `);
     each.dom = $(`.widget .music .sources audio.${each.no}`).get(0);
+    each.dom.volume = 0.2;
 });
 
 $(document).ready(function () {
@@ -239,5 +240,4 @@ $('.widget').on('event', function (e, on) {
         $.player.mode = 0;
     }
     $.player.open();
-
 });

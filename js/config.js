@@ -148,12 +148,18 @@ window.wallpaperPropertyListener = {
         if (properties.music) {
             if (properties.music.value) {
                 $.album.playback();
-                $.player.open();
                 $('.widget .music').show();
             } else {
                 $.album.pause();
                 $('.widget .music').hide();
             }
+        }
+
+        // Volume
+        if (properties.volume) {
+            $.album.tracks.forEach((each) => {
+                each.dom.volume = properties.volume.value / 100;
+            });
         }
     }
 }
