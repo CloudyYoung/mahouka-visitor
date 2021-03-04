@@ -89,18 +89,6 @@
             height: var(--height);
             text-align: center;
 
-            &.story {
-                --ratio: calc(1500 / 1900);
-                --height: 16rem;
-                --shadow-width: 0.16rem;
-            }
-
-            &.anniversary {
-                --ratio: calc(30 / 12);
-                --height: 11rem;
-                --shadow-width: 0;
-            }
-
             .charaface {
                 background-size: contain;
                 background-repeat: no-repeat;
@@ -128,6 +116,18 @@
 
                 &:nth-child(4) {
                     --delay: 0.3s;
+                }
+
+                &.story {
+                    --ratio: calc(1500 / 1900);
+                    --height: 16rem;
+                    --shadow-width: 0.16rem;
+                }
+
+                &.anniversary {
+                    --ratio: calc(30 / 12);
+                    --height: 11rem;
+                    --shadow-width: 0;
                 }
             }
         }
@@ -168,10 +168,6 @@
             }
 
             .illust {
-                &.anniversary .charaface {
-                    animation-name: fadeInUp !important;
-                }
-
                 .charaface {
                     --animation-duration: 1.8s;
                     opacity: 1;
@@ -179,25 +175,32 @@
                     animation-duration: var(--animation-duration);
                     animation-name: fadeInLeft;
                     animation-delay: var(--delay);
+
+                    &.anniversary {
+                        animation-name: fadeInUp !important;
+                    }
                 }
             }
         }
 
-        .birthday .illust.story {
+        .card.birthday .illust {
             height: 46rem;
 
-            .charaface:nth-child(1) {
-                --height: 16rem;
-                margin-right: -4rem;
-                margin-bottom: 5rem;
+            .charaface.story {
+                &:nth-child(1) {
+                    --height: 16rem;
+                    margin-right: -4rem;
+                    margin-bottom: 5rem;
+                }
+
+                &:nth-child(2) {
+                    --height: 46rem;
+                    --ratio: 0.6715;
+                    margin-left: -5rem;
+                    margin-right: -6rem;
+                }
             }
 
-            .charaface:nth-child(2) {
-                --height: 46rem;
-                --ratio: 0.6715;
-                margin-left: -5rem;
-                margin-right: -6rem;
-            }
         }
     }
 

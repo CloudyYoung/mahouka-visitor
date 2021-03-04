@@ -6,7 +6,7 @@ $.events = [
         type: "illust",
         charatype: "story",
         charaface: ["miyuki", "tatsuya", "angie"],
-        show: false,
+        show: true,
     },
     {
         key: "story-2",
@@ -58,7 +58,7 @@ $.events = [
             "来访者篇 动画完结撒花！",
             "Congrats on Season Finale!",
         ],
-        show: true,
+        show: false,
     },
     {
         key: "miyuki",
@@ -425,7 +425,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // (month = 4), (day = 24);
+    // (month = 8), (day = 1);
     return [month, day];
 };
 
