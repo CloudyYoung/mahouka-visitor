@@ -12,13 +12,17 @@ $('body').append(`
                 <li class="02"></li>
                 <li class="03"></li>
             </ul>
+            <ul class="smooth-movement-console">
+                <li class="smooth-movement"></li>
+            </ul>
             <ul class="logo-console">
                 <li class="show"></li>
                 <li class="style"></li>
             </ul>
             <ul class="flare-console"></ul>
             <ul class="dust-console"></ul>
-            <ul class="special-event-console"></ul>
+            <ul class="widget-event-console"></ul>
+            <ul class="widget-event-tick-console"></ul>
         </ul>
     </div>
 `);
@@ -46,23 +50,26 @@ $.console = {
             $(`.console .dust-console`).append(`<li class="${id}">dust_${id}: ${top.toFixed(4)}px</li>`);
         }
     },
-    logo: function (show) { 
+    logo: function (show) {
         $(".console .logo-console .show").html(`logo: ${show}`);
     },
     logo_style: function (style) {
         $(".console .logo-console .style").html(`logo_style: ${style}`);
     },
-    special_event: function (event, show) {
-        let id = `${event.type}-${event.key}`;
-        let values = [];
-        if (event.month && event.day) values.push(event.month + "," + event.day);
-        if (event.charaface) values.push(event.charaface)
-        if (show && $(`.console .special-event-console .${id}`).length == 0) {
-            $(`.console .special-event-console`).append(`<li class="${id}">${event.type}_${event.key}: ${values}</li>`);
-        } else if (!show) {
-            $(`.console .special-event-console .${id}`).remove();
-        } else {
-            // Do nothing
-        }
+    widget_event: function (events) {
+        $(".console .widget-event-console").empty();
+        events.forEach(event => {
+            let id = `${event.type}-${event.key}`;
+            let values = [];
+            if (event.month && event.day) values.push(event.month + "/" + event.day);
+            if (event.charaface) values.push(event.charaface)
+            $(".console .widget-event-console").append(`<li class="${id}">${event.type}_${event.key}: ${values}</li>`);
+        });
+    },
+    widget_event_tick: function (onIndex, majorIndex, minorIndex) {
+        $(".console .widget-event-tick-console").html(`event_tick: ${onIndex},${majorIndex},${minorIndex}`);
+    },
+    smooth_movement: function (on) {
+        $(".console .smooth-movement-console .smooth-movement").html("smooth_movement: " + on);
     }
 }

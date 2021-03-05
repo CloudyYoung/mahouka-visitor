@@ -1,0 +1,20 @@
+{
+    "compile-hero.jade-output-directory": "./",
+    "compile-hero.sass-output-directory": "./",
+    "compile-hero.scss-output-directory": "./",
+    "compile-hero.stylus-output-directory": "",
+    "compile-hero.typescript-output-directory": "./",
+    "compile-hero.typescriptx-output-directory": "./",
+    "compile-hero.pug-output-directory": "./",
+    "compile-hero.less-output-directory": "./",
+    "compile-hero.javascript-output-directory": "./",
+    "compile-hero.typescriptx-output-toggle": false,
+    "compile-hero.typescript-output-toggle": false,
+    "compile-hero.stylus-output-toggle": false,
+    "compile-hero.sass-output-toggle": false,
+    "compile-hero.pug-output-toggle": false,
+    "compile-hero.notification-toggle": false,
+    "compile-hero.javascript-output-toggle": false,
+    "compile-hero.jade-output-toggle": false,
+    "compile-hero.disable-compile-files-on-did-save-code": false
+}

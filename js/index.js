@@ -3,7 +3,7 @@ $.global_degreeRatio = 1;
 $.global_outstandRatioDefault = [0.1, 0.1, 0.1];
 $.global_outstandRatio = $.global_outstandRatioDefault;
 $.kv_x_stand = [0, 0, 0];
-$.kv_stand_ratio = [0.4, 0.76, 1.0];
+$.kv_stand_ratio = [0.33, 0.66, 1.0];
 
 $('body').append(`
     <div class="bg animated fadeIn delay-0"></div>
@@ -13,14 +13,16 @@ $('body').append(`
     <div class="kv kv_chara_03 animated fadeInRight delay-3"></div>
     <div class="kv_flare animated fadeIn delay-4"></div>
     <div class="logo-wrapper animated fadeIn delay-6"><div class="logo"></div></div>
+    <div class="widget"></div>
 `);
+
+$("body").addClass("smooth-movement");
 
 // Clear all delays
 setTimeout(function () {
     $(".animated").each((index, each) => {
-        for (t = 0; t <= 7; t++) {
-            $(each).removeClass(`delay-${t}`);
-        }
+        $(each).removeClass(`delay-0 delay-1 delay-2 delay-3 delay-4 delay-5 delay-6 delay-7`);
+        $(each).removeClass("animated fadeIn fadeInRight fadeInLeft fadeInUp fadeInDown fadeOut");
     });
 }, 4000);
 

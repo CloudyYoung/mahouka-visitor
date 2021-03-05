@@ -1,21 +1,103 @@
 {
 	"contentrating" : "Everyone",
-	"description" : "魔法科高校の劣等生: 来訪者編 (The Irregular at Magic High School: Visitor Arc, Mahouka Koukou no Rettousei: Raihousha-hen, 魔法科高校的劣等生: 来访者篇)\n\nPlz leave your comments or suggestions! And rate this wallpaper 😉!\n\nMade with creativity and love by 😈\n\nSupported languages: English, Simplified Chinese, Japanese\n\n--\n\nCopyright: All images resources are from Mahouka Official Website, Mahouka Lost Zero Game, Mahouka Official Twitter and Twitter User タカムラマサヤ (@systemheaven). Really appreciate their works!\n\nMahouka Official Site: https://mahouka.jp/",
+	"description" : "魔法科高校の劣等生: 来訪者編 (The Irregular at Magic High School: Visitor Arc, Mahouka Koukou no Rettousei: Raihousha-hen, 魔法科高校的劣等生: 来访者篇)\n\nPlease leave your comment and suggestion! And rate😉!\n\nMade with creativity and love by 😈\n\nSupports: English, Simplified Chinese, Japanese\n\n--\n\nCopyright: All artworks are from Mahouka official side, Mahouka Lost Zero game, Mahouka official twitter and Twitter user タカムラマサヤ(@systemheaven). Appreciate their excellent works!\n\nMahouka Official Website：https://mahouka.jp/",
 	"file" : "index.html",
 	"general" : 
 	{
+		"localization" : 
+		{
+			"en-us" : 
+			{
+				"ui_background_amplitude" : "Background amplitude",
+				"ui_character_amplitude_x" : "Character horizontal amplitude",
+				"ui_character_amplitude_y" : "Character vertical amplitude",
+				"ui_developer_console" : "Developer console",
+				"ui_high" : "High",
+				"ui_logo" : "Logo",
+				"ui_logo_horizontal" : "Default Horizontal",
+				"ui_logo_horizontal_en" : "Horizontal English",
+				"ui_logo_style" : "Logo Style",
+				"ui_logo_vertical" : "Default Vertical",
+				"ui_logo_vertical_en" : "Vertical English",
+				"ui_music" : "Music",
+				"ui_particles" : "Particles",
+				"ui_performance" : "Performance",
+				"ui_playback_mode" : "Playback Mode",
+				"ui_repeat" : "Repeat",
+				"ui_repeat_one" : "Repeat One",
+				"ui_repeat_track" : "Repeat Track",
+				"ui_shuffle" : "Shuffle",
+				"ui_simple" : "Simple",
+				"ui_smooth_movement" : "Character Smooth Movement",
+				"ui_static" : "Static",
+				"ui_volume" : "Volume"
+			},
+			"ja-jp" : 
+			{
+				"ui_background_amplitude" : "背景の移動量",
+				"ui_character_amplitude_x" : "キャラの横移動範囲",
+				"ui_character_amplitude_y" : "キャラの横移動範囲",
+				"ui_developer_console" : "開発者パネル",
+				"ui_high" : "高",
+				"ui_logo" : "ロゴマーク",
+				"ui_logo_horizontal" : "デフォルトの水平版",
+				"ui_logo_horizontal_en" : "英語水平版",
+				"ui_logo_style" : "アイコンスタイル",
+				"ui_logo_vertical" : "デフォルトの垂直版",
+				"ui_logo_vertical_en" : "英语垂直版",
+				"ui_music" : "BGM",
+				"ui_particles" : "粒子",
+				"ui_performance" : "表现",
+				"ui_playback_mode" : "再生モード",
+				"ui_repeat" : "フルサイクル",
+				"ui_repeat_one" : "シングルトラックサイクル",
+				"ui_repeat_track" : "ラックループ",
+				"ui_shuffle" : "適当に",
+				"ui_simple" : "簡明",
+				"ui_smooth_movement" : "スムーズなキャラクターの動き",
+				"ui_static" : "定置",
+				"ui_volume" : "おおきさ"
+			},
+			"zh-chs" : 
+			{
+				"ui_background_amplitude" : "背景移动幅度",
+				"ui_character_amplitude_x" : "角色横向移动幅度",
+				"ui_character_amplitude_y" : "角色纵向移动幅度",
+				"ui_developer_console" : "开发者面板",
+				"ui_high" : "高",
+				"ui_logo" : "图标",
+				"ui_logo_horizontal" : "默认横版",
+				"ui_logo_horizontal_en" : "英文横版",
+				"ui_logo_style" : "图标样式",
+				"ui_logo_vertical" : "默认竖版",
+				"ui_logo_vertical_en" : "英文竖版",
+				"ui_music" : "音乐",
+				"ui_particles" : "粒子",
+				"ui_performance" : "表现",
+				"ui_playback_mode" : "播放模式",
+				"ui_repeat" : "全部循环",
+				"ui_repeat_one" : "单曲循环",
+				"ui_repeat_track" : "循环曲目",
+				"ui_shuffle" : "随机",
+				"ui_simple" : "简单",
+				"ui_smooth_movement" : "角色平滑移动",
+				"ui_static" : "静态",
+				"ui_volume" : "音量"
+			}
+		},
 		"properties" : 
 		{
 			"background_amplitude" : 
 			{
 				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
 				"fraction" : true,
+				"index" : 4,
 				"max" : 10,
 				"min" : 1,
-				"order" : 105,
+				"order" : 104,
 				"precision" : 2,
 				"step" : 0.10000000000000001,
-				"text" : "Background amplitude",
+				"text" : "ui_background_amplitude",
 				"type" : "slider",
 				"value" : 2
 			},
@@ -23,12 +105,13 @@
 			{
 				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
 				"fraction" : true,
+				"index" : 2,
 				"max" : 10,
 				"min" : 1,
-				"order" : 103,
+				"order" : 102,
 				"precision" : 2,
 				"step" : 0.10000000000000001,
-				"text" : "Character amplitude x",
+				"text" : "ui_character_amplitude_x",
 				"type" : "slider",
 				"value" : 4
 			},
@@ -36,83 +119,225 @@
 			{
 				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
 				"fraction" : true,
+				"index" : 3,
 				"max" : 10,
 				"min" : 1,
-				"order" : 104,
+				"order" : 103,
 				"precision" : 2,
 				"step" : 0.10000000000000001,
-				"text" : "Character amplitude y",
+				"text" : "ui_character_amplitude_y",
 				"type" : "slider",
 				"value" : 6
 			},
 			"developer_console" : 
 			{
-				"order" : 108,
-				"text" : "Developer console",
+				"index" : 12,
+				"order" : 900,
+				"text" : "ui_developer_console",
 				"type" : "bool",
 				"value" : false
 			},
 			"mahouka_logo" : 
 			{
-				"order" : 101,
-				"text" : "Mahouka logo",
+				"index" : 5,
+				"order" : 105,
+				"text" : "ui_logo",
 				"type" : "bool",
 				"value" : false
 			},
 			"mahouka_logo_style" : 
 			{
 				"condition" : "mahouka_logo.value == true",
+				"index" : 6,
 				"options" : 
 				[
 					{
-						"label" : "Vertical",
+						"label" : "ui_logo_vertical",
 						"value" : ""
 					},
 					{
-						"label" : "Horizontal",
+						"label" : "ui_logo_horizontal",
 						"value" : "sp"
 					},
 					{
-						"label" : "Vertical English",
+						"label" : "ui_logo_vertical_en",
 						"value" : "en"
 					},
 					{
-						"label" : "Horizontal English",
+						"label" : "ui_logo_horizontal_en",
 						"value" : "sp en"
 					}
 				],
-				"order" : 102,
-				"text" : "Mahouka logo style",
+				"order" : 106,
+				"text" : "ui_logo_style",
 				"type" : "combo"
 			},
 			"movement_performance" : 
 			{
+				"index" : 0,
 				"options" : 
 				[
 					{
-						"label" : "High",
+						"label" : "ui_high",
 						"value" : "high"
 					},
 					{
-						"label" : "Simple",
+						"label" : "ui_simple",
 						"value" : "simple"
 					},
 					{
-						"label" : "Static",
+						"label" : "ui_static",
 						"value" : "none"
 					}
 				],
 				"order" : 100,
-				"text" : "Performance",
+				"text" : "ui_performance",
 				"type" : "combo",
 				"value" : "high"
 			},
+			"music" : 
+			{
+				"index" : 9,
+				"order" : 109,
+				"text" : "ui_music",
+				"type" : "bool",
+				"value" : false
+			},
 			"particles" : 
 			{
-				"order" : 106,
-				"text" : "Particles",
+				"index" : 7,
+				"order" : 107,
+				"text" : "ui_particles",
 				"type" : "bool",
 				"value" : true
+			},
+			"playback_mode" : 
+			{
+				"condition" : "music.value == true",
+				"index" : 10,
+				"options" : 
+				[
+					{
+						"label" : "ui_repeat",
+						"value" : 0
+					},
+					{
+						"label" : "ui_repeat_one",
+						"value" : 1
+					},
+					{
+						"label" : "ui_shuffle",
+						"value" : 2
+					}
+				],
+				"order" : 110,
+				"text" : "ui_playback_mode",
+				"type" : "combo",
+				"value" : 0
+			},
+			"repeat_track" : 
+			{
+				"condition" : "music.value == true && playback_mode.value == 1",
+				"index" : 11,
+				"options" : 
+				[
+					{
+						"label" : "01 Vibrant",
+						"value" : 0
+					},
+					{
+						"label" : "02 mikamik amore",
+						"value" : 1
+					},
+					{
+						"label" : "03 The visitor",
+						"value" : 2
+					},
+					{
+						"label" : "04 Army of her",
+						"value" : 3
+					},
+					{
+						"label" : "05 Clover",
+						"value" : 4
+					},
+					{
+						"label" : "06 The parasite smiles",
+						"value" : 5
+					},
+					{
+						"label" : "07 Explanation",
+						"value" : 6
+					},
+					{
+						"label" : "08 Twitch",
+						"value" : 7
+					},
+					{
+						"label" : "09 Kalimba",
+						"value" : 8
+					},
+					{
+						"label" : "10 Resistance",
+						"value" : 9
+					},
+					{
+						"label" : "11 Crists1",
+						"value" : 10
+					},
+					{
+						"label" : "12 Grab it",
+						"value" : 11
+					},
+					{
+						"label" : "13 Irritated",
+						"value" : 12
+					},
+					{
+						"label" : "14 Crisis2",
+						"value" : 13
+					},
+					{
+						"label" : "15 Crisis3",
+						"value" : 14
+					},
+					{
+						"label" : "16 The final hit",
+						"value" : 15
+					},
+					{
+						"label" : "17 Saudade",
+						"value" : 16
+					},
+					{
+						"label" : "18 Spirits",
+						"value" : 17
+					},
+					{
+						"label" : "19 Trackers & fugitives",
+						"value" : 18
+					},
+					{
+						"label" : "20 Concerned",
+						"value" : 19
+					},
+					{
+						"label" : "21 Tatsuya 2.0",
+						"value" : 20
+					},
+					{
+						"label" : "22 Miyuki 2.0",
+						"value" : 21
+					},
+					{
+						"label" : "23 Fearful valentine",
+						"value" : 22
+					}
+				],
+				"order" : 111,
+				"text" : "ui_repeat_track",
+				"type" : "combo",
+				"value" : 0
 			},
 			"schemecolor" : 
 			{
@@ -121,20 +346,36 @@
 				"type" : "color",
 				"value" : "0 0 0"
 			},
-			"specials" : 
+			"smooth_movement" : 
 			{
-				"order" : 107,
-				"text" : "Specials",
+				"condition" : "movement_performance.value == \"high\"",
+				"index" : 1,
+				"order" : 101,
+				"text" : "ui_smooth_movement",
 				"type" : "bool",
 				"value" : true
+			},
+			"volume" : 
+			{
+				"condition" : "music.value == true",
+				"fraction" : true,
+				"index" : 13,
+				"max" : 100,
+				"min" : 0,
+				"order" : 113,
+				"precision" : 1,
+				"step" : 1,
+				"text" : "ui_volume",
+				"type" : "slider",
+				"value" : 20
 			}
 		}
 	},
 	"preview" : "wp04_2.jpg",
 	"tags" : [ "Anime" ],
-	"title" : "The Irregular at Magic High School: Visitor Arc, Mahouka Koukou no Rettousei: Raihousha-hen",
+	"title" : "魔法科高校的劣等生: 来访者篇",
 	"type" : "web",
-	"version" : 17,
+	"version" : 19,
 	"visibility" : "public",
 	"workshopid" : "1922527858",
 	"workshopurl" : "steam://url/CommunityFilePage/1922527858"
