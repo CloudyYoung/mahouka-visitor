@@ -1,5 +1,5 @@
 $(".widget").append(`
-    <div class="music animated fadeIn delay-7">
+    <div class="music" style="display: none;">
         <div class="player" style="display: none;">
             <div class="progress"></div>
             <div class="control">
@@ -182,7 +182,7 @@ $.album.tracks.forEach((each) => {
 $(document).ready(function () {
 
     $.album.generatePlaylist();
-    // $.album.playback();
+    $.album.playback();
 
     $(".widget .music .sources audio").each((index, each) => {
         each.addEventListener("canplay", (e) => {

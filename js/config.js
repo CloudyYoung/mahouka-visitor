@@ -118,7 +118,7 @@ window.wallpaperPropertyListener = {
         // Music
         if (properties.music) {
             if (properties.music.value) {
-                $('.widget .music').show();
+                $('.widget .music').fadeIn();
                 $.album.playback();
                 $.album.play();
             } else {
