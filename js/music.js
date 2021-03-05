@@ -55,7 +55,6 @@ $.album.playback = function () {
     $(".widget .player .content .no").text($.album.on.no.toString().padStart(2, "0"));
     $(".widget .player .progress").css("width", `0%`);
     $.album.on.dom.currentTime = 0;
-    $.album.play();
 }
 $.album.generatePlaylist = function () {
     $.album.playlist = [];
