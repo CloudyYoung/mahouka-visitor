@@ -9,7 +9,7 @@ html {
 }
 
 :root {
-  --transition: all 0.3s ease-out;
+  --transition: all 0.2s ease-out;
   --transition-fluent: all 3s cubic-bezier(0.02, 0.73, 0, 0.92);
 }
 
@@ -63,7 +63,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   transition: var(--transition);
-  transform: translate(var(--x), var(--y));
+  background-position: var(--x) var(--y);
 }
 
 .kv {
@@ -85,8 +85,7 @@ body {
   background-repeat: no-repeat;
   background-position: bottom right;
   transition: var(--transition);
-  transform: translate(var(--x), var(--y));
-  transform-origin: bottom right;
+  background-position: calc(100% + var(--x)) calc(100% + var(--y));
 }
 
 .kv.kv_chara_01 {
@@ -243,7 +242,7 @@ body {
   right: 0px;
   height: 100%;
   width: 100%;
-  z-index: 1799 !important;
+  z-index: 799 !important;
 }
 
 .bg_circle {
