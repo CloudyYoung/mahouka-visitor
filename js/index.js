@@ -108,9 +108,6 @@ $.mouse = function (e) {
         if (kv_y_this < kv_y_over) kv_y_this = kv_y_over;
         if (index == 2 && kv_x_this < kv_03_over) kv_x_this = kv_03_over; // Make sure within screen
 
-        kv_x_this = kv_x_this.toFixed(2);
-        kv_y_this = kv_y_this.toFixed(2);
-
         $(obj).css({ "--x": `${kv_x_this}px`, "--y": `${kv_y_this}px` });
         // $.console.kv(`0${index + 1}`, kv_x_this, kv_y_this);
     });
