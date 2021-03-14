@@ -68,8 +68,8 @@ body {
     background-image: url("../img/kv_bg.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: var(--x) var(--y);
     transition: var(--transition);
+    transform: translate(var(--x), var(--y));
 }
 
 .kv {
@@ -79,20 +79,20 @@ body {
     --y-change-rate: 0.06;
     --x-change-resist: calc(var(--x-change-rate) * 100% * -1);
     --y-change-resist: calc(var(--y-change-rate) * 100% * -1);
-    --stand-cancellation: 0px;
     height: 100%;
     width: 100%;
     z-index: 899;
     position: absolute;
-    bottom: calc(var(--y) * -1 + var(--y-change-resist));
-    right: calc(var(--x) * -1 + var(--x-change-resist));
+    bottom: var(--y-change-resist);
+    right: var(--x-change-resist);
     width: calc((var(--x-change-rate) + 1) * 100%);
     height: calc((var(--y-change-rate) + 1) * 100%);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom right;
     transition: var(--transition);
-    transform: translateX(var(--stand-cancellation));
+    transform: translate(var(--x), var(--y));
+    transform-style: preserve-3d;
     transform-origin: bottom right;
 
     &.kv_chara_01 {
@@ -294,15 +294,15 @@ body {
     }
 
     &.delay-1 {
-        animation-delay: 1.25s;
+        animation-delay: 1.225s;
     }
 
     &.delay-2 {
-        animation-delay: 1.5s;
+        animation-delay: 1.45s;
     }
 
     &.delay-3 {
-        animation-delay: 1.75s;
+        animation-delay: 1.675s;
     }
 
     &.delay-4 {
@@ -354,7 +354,7 @@ body {
     @keyframes fadeInLeft {
         0% {
             opacity: 0;
-            transform: translate3d(max(-10%, -16rem), 0, 0);
+            left: -14rem;
         }
 
         10% {
@@ -366,35 +366,31 @@ body {
         }
 
         100% {
-            transform: translate3d(0, 0, 0);
+            left: 0;
         }
     }
 
     @keyframes fadeInRight {
         0% {
             opacity: 0;
-            transform: translate3d(min(10%, 16rem), 0, 0);
+            left: 14rem;
         }
-
         10% {
             opacity: 0;
         }
-
         75% {
             opacity: 1;
         }
-
         100% {
-            transform: translate3d(0, 0, 0);
+            left: 0;
         }
     }
 
     @keyframes fadeInUp {
         0% {
             opacity: 0;
-            transform: translate3d(0, min(10%, 16rem), 0);
+            transform: translate3d(0, 14rem, 0);
         }
-
         100% {
             opacity: 1;
             transform: translate3d(0, 0, 0);
@@ -402,3 +398,4 @@ body {
     }
 
 }
+

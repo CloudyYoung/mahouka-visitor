@@ -16,5 +16,10 @@
     "compile-hero.notification-toggle": false,
     "compile-hero.javascript-output-toggle": false,
     "compile-hero.jade-output-toggle": false,
-    "compile-hero.disable-compile-files-on-did-save-code": false
+    "compile-hero.disable-compile-files-on-did-save-code": false,
+    "easycompile.compile": {
+        "minifyCssOnSave": true,
+        "minifyJsOnSave": true,
+        "sass": true
+    }
 }

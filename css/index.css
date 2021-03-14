@@ -26,6 +26,7 @@ body {
 .performance-none .bg {
   transition: none !important;
 }
+
 .performance-none .kv {
   transition: none !important;
 }
@@ -33,6 +34,7 @@ body {
 .performance-simple .bg {
   transition: none !important;
 }
+
 .performance-simple .kv {
   transition: none !important;
 }
@@ -40,6 +42,7 @@ body {
 .smooth-movement .bg {
   transition: var(--transition-fluent) !important;
 }
+
 .smooth-movement .kv {
   transition: var(--transition-fluent) !important;
 }
@@ -59,8 +62,8 @@ body {
   background-image: url("../img/kv_bg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: var(--x) var(--y);
   transition: var(--transition);
+  transform: translate(var(--x), var(--y));
 }
 
 .kv {
@@ -70,28 +73,31 @@ body {
   --y-change-rate: 0.06;
   --x-change-resist: calc(var(--x-change-rate) * 100% * -1);
   --y-change-resist: calc(var(--y-change-rate) * 100% * -1);
-  --stand-cancellation: 0px;
   height: 100%;
   width: 100%;
   z-index: 899;
   position: absolute;
-  bottom: calc(var(--y) * -1 + var(--y-change-resist));
-  right: calc(var(--x) * -1 + var(--x-change-resist));
+  bottom: var(--y-change-resist);
+  right: var(--x-change-resist);
   width: calc((var(--x-change-rate) + 1) * 100%);
   height: calc((var(--y-change-rate) + 1) * 100%);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom right;
   transition: var(--transition);
-  transform: translateX(var(--stand-cancellation));
+  transform: translate(var(--x), var(--y));
+  transform-style: preserve-3d;
   transform-origin: bottom right;
 }
+
 .kv.kv_chara_01 {
   background-image: url("../img/kv_chara_01.png");
 }
+
 .kv.kv_chara_02 {
   background-image: url("../img/kv_chara_02.png");
 }
+
 .kv.kv_chara_03 {
   background-image: url("../img/kv_chara_03.png");
 }
@@ -136,26 +142,31 @@ body {
   width: 5%;
   height: calc(var(--height-rate) * 5%);
 }
+
 .dust.bg_dust_01 {
   --width: 160;
   --height: 117;
   background-image: url("../img/bg_dust_01.png");
 }
+
 .dust.bg_dust_02 {
   --width: 134;
   --height: 117;
   background-image: url("../img/bg_dust_02.png");
 }
+
 .dust.bg_dust_03 {
   --width: 131;
   --height: 128;
   background-image: url("../img/bg_dust_03.png");
 }
+
 .dust.bg_dust_04 {
   --width: 168px;
   --height: 136px;
   background-image: url("../img/bg_dust_04.png");
 }
+
 @keyframes dust-run {
   from {
     margin-top: 0%;
@@ -187,6 +198,7 @@ body {
   background-repeat: no-repeat;
   background-position: top right;
 }
+
 .logo.sp {
   height: 9%;
   width: 18%;
@@ -195,9 +207,11 @@ body {
   max-width: 445px;
   background-image: url("../img/logo_sp.png");
 }
+
 .logo.en {
   background-image: url("../img/logo_en.png");
 }
+
 .logo.sp.en {
   background-image: url("../img/logo_sp_en.png");
 }
@@ -219,6 +233,7 @@ body {
   display: var(--display);
   white-space: nowrap;
 }
+
 .console * {
   list-style-type: none;
 }
@@ -229,7 +244,7 @@ body {
   right: 0px;
   height: 100%;
   width: 100%;
-  z-index: 899 !important;
+  z-index: 1799 !important;
 }
 
 .bg_circle {
@@ -244,6 +259,7 @@ body {
   animation: rotate-360 200s linear 0.2s infinite;
   left: 50%;
 }
+
 @keyframes rotate-360 {
   0% {
     transform: rotate(0deg);
@@ -264,46 +280,59 @@ body {
 .animated {
   animation-fill-mode: both;
 }
+
 .animated.delay-0 {
   animation-delay: 1s;
 }
+
 .animated.delay-1 {
-  animation-delay: 1.25s;
+  animation-delay: 1.225s;
 }
+
 .animated.delay-2 {
-  animation-delay: 1.5s;
+  animation-delay: 1.45s;
 }
+
 .animated.delay-3 {
-  animation-delay: 1.75s;
+  animation-delay: 1.675s;
 }
+
 .animated.delay-4 {
   animation-delay: 2s;
 }
+
 .animated.delay-5 {
   animation-delay: 2.25s;
 }
+
 .animated.delay-6 {
   animation-delay: 3s;
 }
+
 .animated.delay-7 {
   animation-delay: 3.15s;
 }
+
 .animated.fadeIn {
   animation-name: fadeIn;
   animation-duration: 0.7s;
 }
+
 .animated.fadeInLeft {
   animation-duration: 1.2s;
   animation-name: fadeInLeft;
 }
+
 .animated.fadeInRight {
   animation-duration: 1.2s;
   animation-name: fadeInRight;
 }
+
 .animated.fadeInUp {
   animation-name: fadeInUp;
   animation-duration: 0.7s;
 }
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -312,10 +341,11 @@ body {
     opacity: 1;
   }
 }
+
 @keyframes fadeInLeft {
   0% {
     opacity: 0;
-    transform: translate3d(max(-10%, -16rem), 0, 0);
+    left: -14rem;
   }
   10% {
     opacity: 0;
@@ -324,13 +354,14 @@ body {
     opacity: 1;
   }
   100% {
-    transform: translate3d(0, 0, 0);
+    left: 0;
   }
 }
+
 @keyframes fadeInRight {
   0% {
     opacity: 0;
-    transform: translate3d(min(10%, 16rem), 0, 0);
+    left: 14rem;
   }
   10% {
     opacity: 0;
@@ -339,13 +370,14 @@ body {
     opacity: 1;
   }
   100% {
-    transform: translate3d(0, 0, 0);
+    left: 0;
   }
 }
+
 @keyframes fadeInUp {
   0% {
     opacity: 0;
-    transform: translate3d(0, min(10%, 16rem), 0);
+    transform: translate3d(0, 14rem, 0);
   }
   100% {
     opacity: 1;
