@@ -86,7 +86,6 @@ body {
   background-position: bottom right;
   transition: var(--transition);
   transform: translate(var(--x), var(--y));
-  transform-style: preserve-3d;
   transform-origin: bottom right;
 }
 
