@@ -104,7 +104,7 @@ body {
   --degree: 0deg;
   --degree-change-rate: 0.06;
   position: absolute;
-  z-index: 999;
+  z-index: 1299;
   height: 100%;
   width: 100%;
   top: 0px;
@@ -242,7 +242,7 @@ body {
   right: 0px;
   height: 100%;
   width: 100%;
-  z-index: 799 !important;
+  z-index: 999 !important;
 }
 
 .bg_circle {
