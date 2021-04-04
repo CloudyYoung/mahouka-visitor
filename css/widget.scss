@@ -1,306 +1,309 @@
 .widget {
-    position: absolute;
-    bottom: 10%;
-    right: 60px;
-    z-index: 1899;
+  position: absolute;
+  bottom: 10%;
+  right: 60px;
+  z-index: 1899;
 
-    .events {
-        --charaface-width: 12rem;
-        --charaface-height: 12rem;
+  .events {
+    --charaface-width: 12rem;
+    --charaface-height: 12rem;
 
-        .texts,
-        .illusts {
-            opacity: 0;
-            margin-top: 1.4rem;
-        }
-
-        .texts {
-            position: relative;
-            letter-spacing: normal;
-            text-align: center;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            height: auto;
-            text-align: center;
-            box-sizing: border-box;
-            transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
-            min-width: 32rem;
-
-            &:before,
-            &:after {
-                content: "";
-                width: 0%;
-                height: 0%;
-                opacity: 0;
-                position: absolute;
-                box-sizing: border-box;
-                pointer-events: none;
-            }
-
-            &:before {
-                top: 0px;
-                left: 0px;
-                border-top: 0.22rem solid #000;
-                border-left: 0.22rem solid #000;
-            }
-
-            &:after {
-                right: 0px;
-                bottom: 0px;
-                border-right: 0.22rem solid #000;
-                border-bottom: 0.22rem solid #000;
-            }
-
-            .text-body {
-                opacity: 0;
-                background: rgba(0, 0, 0, 0.82);
-                padding: 1.8rem 3rem;
-                box-sizing: border-box;
-                transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1) 1s;
-
-                .text {
-                    font-size: 1.6rem;
-                    font-weight: 700;
-                    line-height: 1.4;
-                    color: #fff;
-                    margin-bottom: 0.2rem;
-                    text-align: center;
-                    width: 100%;
-                    opacity: 1;
-                }
-
-                .date {
-                    color: #42bfb2;
-                    font-family: "Roboto Condensed";
-                    line-height: 1.4;
-                    margin-right: 0.9rem;
-                    font-size: 1.8rem;
-                    font-weight: 600;
-                    opacity: 1;
-                }
-            }
-        }
-
-        .illusts {
-            --ratio: calc(480 / 550);
-            --delay: 0s;
-            --shadow-width: 0.22rem;
-            text-align: center;
-
-            .charaface {
-                --height: 13.5rem;
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-origin: center;
-                background-position: center;
-                height: var(--height);
-                width: calc(var(--ratio) * var(--height));
-                display: inline-block;
-                opacity: 0;
-                margin-left: -2rem;
-                margin-right: -2rem;
-                filter: drop-shadow(var(--shadow-width) 0px 0 #fff) drop-shadow(calc(-0.76 * var(--shadow-width)) 0px 0 #fff) drop-shadow(0px var(--shadow-width) 0 #fff) drop-shadow(0px calc(-0.76 * var(--shadow-width)) 0 #fff);
-
-                &:nth-child(1) {
-                    --delay: 0s;
-                }
-
-                &:nth-child(2) {
-                    --delay: 0.1s;
-                }
-
-                &:nth-child(3) {
-                    --delay: 0.2s;
-                }
-
-                &:nth-child(4) {
-                    --delay: 0.3s;
-                }
-
-                &.story {
-                    --ratio: calc(1500 / 1900);
-                    --height: 16rem;
-                    --shadow-width: 0.16rem;
-                }
-
-                &.anniversary {
-                    --ratio: calc(30 / 12);
-                    --height: 11rem;
-                    --shadow-width: 0;
-                }
-            }
-        }
-
-        .card.is-op .texts {
-            opacity: 1;
-            animation-name: fadeInUp;
-            animation-duration: 0.8s;
-            animation-delay: 0.5s;
-
-            &:before,
-            &:after {
-                width: 100%;
-                height: 100%;
-                opacity: 1;
-                transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.5s,
-                    height 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.5s, opacity 0s ease 0.5s;
-            }
-
-            &:hover {
-                opacity: 0.72;
-
-                &:before,
-                &:after {
-                    display: none;
-                }
-            }
-
-            .text-body {
-                opacity: 1;
-            }
-        }
-
-        .illusts.is-op {
-            opacity: 1;
-
-            .charaface {
-                --animation-duration: 1.8s;
-                opacity: 1;
-                transition: opacity 0s linear calc(var(--delay) + var(--animation-duration));
-                animation-duration: var(--animation-duration);
-                animation-name: fadeInLeft;
-                animation-delay: var(--delay);
-
-                &.anniversary {
-                    animation-name: fadeInUp !important;
-                }
-            }
-        }
-
-        .card.birthday .illusts {
-
-            .charaface.story {
-                &:nth-child(1) {
-                    --height: 16rem;
-                    margin-right: -4rem;
-                    margin-bottom: 5rem;
-                }
-
-                &:nth-child(2) {
-                    --height: 46rem;
-                    --ratio: 0.6715;
-                    margin-left: -5rem;
-                    margin-right: -6rem;
-                }
-            }
-        }
+    .texts,
+    .illusts {
+      opacity: 0;
+      margin-top: 1.4rem;
     }
 
-    .music .sources {
-        display: none;
-    }
+    .texts {
+      position: relative;
+      letter-spacing: normal;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      height: auto;
+      text-align: center;
+      box-sizing: border-box;
+      transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+      min-width: 32rem;
 
-    .player {
-        position: relative;
-        height: 6.448rem;
-        padding: 0px 0 0 0;
-        color: #fff;
+      &:before,
+      &:after {
+        content: "";
+        width: 0%;
+        height: 0%;
+        opacity: 0;
+        position: absolute;
+        box-sizing: border-box;
+        pointer-events: none;
+      }
+
+      &:before {
+        top: 0px;
+        left: 0px;
+        border-top: 0.22rem solid #000;
+        border-left: 0.22rem solid #000;
+      }
+
+      &:after {
+        right: 0px;
+        bottom: 0px;
+        border-right: 0.22rem solid #000;
+        border-bottom: 0.22rem solid #000;
+      }
+
+      .text-body {
+        opacity: 0;
         background: rgba(0, 0, 0, 0.82);
-        line-height: 1em;
-        overflow: hidden;
-        display: flex;
-        padding: 0rem 1.54rem;
-        width: 32rem;
+        padding: 1.8rem 3rem;
+        box-sizing: border-box;
+        transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1) 1s;
 
-        .control {
-            display: flex;
-            align-items: center;
-            margin-right: 1.34rem;
-
-            button {
-                border-radius: 0;
-                border: 0;
-                cursor: pointer;
-                transition: 0.3s all ease-in;
-                text-indent: -9999px;
-                width: 3.38rem;
-                height: 3.38rem;
-                overflow: hidden;
-                margin: auto;
-                outline: none;
-                margin-right: 0.4rem;
-                transition: none;
-                transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-
-                &:hover {
-                    opacity: 0.8;
-                }
-
-                &.play {
-                    background: url(../img/btn_play_on.png) center center no-repeat;
-                    background-size: 100% auto;
-                }
-
-                &.stop {
-                    background: url(../img/btn_stop_on.png) center center no-repeat;
-                    background-size: 100% auto;
-                }
-            }
+        .text {
+          font-size: 1.6rem;
+          font-weight: 700;
+          line-height: 1.4;
+          color: #fff;
+          margin-bottom: 0.2rem;
+          text-align: center;
+          width: 100%;
+          opacity: 1;
         }
 
-        .content {
-            display: flex;
-            align-items: center;
-            font-size: 1.6rem;
-
-            .title {
-                font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-                    "ヒラギノ角ゴ ProN W3", Hiragino Kaku Gothic ProN, "游ゴシック", YuGothic,
-                    Arial, "メイリオ", Meiryo, sans-serif;
-                margin: 0px;
-                font-size: 1.6rem;
-                font-weight: 500;
-            }
-
-            .no {
-                font-family: "Roboto Condensed";
-                color: #42bfb2;
-                font-weight: 600;
-                font-size: 1.8rem;
-                margin-bottom: 0.08rem;
-                margin-right: 0.4rem;
-            }
+        .date {
+          color: #42bfb2;
+          font-family: "Roboto Condensed";
+          line-height: 1.4;
+          margin-right: 0.9rem;
+          font-size: 1.8rem;
+          font-weight: 600;
+          opacity: 1;
         }
-
-        .progress {
-            position: absolute;
-            bottom: 0px;
-            left: 0px;
-            height: 4%;
-            background-color: #42bfb2;
-            box-shadow: 0rem 2rem 8rem 1.8rem #42bfb2;
-            z-index: 1;
-            z-index: 9;
-        }
-
-        &.mini {
-            $button-height: 4rem;
-            position: absolute;
-            height: 6rem;
-            width: $button-height;
-            bottom: 0px;
-            left: 0px;
-            background-color: transparent;
-            transform: translateX(-100%);
-
-            .control {
-                margin: 0px;
-            }
-
-            .control button {
-                height: $button-height;
-                width: $button-height;
-            }
-        }
+      }
     }
+
+    .illusts {
+      --ratio: calc(480 / 550);
+      --delay: 0s;
+      --shadow-width: 0.22rem;
+      text-align: center;
+
+      .charaface {
+        --height: 13.5rem;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-origin: center;
+        background-position: center;
+        height: var(--height);
+        width: calc(var(--ratio) * var(--height));
+        display: inline-block;
+        opacity: 0;
+        margin-left: -2rem;
+        margin-right: -2rem;
+        filter: drop-shadow(var(--shadow-width) 0px 0 #fff)
+          drop-shadow(calc(-0.76 * var(--shadow-width)) 0px 0 #fff)
+          drop-shadow(0px var(--shadow-width) 0 #fff)
+          drop-shadow(0px calc(-0.76 * var(--shadow-width)) 0 #fff);
+
+        &:nth-child(1) {
+          --delay: 0s;
+        }
+
+        &:nth-child(2) {
+          --delay: 0.1s;
+        }
+
+        &:nth-child(3) {
+          --delay: 0.2s;
+        }
+
+        &:nth-child(4) {
+          --delay: 0.3s;
+        }
+
+        &.story {
+          --ratio: calc(1500 / 1900);
+          --height: 16rem;
+          --shadow-width: 0.16rem;
+        }
+
+        &.anniversary {
+          --ratio: calc(30 / 12);
+          --height: 11rem;
+          --shadow-width: 0;
+        }
+      }
+    }
+
+    .card.is-op .texts {
+      opacity: 1;
+      animation-name: fadeInUp;
+      animation-duration: 0.8s;
+      animation-delay: 0.5s;
+
+      &:before,
+      &:after {
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+        transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.5s,
+          height 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.5s, opacity 0s ease 0.5s;
+      }
+
+      &:hover {
+        opacity: 0.72;
+
+        &:before,
+        &:after {
+          display: none;
+        }
+      }
+
+      .text-body {
+        opacity: 1;
+      }
+    }
+
+    .illusts.is-op {
+      opacity: 1;
+
+      .charaface {
+        --animation-duration: 1.8s;
+        opacity: 1;
+        transition: opacity 0s linear
+          calc(var(--delay) + var(--animation-duration));
+        animation-duration: var(--animation-duration);
+        animation-name: fadeInLeft;
+        animation-delay: var(--delay);
+
+        &.anniversary {
+          animation-name: fadeInUp !important;
+        }
+      }
+    }
+
+    .card.birthday .illusts {
+      .charaface.story {
+        &:nth-child(1) {
+          --height: 16rem;
+          margin-right: -4rem;
+          margin-bottom: 5rem;
+        }
+
+        &:nth-child(2) {
+          --height: 46rem;
+          --ratio: 0.6715;
+          margin-left: -5rem;
+          margin-right: -6rem;
+        }
+      }
+    }
+  }
+
+  .music .sources {
+    display: none;
+  }
+
+  .player {
+    position: relative;
+    height: 6.448rem;
+    padding: 0px 0 0 0;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.82);
+    line-height: 1em;
+    overflow: hidden;
+    display: flex;
+    padding: 0rem 1.54rem;
+    width: 32rem;
+
+    .control {
+      display: flex;
+      align-items: center;
+      margin-right: 1.34rem;
+
+      button {
+        border-radius: 0;
+        border: 0;
+        cursor: pointer;
+        transition: 0.3s all ease-in;
+        text-indent: -9999px;
+        width: 3.38rem;
+        height: 3.38rem;
+        overflow: hidden;
+        margin: auto;
+        outline: none;
+        margin-right: 0.4rem;
+        transition: none;
+        transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &.play {
+          background: url(../img/btn_play_on.png) center center no-repeat;
+          background-size: 100% auto;
+        }
+
+        &.stop {
+          background: url(../img/btn_stop_on.png) center center no-repeat;
+          background-size: 100% auto;
+        }
+      }
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      font-size: 1.6rem;
+
+      .title {
+        font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+          "ヒラギノ角ゴ ProN W3", Hiragino Kaku Gothic ProN, "游ゴシック",
+          YuGothic, Arial, "メイリオ", Meiryo, sans-serif;
+        margin: 0px;
+        font-size: 1.6rem;
+        font-weight: 500;
+      }
+
+      .no {
+        font-family: "Roboto Condensed";
+        color: #42bfb2;
+        font-weight: 600;
+        font-size: 1.8rem;
+        margin-bottom: 0.08rem;
+        margin-right: 0.4rem;
+      }
+    }
+
+    .progress {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      height: 4%;
+      background-color: #42bfb2;
+      box-shadow: 0rem 2rem 8rem 1.8rem #42bfb2;
+      z-index: 1;
+      z-index: 9;
+    }
+
+    &.mini {
+      $button-height: 4rem;
+      position: absolute;
+      height: 6rem;
+      width: $button-height;
+      bottom: 0px;
+      left: 0px;
+      background-color: transparent;
+      transform: translateX(-100%);
+
+      .control {
+        margin: 0px;
+      }
+
+      .control button {
+        height: $button-height;
+        width: $button-height;
+      }
+    }
+  }
 }
