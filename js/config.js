@@ -118,12 +118,6 @@ window.wallpaperPropertyListener = {
         // Music
         if (properties.music) {
             $.player.enabled = properties.music.value;
-            if (properties.music.value) {
-                $('.widget .music').fadeIn();
-            } else {
-                $('.widget .music').hide();
-
-            }
         }
 
         // Repeat Track (This has to come first)
@@ -149,10 +143,12 @@ window.wallpaperPropertyListener = {
 
         // If player is enabled, then play or pause
         if ($.player.enabled) {
+            $('.widget .music').fadeIn();
             $.player.generatePlaylist();
             $.player.playback();
             $.player.play();
         } else {
+            $('.widget .music').hide();
             $.player.pause();
         }
     }
