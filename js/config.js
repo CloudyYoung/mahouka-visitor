@@ -117,24 +117,27 @@ window.wallpaperPropertyListener = {
 
         // Music
         if (properties.music) {
+            $.player.enabled = properties.music.value;
             if (properties.music.value) {
                 $('.widget .music').fadeIn();
-                $.album.playback();
-                $.album.play();
             } else {
                 $('.widget .music').hide();
-                $.album.pause();
+
             }
         }
 
-        // Repeat Track
+        // Repeat Track (This has to come first)
         if (properties.repeat_track) {
             // Repeat One
-            $.album.repeatTrack = $.album.tracks[properties.repeat_track.value];
-            if ($.album.playbackMode == 1) {
-                $.album.generatePlaylist();
-                $.album.playback();
+            $.player.repeatTrack = $.album.tracks[properties.repeat_track.value];
+        }
+
+        // Playback Mode (This has to come second)
+        if (properties.playback_mode) {
+            if ($.player.playbackMode == properties.playback_mode.value) {
+                return;
             }
+            $.player.playbackMode = properties.playback_mode.value;
         }
 
         // Volume
@@ -144,14 +147,13 @@ window.wallpaperPropertyListener = {
             });
         }
 
-        // Playback Mode
-        if (properties.playback_mode) {
-            if ($.album.playbackMode == properties.playback_mode.value) {
-                return;
-            }
-            $.album.playbackMode = properties.playback_mode.value;
-            $.album.generatePlaylist();
-            $.album.playback();
+        // If player is enabled, then play or pause
+        if ($.player.enabled) {
+            $.player.generatePlaylist();
+            $.player.playback();
+            $.player.play();
+        } else {
+            $.player.pause();
         }
     }
 }

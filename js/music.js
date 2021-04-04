@@ -25,55 +25,15 @@ $(".widget .events").append(`
 `);
 
 $(".widget .player .control .play-status").click((e) => {
-    if ($.album.playing) {
-        $.album.pause();
+    if ($.player.playing) {
+        $.player.pause();
     } else {
-        $.album.play();
+        $.player.play();
     }
 });
 
 
 $.album = {};
-$.album.on = null;
-$.album.playing = false;
-$.album.playbackMode = 0; // 0 Repeat, 1 Repeat One, 2 Random
-$.album.playlist = [];
-$.album.repeatTrack = null;
-$.album.play = function () {
-    $(".widget .music .sources audio").trigger("pause");
-    $.album.on.dom.play();
-}
-$.album.pause = function () {
-    $(".widget .music .sources audio").trigger("pause");
-}
-$.album.playback = function () {
-    if ($.album.playlist.length == 0) {
-        $.album.generatePlaylist();
-    }
-    $.album.on = $.album.playlist.shift();
-    $(".widget .player .content .title").text($.album.on.title);
-    $(".widget .player .content .no").text($.album.on.no.toString().padStart(2, "0"));
-    $(".widget .player .progress").css("width", `0%`);
-    $.album.on.dom.currentTime = 0;
-}
-$.album.generatePlaylist = function () {
-    $.album.playlist = [];
-    switch ($.album.playbackMode) {
-        case 0: // Repeat
-            $.album.playlist = $.album.tracks.slice();
-            break;
-
-        case 1: // Repeat One
-            for (let t = 0; t <= 20; t++) {
-                $.album.playlist.push($.album.repeatTrack);
-            }
-            break;
-
-        case 2: // Shuffle
-            $.album.playlist = $.album.tracks.slice().sort(() => Math.random() - 0.5);;
-            break;
-    }
-}
 $.album.tracks = [
     {
         title: "Vibrant",
@@ -181,8 +141,8 @@ $.album.tracks.forEach((each) => {
 
 $(document).ready(function () {
 
-    $.album.generatePlaylist();
-    $.album.playback();
+    $.player.generatePlaylist();
+    $.player.playback();
 
     $(".widget .music .sources audio").each((index, each) => {
         each.addEventListener("canplay", (e) => {
@@ -191,17 +151,17 @@ $(document).ready(function () {
 
         each.addEventListener("playing", (e) => {
             $(".widget .player .control .play-status").removeClass("play").addClass("stop");
-            $(".widget .player .content .title").text($.album.on.title);
-            $(".widget .player .content .no").text($.album.on.no.toString().padStart(2, "0"));
-            if ($.album.on.dom.currentTime == 0) {
+            $(".widget .player .content .title").text($.player.on.title);
+            $(".widget .player .content .no").text($.player.on.no.toString().padStart(2, "0"));
+            if ($.player.on.dom.currentTime == 0) {
                 $(".widget .player .progress").css("width", `0%`);
             }
-            $.album.playing = true;
+            $.player.playing = true;
         });
 
         each.addEventListener("pause", (e) => {
             $(".widget .player .control .play-status").removeClass("stop").addClass("play");
-            $.album.playing = false;
+            $.player.playing = false;
         });
 
         each.addEventListener("timeupdate", (e) => {
@@ -211,13 +171,56 @@ $(document).ready(function () {
 
         each.addEventListener("ended", (e) => {
             $(".widget .player .control .play-status").removeClass("stop").addClass("play");
-            $.album.playback();
+            $.player.playback();
         });
     });
 });
 
 $.player = {};
+$.player.enabled = false;
 $.player.mode = 0; // 0: Music normal player, 1: Mini player
+$.player.on = null;
+$.player.playing = false;
+$.player.playbackMode = 0; // 0 Repeat, 1 Repeat One, 2 Random
+$.player.playlist = [];
+$.player.repeatTrack = null;
+$.player.play = function () {
+    $(".widget .music .sources audio").trigger("pause");
+    $.player.on.dom.play();
+}
+$.player.pause = function () {
+    $(".widget .music .sources audio").trigger("pause");
+}
+$.player.playback = function () {
+    if ($.player.on != null) {
+        $.player.on.dom.currentTime = 0;
+    }
+    if ($.player.playlist.length == 0) {
+        $.player.generatePlaylist();
+    }
+    $.player.on = $.player.playlist.shift();
+    $(".widget .player .content .title").text($.player.on.title);
+    $(".widget .player .content .no").text($.player.on.no.toString().padStart(2, "0"));
+    $.player.on.dom.currentTime = 0;
+}
+$.player.generatePlaylist = function () {
+    $.player.playlist = [];
+    switch ($.player.playbackMode) {
+        case 0: // Repeat
+            $.player.playlist = $.album.tracks.slice();
+            break;
+
+        case 1: // Repeat One
+            for (let t = 0; t <= 20; t++) {
+                $.player.playlist.push($.player.repeatTrack);
+            }
+            break;
+
+        case 2: // Shuffle
+            $.player.playlist = $.album.tracks.slice().sort(() => Math.random() - 0.5);;
+            break;
+    }
+}
 $.player.open = function () {
     switch ($.player.mode) {
         case 0:
