@@ -134,7 +134,7 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top center;
-  transform: scale(0.75);
+  transform: scale(0.8);
   opacity: 0.8;
   animation: dust-run 10s linear;
   width: 5%;
@@ -284,15 +284,15 @@ body {
 }
 
 .animated.delay-1 {
-  animation-delay: 1.225s;
+  animation-delay: 1.3s;
 }
 
 .animated.delay-2 {
-  animation-delay: 1.45s;
+  animation-delay: 1.5s;
 }
 
 .animated.delay-3 {
-  animation-delay: 1.675s;
+  animation-delay: 1.7s;
 }
 
 .animated.delay-4 {
@@ -313,6 +313,11 @@ body {
 
 .animated.fadeIn {
   animation-name: fadeIn;
+  animation-duration: 0.7s;
+}
+
+.animated.fadeInFlare {
+  animation-name: fadeInFlare;
   animation-duration: 0.7s;
 }
 
@@ -340,10 +345,19 @@ body {
   }
 }
 
+@keyframes fadeInFlare {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
 @keyframes fadeInLeft {
   0% {
     opacity: 0;
-    left: -14rem;
+    transform: translateX(-14rem);
   }
   10% {
     opacity: 0;
@@ -352,14 +366,14 @@ body {
     opacity: 1;
   }
   100% {
-    left: 0;
+    transform: translateX(0rem);
   }
 }
 
 @keyframes fadeInRight {
   0% {
     opacity: 0;
-    left: 14rem;
+    transform: translateX(14rem);
   }
   10% {
     opacity: 0;
@@ -368,7 +382,7 @@ body {
     opacity: 1;
   }
   100% {
-    left: 0;
+    transform: translateX(0rem);
   }
 }
 
