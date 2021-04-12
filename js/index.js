@@ -22,9 +22,9 @@ $("body").addClass("smooth-movement");
 setTimeout(function () {
     $(".animated").each((index, each) => {
         $(each).removeClass(`delay-0 delay-1 delay-2 delay-3 delay-4 delay-5 delay-6 delay-7`);
-        $(each).removeClass("animated fadeIn fadeInRight fadeInLeft fadeInUp fadeInDown fadeOut");
+        $(each).removeClass("animated fadeIn kvChara01Movement kvChara02Movement kvChara03Movement bgMovement flareMovement");
     });
-}, 5500);
+}, 5000);
 
 // Dust
 setInterval(function () {
