@@ -343,18 +343,6 @@ body {
   0% {
     opacity: 0;
   }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInFlare {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0.8;
-  }
 }
 
 @keyframes fadeInLeft {
@@ -397,5 +385,65 @@ body {
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+  }
+}
+
+.animated.kvChara01Movement {
+  animation-name: fadeIn, kvChara01Movement;
+  animation-duration: 0.7s, 4s;
+  animation-timing-function: ease, cubic-bezier(0.08, 0.91, 0, 0.96);
+}
+
+@keyframes kvChara01Movement {
+  0% {
+    transform: translate(-60px, 10px);
+  }
+}
+
+.animated.kvChara02Movement {
+  animation-name: fadeIn, kvChara02Movement;
+  animation-duration: 0.7s, 4s;
+  animation-timing-function: ease, cubic-bezier(0.08, 0.91, 0, 0.96);
+}
+
+@keyframes kvChara02Movement {
+  0% {
+    transform: translate(-30px, 40px);
+  }
+}
+
+.animated.kvChara03Movement {
+  animation-name: fadeIn, kvChara03Movement;
+  animation-duration: 0.7s, 4s;
+  animation-timing-function: ease, cubic-bezier(0.08, 0.91, 0, 0.96);
+}
+
+@keyframes kvChara03Movement {
+  0% {
+    transform: translate(60px, 0);
+  }
+}
+
+.animated.bgMovement {
+  animation-name: fadeIn, bgMovement;
+  animation-duration: 0.7s, 3s;
+  animation-timing-function: ease, cubic-bezier(0.14, 0.26, 0.29, 0.97);
+}
+
+@keyframes bgMovement {
+  0% {
+    transform: scale(1.14);
+  }
+}
+
+.animated.flareMovement {
+  animation-name: fadeIn, flareMovement;
+  animation-duration: 0.7s, 3s;
+  animation-timing-function: ease, cubic-bezier(0.13, 0.9, 0.18, 0.98);
+}
+
+@keyframes flareMovement {
+  0% {
+    transform: scale(1.1);
   }
 }
