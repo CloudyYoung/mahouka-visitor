@@ -5,9 +5,6 @@
   z-index: 1899;
 
   .events {
-    --charaface-width: 12rem;
-    --charaface-height: 12rem;
-
     .texts,
     .illusts {
       opacity: 0;
@@ -37,18 +34,20 @@
         pointer-events: none;
       }
 
+      $outline: 0.24rem solid #000;
+
       &:before {
         top: 0px;
         left: 0px;
-        border-top: 0.22rem solid #000;
-        border-left: 0.22rem solid #000;
+        border-top: $outline;
+        border-left: $outline;
       }
 
       &:after {
         right: 0px;
         bottom: 0px;
-        border-right: 0.22rem solid #000;
-        border-bottom: 0.22rem solid #000;
+        border-right: $outline;
+        border-bottom: $outline;
       }
 
       .text-body {

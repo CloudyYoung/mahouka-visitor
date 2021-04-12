@@ -412,9 +412,10 @@ $.events.sort((a, b) => {
 $.events.forEach((each) => {
     $(".widget .events").append(each.html);
 
+    // Image preload
     if (each.charaface_src) {
         each.charaface_src.forEach((src) => {
-            $("body").append(`<img src="${src}" style="transform: translate(-200vw, -200vh); top: -100%; left: -100%; height: 10%; width: 10%;" />`);
+            $("body").append(`<img src="${src}" style="transform: translate(-2000vw, -2000vh); height: 10%; width: 10%;" />`);
         });
     }
 });
@@ -425,7 +426,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // (month = 4), (day = 24);
+    (month = 4), (day = 24);
     return [month, day];
 };
 

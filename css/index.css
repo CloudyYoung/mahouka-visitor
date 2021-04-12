@@ -8,11 +8,6 @@ html {
   padding: 0px;
 }
 
-:root {
-  --transition: all 0.2s ease-out;
-  --transition-fluent: all 3s cubic-bezier(0.02, 0.73, 0, 0.92);
-}
-
 body {
   position: fixed;
   top: 0px;
@@ -40,11 +35,11 @@ body {
 }
 
 .smooth-movement .bg {
-  transition: var(--transition-fluent) !important;
+  transition: all 3s cubic-bezier(0.02, 0.73, 0, 0.92) !important;
 }
 
 .smooth-movement .kv {
-  transition: var(--transition-fluent) !important;
+  transition: all 3s cubic-bezier(0.02, 0.73, 0, 0.92) !important;
 }
 
 .bg {
@@ -62,7 +57,7 @@ body {
   background-image: url("../img/kv_bg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  transition: var(--transition);
+  transition: all 0.2s ease-out;
   background-position: var(--x) var(--y);
 }
 
@@ -84,7 +79,7 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom right;
-  transition: var(--transition);
+  transition: all 0.2s ease-out;
   background-position: calc(100% + var(--x)) calc(100% + var(--y));
 }
 
