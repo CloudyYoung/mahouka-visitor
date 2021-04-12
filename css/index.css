@@ -1,5 +1,5 @@
 html {
-  font-family: "Noto Serif JP", "Noto Serif SC", "Times New Roman", Times, serif;
+  font-family: "Noto Serif JP", "Noto Serif SC", serif;
   font-size: calc(100vh / 140);
 }
 
