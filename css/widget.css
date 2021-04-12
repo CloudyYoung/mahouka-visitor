@@ -6,11 +6,6 @@
   z-index: 1899;
 }
 
-.widget .events {
-  --charaface-width: 12rem;
-  --charaface-height: 12rem;
-}
-
 .widget .events .texts,
 .widget .events .illusts {
   opacity: 0;
@@ -43,15 +38,15 @@
 .widget .events .texts:before {
   top: 0px;
   left: 0px;
-  border-top: 0.22rem solid #000;
-  border-left: 0.22rem solid #000;
+  border-top: 0.24rem solid #000;
+  border-left: 0.24rem solid #000;
 }
 
 .widget .events .texts:after {
   right: 0px;
   bottom: 0px;
-  border-right: 0.22rem solid #000;
-  border-bottom: 0.22rem solid #000;
+  border-right: 0.24rem solid #000;
+  border-bottom: 0.24rem solid #000;
 }
 
 .widget .events .texts .text-body {
