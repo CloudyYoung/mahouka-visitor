@@ -6,12 +6,22 @@ $.kv_x_stand = [0, 0, 0];
 $.kv_stand_ratio = [0.33, 0.66, 1.0];
 
 $('body').append(`
-    <div class="bg animated fadeIn delay-0"></div>
+    <div class="bg-wrapper animated bgMovement delay-0">
+        <div class="bg bgMovementInner"></div>
+    </div>
     <div class="dust-wrapper animated fadeIn delay-0"></div>
-    <div class="kv kv_chara_01 animated fadeInLeft delay-1"></div>
-    <div class="kv kv_chara_02 animated fadeInLeft delay-2"></div>
-    <div class="kv kv_chara_03 animated fadeInRight delay-3"></div>
-    <div class="kv_flare animated fadeInFlare delay-4"></div>
+    <div class="kv-chara-wrapper animated kvChara01Movement delay-1">
+        <div class="kv kv_chara_01 kvChara01MovementInner"></div>
+    </div>
+    <div class="kv-chara-wrapper animated kvChara02Movement delay-2">
+        <div class="kv kv_chara_02 kvChara02MovementInner"></div>
+    </div>
+    <div class="kv-chara-wrapper animated kvChara03Movement delay-3">
+        <div class="kv kv_chara_03 kvChara03MovementInner"></div>
+    </div>
+    <div class="kv-flare-wrapper animated flareMovement delay-4">
+        <div class="kv_flare"></div>
+    </div>
     <div class="logo-wrapper animated fadeIn delay-6"><div class="logo"></div></div>
     <div class="widget"></div>
 `);
@@ -24,7 +34,7 @@ setTimeout(function () {
         $(each).removeClass(`delay-0 delay-1 delay-2 delay-3 delay-4 delay-5 delay-6 delay-7`);
         $(each).removeClass("animated fadeIn fadeInRight fadeInLeft fadeInUp fadeInDown fadeOut");
     });
-}, 4000);
+}, 40000);
 
 // Dust
 setInterval(function () {
@@ -54,7 +64,7 @@ setInterval(function () {
     setTimeout(function () {
         $(`#${id}`).remove();
         $.console.dust(id, top);
-    }, 1000 * 14);
+    }, 1000 * 24);
 
 }, 1500);
 
