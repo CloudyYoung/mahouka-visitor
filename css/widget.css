@@ -175,13 +175,13 @@
   opacity: 1;
   animation-fill-mode: both;
   animation-name: fadeIn, moveRight;
-  animation-duration: 0.7s, 1s;
-  animation-timing-function: ease, ease-out;
+  animation-duration: 0.8s, 8s;
+  animation-timing-function: ease, cubic-bezier(0.08, 0.91, 0, 0.96);
 }
 
 @keyframes moveRight {
   0% {
-    transform: translateX(-1.3rem);
+    transform: translateX(-2rem);
   }
 }
 
