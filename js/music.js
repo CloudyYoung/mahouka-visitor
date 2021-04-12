@@ -171,7 +171,7 @@ $(document).ready(function () {
 
         each.addEventListener("ended", (e) => {
             $(".widget .player .control .play-status").removeClass("stop").addClass("play");
-            $.player.playback();
+            $.player.playNext();
         });
     });
 });
@@ -202,6 +202,10 @@ $.player.playback = function () {
     $(".widget .player .content .title").text($.player.on.title);
     $(".widget .player .content .no").text($.player.on.no.toString().padStart(2, "0"));
     $.player.on.dom.currentTime = 0;
+}
+$.player.playNext = function () {
+    $.player.playback();
+    $.player.play();
 }
 $.player.generatePlaylist = function () {
     $.player.playlist = [];

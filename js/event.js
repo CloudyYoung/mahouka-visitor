@@ -431,7 +431,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    (month = 4), (day = 24);
+    // (month = 4), (day = 24);
     return [month, day];
 };
 
