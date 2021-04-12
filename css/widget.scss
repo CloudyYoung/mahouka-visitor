@@ -139,11 +139,11 @@
       animation-name: moveUp;
       animation-duration: 0.8s;
       animation-delay: 0.2s;
-      animation-timing-function: ease;
+      animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 
       @keyframes moveUp {
         0% {
-          transform: translate(0, 5rem);
+          transform: translate(0, 20rem);
         }
       }
 
