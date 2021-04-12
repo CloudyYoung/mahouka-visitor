@@ -141,10 +141,11 @@
       animation-name: moveUp;
       animation-duration: 0.8s;
       animation-delay: 0.1s;
+      animation-timing-function: ease-out;
 
       @keyframes moveUp {
         0% {
-          transform: translate3d(0, 2rem, 0);
+          transform: translate3d(0, 3rem, 0);
         }
       }
 
@@ -188,7 +189,8 @@
         }
 
         &.anniversary {
-          animation-name: fadeIn, moveUp !important;
+          animation-name: fadeIn, moveUp;
+          animation-duration: 0.8s;
         }
       }
     }
@@ -196,7 +198,7 @@
     .card.birthday .illusts {
       .charaface.story {
         &:nth-of-type(1) {
-          --height: 16rem;
+          --height: 14rem;
           margin-right: -4rem;
           margin-bottom: 5rem;
         }
