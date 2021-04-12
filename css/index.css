@@ -23,6 +23,10 @@ body {
   height: 100%;
 }
 
+img {
+  border: 0;
+}
+
 .performance-none .bg {
   transition: none !important;
 }
@@ -405,7 +409,7 @@ body {
 
 .animated.flareMovement {
   animation-name: fadeIn, flareMovement;
-  animation-duration: 0.7s, 7s;
+  animation-duration: 0.7s, 3s;
   animation-timing-function: ease, cubic-bezier(0.13, 0.9, 0.18, 0.98);
 }
 
@@ -422,19 +426,19 @@ body {
 
 @keyframes kvChara01Movement {
   0% {
-    transform: translate3d(-60px, 10px, 0);
+    transform: translate(-60px, 10px);
   }
 }
 
 @keyframes kvChara02Movement {
   0% {
-    transform: translate3d(-30px, 40px, 0);
+    transform: translate(-30px, 40px);
   }
 }
 
 @keyframes kvChara03Movement {
   0% {
-    transform: translate3d(60px, 0, 0);
+    transform: translate(60px, 0);
   }
 }
 

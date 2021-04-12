@@ -392,7 +392,7 @@ $.events.forEach((each) => {
         each.html = $.events.makeEvent(each);
     }
 
-    each.html = `<div class="card ${each.key} ${each.type}">` + each.html + `</div>`;
+    each.html = `<div class="card ${each.key} ${each.type}" style="display: none;">` + each.html + `</div>`;
 
     if (each.type == "birthday") { // Birthday
         each.priority = 900;
@@ -412,15 +412,15 @@ $.events.sort((a, b) => {
 $.events.forEach((each) => {
     $(".widget .events").append(each.html);
 
-    if (each.charaface_src) {
-        each.charaface_src.forEach((src) => {
-            $("body").append(`<img src="${src}" style="position: fixed; top: -100%; left: -100%; height: 10%; width: 10%;" />`);
-        });
-    }
+    // if (each.charaface_src) {
+    //     each.charaface_src.forEach((src) => {
+    //         $("body").append(`<img src="${src}" style="position: fixed; top: -100%; left: -100%; height: 10%; width: 10%;" />`);
+    //     });
+    // }
 
-    if (each.text) {
-        $("body").append(`<div style="position: fixed; top: -100%; left: -100%; font-family: "Noto Serif SC", "Noto Serif JP";">${each.text.join(" // ")}</div>`);
-    }
+    // if (each.text) {
+    //     $("body").append(`<div style="position: fixed; top: -100%; left: -100%; font-family: "Noto Serif SC", "Noto Serif JP";">${each.text.join(" // ")}</div>`);
+    // }
 });
 
 // Date function
@@ -429,7 +429,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    (month = 4), (day = 24);
+    // (month = 4), (day = 24);
     return [month, day];
 };
 
