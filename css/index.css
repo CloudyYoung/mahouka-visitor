@@ -131,8 +131,8 @@ body {
   width: 100%;
   z-index: 1299;
   mix-blend-mode: screen;
-  will-change: transform, opacity;
   transform-origin: bottom left;
+  will-change: transform, opacity;
 }
 
 .kv-flare-wrapper .kv_flare {
@@ -156,6 +156,7 @@ body {
 
 .dust-wrapper {
   z-index: -1999 !important;
+  will-change: transform, opacity;
 }
 
 .dust-wrapper .dust {
@@ -351,7 +352,7 @@ body {
 .animated.bg {
   animation-name: fadeIn, zoomOut;
   animation-duration: 0.7s, 3s;
-  animation-timing-function: cubic-bezier(0.14, 0.26, 0.29, 0.97);
+  animation-timing-function: ease, cubic-bezier(0.14, 0.26, 0.29, 0.97);
 }
 
 .animated.kvChara01Movement {
