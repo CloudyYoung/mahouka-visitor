@@ -415,9 +415,14 @@ $.events.forEach((each) => {
     // Image preload
     if (each.charaface_src) {
         each.charaface_src.forEach((src) => {
-            $("body").append(`<img src="${src}" style="transform: translate(-2000vw, -2000vh); height: 10%; width: 10%;" />`);
+            $("body").append(`<img class="preload" src="${src}" style="transform: translate(-2000vw, -2000vh); height: 10%; width: 10%;" />`);
         });
     }
+
+    // Remove preload dom
+    setTimeout(function () {
+        $(".preload").remove();
+    }, 3000);
 });
 
 // Date function
