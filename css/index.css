@@ -80,6 +80,7 @@ body {
   background-repeat: no-repeat;
   background-position: bottom right;
   transition: all 0.2s ease-out;
+  will-change: background-position;
   background-position: calc(100% + var(--x)) calc(100% + var(--y));
 }
 
@@ -279,15 +280,15 @@ body {
 }
 
 .animated.delay-1 {
-  animation-delay: 1.3s;
-}
-
-.animated.delay-2 {
   animation-delay: 1.5s;
 }
 
-.animated.delay-3 {
+.animated.delay-2 {
   animation-delay: 1.7s;
+}
+
+.animated.delay-3 {
+  animation-delay: 1.9s;
 }
 
 .animated.delay-4 {
@@ -355,8 +356,8 @@ body {
 
 .animated.bgMovement {
   animation-name: fadeIn, bgMovement;
-  animation-duration: 0.7s, 3s;
-  animation-timing-function: ease, cubic-bezier(0.14, 0.26, 0.29, 0.97);
+  animation-duration: 0.7s, 2s;
+  animation-timing-function: ease, cubic-bezier(0.02, 0.73, 0, 0.92);
 }
 
 @keyframes bgMovement {
@@ -373,6 +374,6 @@ body {
 
 @keyframes flareMovement {
   0% {
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(4deg);
   }
 }
