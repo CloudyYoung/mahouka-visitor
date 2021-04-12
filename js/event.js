@@ -342,9 +342,11 @@ $.events.makeIllust = function (each) {
 
     let groupIndex = 0;
     let html = "";
+    each.charaface_src = [];
     charaGroups.forEach((charaGroup) => {
         html += `<div class="illusts ${groupIndex}">`;
         charaGroup.forEach((chara) => {
+            each.charaface_src.push(`chara/${each.charatype}/${chara}.png`);
             html += `<span class="charaface ${chara} ${each.charatype}" style="background-image: url('chara/${each.charatype}/${chara}.png');"></span>`;
         });
         html += `</div>`;
@@ -390,7 +392,7 @@ $.events.forEach((each) => {
         each.html = $.events.makeEvent(each);
     }
 
-    each.html = `<div class="card ${each.key} ${each.type}" style="display: none;">` + each.html + `</div>`;
+    each.html = `<div class="card ${each.key} ${each.type}">` + each.html + `</div>`;
 
     if (each.type == "birthday") { // Birthday
         each.priority = 900;
@@ -409,6 +411,16 @@ $.events.sort((a, b) => {
 // Append to html
 $.events.forEach((each) => {
     $(".widget .events").append(each.html);
+
+    if (each.charaface_src) {
+        each.charaface_src.forEach((src) => {
+            $("body").append(`<img src="${src}" style="position: fixed; top: -100%; left: -100%; height: 10%; width: 10%;" />`);
+        });
+    }
+
+    if (each.text) {
+        $("body").append(`<div style="position: fixed; top: -100%; left: -100%; font-family: "Noto Serif SC", "Noto Serif JP";">${each.text.join(" // ")}</div>`);
+    }
 });
 
 // Date function
@@ -417,7 +429,7 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // (month = 8), (day = 1);
+    (month = 4), (day = 24);
     return [month, day];
 };
 
@@ -495,8 +507,6 @@ $.events.tick = function () {
     $.events.onIndex = majorIndex + nextMinorIndex;
     $.events.onIndex %= $.events.on.length;
 };
-
-// $(".card").show().addClass("is-op");
 
 setTimeout(function () {
     $.events.today();

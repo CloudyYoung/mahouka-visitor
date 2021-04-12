@@ -414,23 +414,6 @@ body {
   animation-duration: 0.7s;
 }
 
-.animated.fadeInLeft {
-  animation-name: fadeInLeft, fadeIn;
-  animation-duration: 3.2s, 0.6s;
-  animation-timing-function: cubic-bezier(0.08, 0.91, 0, 0.96), ease-in-out;
-}
-
-.animated.fadeInRight {
-  animation-name: fadeInRight, fadeIn;
-  animation-duration: 3s, 0.6s;
-  animation-timing-function: cubic-bezier(0.02, 0.73, 0, 0.92), ease-in-out;
-}
-
-.animated.fadeInUp {
-  animation-name: fadeInUp, fadeIn;
-  animation-duration: 0.7s, 0.6s;
-}
-
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -470,23 +453,5 @@ body {
 @keyframes flareMovement {
   0% {
     transform: scale(1.1);
-  }
-}
-
-@keyframes fadeInLeft {
-  0% {
-    transform: translateX(-14rem);
-  }
-}
-
-@keyframes fadeInRight {
-  0% {
-    transform: translateX(14rem);
-  }
-}
-
-@keyframes fadeInUp {
-  0% {
-    transform: translate3d(0, 2rem, 0);
   }
 }

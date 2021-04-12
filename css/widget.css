@@ -28,6 +28,7 @@
   box-sizing: border-box;
   transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
   min-width: 32rem;
+  will-change: transform, opacity;
 }
 
 .widget .events .texts:before, .widget .events .texts:after {
@@ -38,6 +39,7 @@
   position: absolute;
   box-sizing: border-box;
   pointer-events: none;
+  will-change: width, height, opacity;
 }
 
 .widget .events .texts:before {
@@ -85,7 +87,6 @@
 
 .widget .events .illusts {
   --ratio: calc(480 / 550);
-  --delay: 0s;
   --shadow-width: 0.22rem;
   text-align: center;
 }
@@ -102,23 +103,24 @@
   opacity: 0;
   margin-left: -2rem;
   margin-right: -2rem;
+  will-change: transform, opacity;
   filter: drop-shadow(var(--shadow-width) 0px 0 #fff) drop-shadow(calc(-0.76 * var(--shadow-width)) 0px 0 #fff) drop-shadow(0px var(--shadow-width) 0 #fff) drop-shadow(0px calc(-0.76 * var(--shadow-width)) 0 #fff);
 }
 
 .widget .events .illusts .charaface:nth-of-type(1) {
-  --delay: 0s;
+  animation-delay: 0s;
 }
 
 .widget .events .illusts .charaface:nth-of-type(2) {
-  --delay: 0.1s;
+  animation-delay: 0.1s;
 }
 
 .widget .events .illusts .charaface:nth-of-type(3) {
-  --delay: 0.2s;
+  animation-delay: 0.2s;
 }
 
 .widget .events .illusts .charaface:nth-of-type(4) {
-  --delay: 0.3s;
+  animation-delay: 0.3s;
 }
 
 .widget .events .illusts .charaface.story {
@@ -135,9 +137,15 @@
 
 .widget .events .card.is-op .texts {
   opacity: 1;
-  animation-name: fadeInUp;
+  animation-name: moveUp;
   animation-duration: 0.8s;
-  animation-delay: 0.5s;
+  animation-delay: 0.1s;
+}
+
+@keyframes moveUp {
+  0% {
+    transform: translate3d(0, 2rem, 0);
+  }
 }
 
 .widget .events .card.is-op .texts:before, .widget .events .card.is-op .texts:after {
@@ -164,16 +172,21 @@
 }
 
 .widget .events .illusts.is-op .charaface {
-  --animation-duration: 1.8s;
   opacity: 1;
-  transition: opacity 0s linear calc(var(--delay) + var(--animation-duration));
-  animation-duration: var(--animation-duration);
-  animation-name: fadeInLeft;
-  animation-delay: var(--delay);
+  animation-fill-mode: both;
+  animation-name: fadeIn, moveRight;
+  animation-duration: 0.7s, 1s;
+  animation-timing-function: ease, ease-out;
+}
+
+@keyframes moveRight {
+  0% {
+    transform: translateX(-1.3rem);
+  }
 }
 
 .widget .events .illusts.is-op .charaface.anniversary {
-  animation-name: fadeInUp !important;
+  animation-name: fadeIn, moveUp !important;
 }
 
 .widget .events .card.birthday .illusts .charaface.story:nth-of-type(1) {
