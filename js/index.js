@@ -7,17 +7,17 @@ $.kv_stand_ratio = [0.33, 0.66, 1.0];
 
 $('body').append(`
     <div class="bg-wrapper animated bgMovement delay-0">
-        <div class="bg"></div>
+        <div class="bg bgMovementInner"></div>
     </div>
     <div class="dust-wrapper animated fadeIn delay-0"></div>
     <div class="kv-chara-wrapper animated kvChara01Movement delay-1">
-        <div class="kv kv_chara_01"></div>
+        <div class="kv kv_chara_01 kvChara01MovementInner"></div>
     </div>
     <div class="kv-chara-wrapper animated kvChara02Movement delay-2">
-        <div class="kv kv_chara_02"></div>
+        <div class="kv kv_chara_02 kvChara02MovementInner"></div>
     </div>
     <div class="kv-chara-wrapper animated kvChara03Movement delay-3">
-        <div class="kv kv_chara_03"></div>
+        <div class="kv kv_chara_03 kvChara03MovementInner"></div>
     </div>
     <div class="kv-flare-wrapper animated flareMovement delay-4">
         <div class="kv_flare"></div>
@@ -34,7 +34,7 @@ setTimeout(function () {
         $(each).removeClass(`delay-0 delay-1 delay-2 delay-3 delay-4 delay-5 delay-6 delay-7`);
         $(each).removeClass(`bgMovement kvChara01Movement kvChara02Movement kvChara03Movement flareMovement`);
     });
-}, 5000);
+}, 30000);
 
 // Dust
 setInterval(function () {
