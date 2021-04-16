@@ -26,6 +26,10 @@ setTimeout(function () {
     });
 }, 5000);
 
+
+let width = window.screen.width;
+let height = window.screen.height;
+
 // Dust
 setInterval(function () {
 
@@ -50,8 +54,8 @@ setInterval(function () {
     $('.dust-wrapper').append(dust);
     $(`#${id}`).css({ 'top': `${top}px` });
     $(`#${id}`).get(0).animate([
-        { marginTop: "0%", left: "100%" },
-        { marginTop: "50%", left: "-200px" }
+        { transform: `translate(0, 0)` },
+        { transform: `translate(-${width + 100}px, ${width / 2}px)` }
     ], {
         duration: 10000
     });
@@ -64,10 +68,6 @@ setInterval(function () {
 
 }, 1500);
 
-
-
-let width = window.screen.width;
-let height = window.screen.height;
 
 $.console.screen(width, height);
 
