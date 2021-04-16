@@ -49,6 +49,12 @@ setInterval(function () {
 
     $('.dust-wrapper').append(dust);
     $(`#${id}`).css({ 'top': `${top}px` });
+    $(`#${id}`).get(0).animate([
+        { marginTop: "0%", left: "100%" },
+        { marginTop: "50%", left: "-200px" }
+    ], {
+        duration: 10000
+    });
     $.console.dust(id, top);
 
     setTimeout(function () {
