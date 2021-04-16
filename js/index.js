@@ -114,8 +114,7 @@ $.mouse = function (e) {
         if (kv_y_this < kv_y_over) kv_y_this = kv_y_over;
         if (index == 2 && kv_x_this < kv_03_over) kv_x_this = kv_03_over; // Make sure within screen
 
-        // $(obj).css({ "--x": `${kv_x_this}px`, "--y": `${kv_y_this}px` });
-        $(obj).css("background-position", `calc(100% + ${kv_x_this}px) calc(100% + ${kv_y_this}px)`);
+        $(obj).css({ "--x": `${kv_x_this}px`, "--y": `${kv_y_this}px` });
         // $.console.kv(`0${index + 1}`, kv_x_this, kv_y_this);
     });
 
@@ -124,14 +123,12 @@ $.mouse = function (e) {
     let bg_xPos = e.clientX * bg_xChangeRate;
     let bg_yPos = e.clientY * bg_yChangeRate;
 
-    // $('.bg').css({ '--x': `${bg_xPos}px`, '--y': `${bg_yPos}px` });
-    $('.bg').css("background-position", `${bg_xPos}px ${bg_yPos}px`);
+    $('.bg').css({ '--x': `${bg_xPos}px`, '--y': `${bg_yPos}px` });
     // $.console.bg(bg_xPos, bg_yPos);
 
     let flare_degreeChangeRate = $('.kv_flare').css('--degree-change-rate') * $.global_degreeRatio;
     let flare_degree = Math.atan2(e.clientY, width - e.clientX) * (180 / Math.PI) * flare_degreeChangeRate;
-    // $('.kv_flare').css('--degree', `${flare_degree}deg`);
-    $(".kv_flare").css("transform", `scale(1.1) rotate(${flare_degree}deg)`);
+    $('.kv_flare').css('--degree', `${flare_degree}deg`);
     // $.console.flare(flare_degree);
 
 }
