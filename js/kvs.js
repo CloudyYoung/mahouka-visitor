@@ -42,7 +42,7 @@ for (let t = 0; t < 3; t++) {
         $.kvs[t] = new Konva.Image({
             image: image,
         });
-        $.kvs[t].index = t;
+        $.kvs[t].attrs.index = t;
         $.kv_chara_layer.add($.kvs[t]);
         $.kvsDisplay();
     };
@@ -96,28 +96,27 @@ $.mouse = function (e) {
     let kv_y = e.clientY * kv_yChangeRate * -1;
 
     $.kvs.forEach(kv => {
-        let kv_x_this = kv_x + $.kv_x_stand[kv.index];
+        let kv_x_this = kv_x + $.kv_x_stand[kv.attrs.index];
         let kv_y_this = kv_y;
 
         // Finish previous existing tween
-        if ($.kvs_tween[kv.index]) {
-            $.kvs_tween[kv.index].finish();
+        if ($.kvs_tween[kv.attrs.index]) {
+            $.kvs_tween[kv.attrs.index].finish();
         }
 
         // Spawn new tween
-        $.kvs_tween[kv.index] = new Konva.Tween({
+        $.kvs_tween[kv.attrs.index] = new Konva.Tween({
             node: kv,
             duration: 0.3,
             offsetX: -kv_x_this,
             offsetY: -kv_y_this,
-            easing: Konva.Easings.EaseOut,
+            easing: Konva.Easings.StrongEaseOut,
         });
-        $.kvs_tween[kv.index].play();
+        $.kvs_tween[kv.attrs.index].play();
     });
 
     // $.kv_chara_layer.batchDraw();
 };
 $.mouse({ clientX: 0, clientY: 0 });
 $(document).on('mousemove', $.mouse);
-
 
