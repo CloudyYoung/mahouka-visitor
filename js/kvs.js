@@ -1,5 +1,4 @@
 
-
 $.global_degreeRatio = 1;
 $.global_outstandRatioDefault = [0.1, 0.1, 0.1];
 $.global_outstandRatio = $.global_outstandRatioDefault;
@@ -41,19 +40,21 @@ $.kv_chara_layer = new Konva.Layer({
 $.stage.add($.kv_chara_layer);
 
 
+$.stand_cancellation = $.width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
+$.kv_canvas_x = ($.width - $.kv_width) + ($.kv_change_rate_x / 2 * $.width) + $.stand_cancellation;
+$.kv_canvas_y = ($.height - $.kv_height) + ($.kv_change_rate_y / 2 * $.height);
+$.kv_canvas_width = $.kv_change_rate_x / 2 * $.width + $.kv_width;
+$.kv_canvas_height = $.kv_change_rate_y / 2 * $.height + $.kv_height;
+
 for (let t = 0; t < 3; t++) {
     let image = new Image();
     image.onload = function () {
         $.kvs[t] = new Konva.Image({
-            // x: ($.width - $.kv_width) + ($.kv_change_rate_x * $.kv_width),
-            // y: ($.height - $.kv_height) + ($.kv_change_rate_y * $.kv_height),
-            x: ($.width - $.kv_width),
-            y: ($.height - $.kv_height),
+            x: $.kv_canvas_x,
+            y: $.kv_canvas_y,
             image: image,
-            width: (1 + $.kv_change_rate_x) * $.kv_width,
-            height: (1 + $.kv_change_rate_y) * $.kv_height,
-            // scaleX: 1 + $.kv_change_rate_x,
-            // scaleY: 1 + $.kv_change_rate_y,
+            width: $.kv_canvas_width,
+            height: $.kv_canvas_height,
         });
         $.kvs[t].index = t;
 
@@ -93,14 +94,13 @@ $.mouse = function (e) {
 
     let kv_x = e.clientX * kv_xChangeRate * -1 + kv_tolerancePixel;
     let kv_y = e.clientY * kv_yChangeRate * -1 + kv_tolerancePixel;
-    let stand_cancellation = $.width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
 
     let kv_x_over = $.width - $.kv_width; // Make sure within screen
     let kv_y_over = $.height - $.kv_height;
 
     $.kvs.forEach(kv => {
-        // let kv_x_this = kv_x + $.kv_x_stand[kv.index] + stand_cancellation;
-        let kv_x_this = kv_x;
+        let kv_x_this = kv_x + $.kv_x_stand[kv.index];
+        // let kv_x_this = kv_x;
         let kv_y_this = kv_y;
 
         // if (kv_y_this < kv_y_over) kv_y_this = kv_y_over;
