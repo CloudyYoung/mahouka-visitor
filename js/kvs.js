@@ -18,7 +18,7 @@ $.height = window.screen.height;
 $.kv_real_width = 2560;
 $.kv_real_height = 2000;
 $.kv_height = $.height;
-$.kv_width = $.kv_real_width * ($.height / $.kv_real_height);
+$.kv_width = $.kv_real_width * ($.kv_height / $.kv_real_height);
 $.kvs = [];
 $.stage = null;
 $.kv_chara_layer = null;
@@ -31,38 +31,37 @@ $.stage = new Konva.Stage({
     height: $.height
 });
 
-$.kv_chara_layer = new Konva.Layer({
-    x: 0,
-    y: 0,
-    clipWidth: 20,
-    height: $.kv_height,
-});
+$.kv_chara_layer = new Konva.Layer();
 $.stage.add($.kv_chara_layer);
 
-
-$.stand_cancellation = $.width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
-$.kv_canvas_x = ($.width - $.kv_width) + ($.kv_change_rate_x / 2 * $.width) + $.stand_cancellation;
-$.kv_canvas_y = ($.height - $.kv_height) + ($.kv_change_rate_y / 2 * $.height);
-$.kv_canvas_width = $.kv_change_rate_x / 2 * $.width + $.kv_width;
-$.kv_canvas_height = $.kv_change_rate_y / 2 * $.height + $.kv_height;
 
 for (let t = 0; t < 3; t++) {
     let image = new Image();
     image.onload = function () {
         $.kvs[t] = new Konva.Image({
-            x: $.kv_canvas_x,
-            y: $.kv_canvas_y,
             image: image,
-            width: $.kv_canvas_width,
-            height: $.kv_canvas_height,
         });
-        $.kvs[t].index = t;
-
-        // add the shape to the layer
         $.kv_chara_layer.add($.kvs[t]);
-        $.kv_chara_layer.batchDraw();
+        $.kvsDisplay();
     };
     image.src = `img/kv_chara_0${t + 1}.png`;
+}
+
+
+$.kvsDisplay = function () {
+    let stand_cancellation = $.width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
+    let kv_canvas_x = ($.width - $.kv_width) + ($.kv_change_rate_x / 2 * $.width) + stand_cancellation;
+    let kv_canvas_y = ($.height - $.kv_height) + ($.kv_change_rate_y / 2 * $.height);
+    let kv_canvas_width = $.kv_change_rate_x / 2 * $.width + $.kv_width;
+    let kv_canvas_height = $.kv_change_rate_y / 2 * $.height + $.kv_height;
+
+    $.kvs.forEach(kv => {
+        kv.x(kv_canvas_x);
+        kv.y(kv_canvas_y);
+        kv.width(kv_canvas_width);
+        kv.height(kv_canvas_height);
+    });
+    $.kv_chara_layer.batchDraw();
 }
 
 
@@ -73,7 +72,6 @@ $.mouse = function (e) {
 
     let kv_xChangeRate = $.kv_change_rate_x * 1.0;
     let kv_yChangeRate = $.kv_change_rate_y * 1.0;
-    let kv_tolerancePixel = 1; // Unit: px, technically no need anymore
 
     if (wr <= $.kv_stand_ratio[0]) {
         let wr_rate = wr;
@@ -92,25 +90,15 @@ $.mouse = function (e) {
         $.kv_x_stand[2] = e.clientX * wr_rate * $.global_outstandRatio[2] * -1;
     }
 
-    let kv_x = e.clientX * kv_xChangeRate * -1 + kv_tolerancePixel;
-    let kv_y = e.clientY * kv_yChangeRate * -1 + kv_tolerancePixel;
-
-    let kv_x_over = $.width - $.kv_width; // Make sure within screen
-    let kv_y_over = $.height - $.kv_height;
+    let kv_x = e.clientX * kv_xChangeRate * -1;
+    let kv_y = e.clientY * kv_yChangeRate * -1;
 
     $.kvs.forEach(kv => {
         let kv_x_this = kv_x + $.kv_x_stand[kv.index];
-        // let kv_x_this = kv_x;
         let kv_y_this = kv_y;
 
-        // if (kv_y_this < kv_y_over) kv_y_this = kv_y_over;
-        // if (kv_x_this < kv_x_over) kv_x_this = kv_x_over; // Make sure within screen
-
-        // console.log(kv.index, kv_x_this, kv_y_this);
         kv.offsetX(-kv_x_this);
         kv.offsetY(-kv_y_this);
-        // kv.scaleX(1 + $.kv_change_rate_x);
-        // kv.scaleY(1 + $.kv_change_rate_y);
     });
 
     $.kv_chara_layer.batchDraw();
