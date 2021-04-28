@@ -2,6 +2,7 @@
 $.global_degreeRatio = 1;
 $.global_outstandRatioDefault = [0.1, 0.1, 0.1];
 $.global_outstandRatio = $.global_outstandRatioDefault;
+$.global_smooth_movement = true;
 
 $.kv_x_stand = [0, 0, 0];
 $.kv_stand_ratio = [0.33, 0.66, 1.0];
@@ -132,41 +133,51 @@ $.mouse = function (e) {
         $.kv_x_stand[2] = e.clientX * wr_rate * $.global_outstandRatio[2] * -1;
     }
 
-    let kv_chara_x = e.clientX * kv_xChangeRate * -1;
-    let kv_chara_y = e.clientY * kv_yChangeRate * -1;
+    let kv_charas_x = e.clientX * kv_xChangeRate * -1;
+    let kv_charas_y = e.clientY * kv_yChangeRate * -1;
     $.kv_chara.forEach(kv => {
-        let kv_x_this = kv_chara_x + $.kv_x_stand[kv.attrs.index];
-        let kv_y_this = kv_chara_y;
+        let kv_chara_x = (kv_charas_x + $.kv_x_stand[kv.attrs.index]) * -1;
+        let kv_chara_y = kv_charas_y * -1;
 
-        // Finish previous existing tween
-        if ($.kv_chara_tween[kv.attrs.index]) {
-            $.kv_chara_tween[kv.attrs.index].finish();
+        if ($.global_smooth_movement) {
+            if ($.kv_chara_tween[kv.attrs.index]) {
+                $.kv_chara_tween[kv.attrs.index].finish();
+            }
+            $.kv_chara_tween[kv.attrs.index] = new Konva.Tween({
+                node: kv,
+                duration: 3,
+                offsetX: kv_chara_x,
+                offsetY: kv_chara_y,
+                easing: Konva.Easings.StrongEaseOut,
+            });
+            $.kv_chara_tween[kv.attrs.index].play();
+        } else {
+            kv.offsetX(kv_chara_x);
+            kv.offsetY(kv_chara_y);
+            $.kv_chara_layer.batchDraw();
         }
+    });
 
-        // Spawn new tween
-        $.kv_chara_tween[kv.attrs.index] = new Konva.Tween({
-            node: kv,
-            duration: 0.3,
-            offsetX: -kv_x_this,
-            offsetY: -kv_y_this,
+    let kv_bg_x = e.clientX * $.kv_bg_change_rate_x * -1;
+    let kv_bg_y = e.clientY * $.kv_bg_change_rate_y * -1;
+    if ($.global_smooth_movement) {
+        if ($.kv_bg_tween) {
+            $.kv_bg_tween.finish();
+        }
+        $.kv_bg_tween = new Konva.Tween({
+            node: $.kv_bg,
+            duration: 3,
+            offsetX: kv_bg_x,
+            offsetY: kv_bg_y,
             easing: Konva.Easings.StrongEaseOut,
         });
-        $.kv_chara_tween[kv.attrs.index].play();
-    });
-
-    let kv_bg_x = e.clientX * $.kv_bg_change_rate_x;
-    let kv_bg_y = e.clientY * $.kv_bg_change_rate_y;
-    if ($.kv_bg_tween) {
-        $.kv_bg_tween.finish();
+        $.kv_bg_tween.play();
+    } else {
+        $.kv_bg.offsetX(kv_bg_x);
+        $.kv_bg.offsetY(kv_bg_y);
+        $.kv_bg_layer.batchDraw();
     }
-    $.kv_bg_tween = new Konva.Tween({
-        node: $.kv_bg,
-        duration: 0.3,
-        offsetX: -kv_bg_x,
-        offsetY: -kv_bg_y,
-        easing: Konva.Easings.StrongEaseOut,
-    });
-    $.kv_bg_tween.play();
+
 };
 $(document).on('mousemove', $.mouse);
 
