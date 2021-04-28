@@ -52,10 +52,11 @@ for (let t = 0; t < 3; t++) {
         $.kv_chara[t] = new Konva.Image({
             image: kv_chara_img,
             zIndex: 900 + (t * 10),
+            opacity: 0,
         });
         $.kv_chara[t].attrs.index = t;
         $.kv_chara_layer.add($.kv_chara[t]);
-        $.kvsDisplay();
+        $.kvs_display();
     };
     kv_chara_img.src = `img/kv_chara_0${t + 1}.png`;
 }
@@ -70,14 +71,15 @@ kv_bg_img.onload = function () {
         width: $.kv_bg_width,
         height: $.kv_bg_height,
         zIndex: -9999,
+        opacity: 0,
     });
     $.kv_bg_layer.add($.kv_bg);
-    $.kvsDisplay();
+    $.kvs_display();
 };
 kv_bg_img.src = `img/kv_bg.jpg`;
 
 
-$.kvsDisplay = function () {
+$.kvs_display = function () {
     let stand_cancellation = $.width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
     let kv_chara_change_px_x = $.kv_chara_change_rate_x * $.width;
     let kv_chara_change_px_y = $.kv_chara_change_rate_y * $.height;
@@ -107,6 +109,27 @@ $.kvsDisplay = function () {
     $.kv_bg_layer.batchDraw();
 }
 
+$.kvs_start = function () {
+    let bg_start = new Konva.Tween({
+        node: $.kv_bg,
+        duration: 1,
+        opacity: 1,
+        easing: Konva.Easings.StrongEaseOut
+    });
+    bg_start.play();
+
+    let kvs_start = [];
+    for (let t = 0; t < 3; t++) {
+        kvs_start[t] = new Konva.Tween({
+            node: $.kv_chara[t],
+            duration: 1,
+            opacity: 1,
+            easing: Konva.Easings.StrongEaseOut
+        });
+        setTimeout(() => kvs_start[t].play(), 500 + t * 200);
+    }
+}
+setTimeout($.kvs_start, 1000);
 
 $.mouse = function (e) {
 
