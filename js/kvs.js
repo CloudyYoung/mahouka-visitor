@@ -36,101 +36,103 @@ $.kv_bg = null;
 $.kv_bg_tween = null;
 
 
+// Initialization - Stage
 $.stage = new Konva.Stage({
     container: $("body").get(0),
     width: $.width,
-    height: $.height
+    height: $.height,
 });
-$.kv_bg_layer = new Konva.Layer();
-$.kv_chara_layer = new Konva.Layer();
+$.kv_bg_layer = new Konva.Layer({ listening: false });
+$.kv_chara_layer = new Konva.Layer({ listening: false });
 $.stage.add($.kv_bg_layer, $.kv_chara_layer);
 
-// kv chara
+
+
+
+// Initialization - Character kv_chara
+let stand_cancellation = $.width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
+let kv_chara_change_px_x = $.kv_chara_change_rate_x * $.width;
+let kv_chara_change_px_y = $.kv_chara_change_rate_y * $.height;
+let kv_chara_x = ($.width - $.kv_chara_width) + (kv_chara_change_px_x / 2) + stand_cancellation;
+let kv_chara_y = ($.height - $.kv_chara_height) + (kv_chara_change_px_y / 2);
+let kv_chara_width = $.kv_chara_width + (kv_chara_change_px_x / 2);
+let kv_chara_height = $.kv_chara_height + (kv_chara_change_px_y / 2);
+
 for (let t = 0; t < 3; t++) {
     let kv_chara_img = new Image();
-    kv_chara_img.onload = function () {
-        $.kv_chara[t] = new Konva.Image({
-            image: kv_chara_img,
-            zIndex: 900 + (t * 10),
-            opacity: 0,
-        });
-        $.kv_chara[t].attrs.index = t;
-        $.kv_chara_layer.add($.kv_chara[t]);
-        $.kvs_display();
-    };
     kv_chara_img.src = `img/kv_chara_0${t + 1}.png`;
+
+    $.kv_chara[t] = new Konva.Image({
+        image: kv_chara_img,
+        x: kv_chara_x,
+        y: kv_chara_y,
+        width: kv_chara_width,
+        height: kv_chara_height,
+        zIndex: 900 + (t * 10),
+        opacity: 0
+    });
+    $.kv_chara[t].attrs.index = t;
+    $.kv_chara_layer.add($.kv_chara[t]);
 }
 
-// kv bg
+
+// Initialization - Background kv_bg
 let kv_bg_img = new Image();
-kv_bg_img.onload = function () {
-    $.kv_bg = new Konva.Image({
-        x: 0,
-        y: 0,
-        image: kv_bg_img,
-        width: $.kv_bg_width,
-        height: $.kv_bg_height,
-        zIndex: -9999,
-        opacity: 0,
-    });
-    $.kv_bg_layer.add($.kv_bg);
-    $.kvs_display();
-};
-kv_bg_img.src = `img/kv_bg.jpg`;
+kv_bg_img.src = "img/kv_bg.jpg";
+
+let kv_bg_change_px_x = $.kv_bg_change_rate_x * $.width;
+let kv_bg_change_px_y = $.kv_bg_change_rate_y * $.height;
+let kv_bg_x = -kv_bg_change_px_x;
+let kv_bg_y = -kv_bg_change_px_y;
+let kv_bg_width = $.kv_bg_width + kv_bg_change_px_x;
+let kv_bg_height = $.kv_bg_height + kv_bg_change_px_y;
+
+$.kv_bg = new Konva.Image({
+    x: kv_bg_x,
+    y: kv_bg_y,
+    image: kv_bg_img,
+    width: kv_bg_width,
+    height: kv_bg_height,
+    zIndex: -9999,
+    opacity: 0
+});
+$.kv_bg_layer.add($.kv_bg);
 
 
-$.kvs_display = function () {
-    let stand_cancellation = $.width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
-    let kv_chara_change_px_x = $.kv_chara_change_rate_x * $.width;
-    let kv_chara_change_px_y = $.kv_chara_change_rate_y * $.height;
-    let kv_chara_x = ($.width - $.kv_chara_width) + (kv_chara_change_px_x / 2) + stand_cancellation;
-    let kv_chara_y = ($.height - $.kv_chara_height) + (kv_chara_change_px_y / 2);
-    let kv_chara_width = $.kv_chara_width + (kv_chara_change_px_x / 2);
-    let kv_chara_height = $.kv_chara_height + (kv_chara_change_px_y / 2);
-    $.kv_chara.forEach(kv => {
-        kv.x(kv_chara_x);
-        kv.y(kv_chara_y);
-        kv.width(kv_chara_width);
-        kv.height(kv_chara_height);
-    });
 
-    let kv_bg_change_px_x = $.kv_bg_change_rate_x * $.width;
-    let kv_bg_change_px_y = $.kv_bg_change_rate_y * $.height;
-    let kv_bg_x = -kv_bg_change_px_x;
-    let kv_bg_y = -kv_bg_change_px_y;
-    let kv_bg_width = $.kv_bg_width + kv_bg_change_px_x;
-    let kv_bg_height = $.kv_bg_height + kv_bg_change_px_y;
-    $.kv_bg.x(kv_bg_x);
-    $.kv_bg.y(kv_bg_y);
-    $.kv_bg.width(kv_bg_width);
-    $.kv_bg.height(kv_bg_height);
+// Animation - kv_bg
+let bg_start = new Konva.Tween({
+    node: $.kv_bg,
+    duration: 1,
+    opacity: 1,
+    easing: Konva.Easings.StrongEaseOut
+});
+setTimeout(() => bg_start.play(), 1000);
 
-    $.kv_chara_layer.batchDraw();
-    $.kv_bg_layer.batchDraw();
-}
+// Animation - kv_chara
+let kvs_start = [];
+let kvs_start_offset = [{ x: -30, y: 0 }, { x: 0, y: 30 }, { x: 30, y: 0 }];
+for (let t = 0; t < 3; t++) {
+    $.kv_chara[t].x(kv_chara_x + kvs_start_offset[t].x);
+    $.kv_chara[t].y(kv_chara_y + kvs_start_offset[t].y);
 
-$.kvs_start = function () {
-    let bg_start = new Konva.Tween({
-        node: $.kv_bg,
-        duration: 1,
+    kvs_start[t] = new Konva.Tween({
+        node: $.kv_chara[t],
+        x: kv_chara_x,
+        y: kv_chara_y,
+        duration: 3,
         opacity: 1,
         easing: Konva.Easings.StrongEaseOut
     });
-    bg_start.play();
-
-    let kvs_start = [];
-    for (let t = 0; t < 3; t++) {
-        kvs_start[t] = new Konva.Tween({
-            node: $.kv_chara[t],
-            duration: 1,
-            opacity: 1,
-            easing: Konva.Easings.StrongEaseOut
-        });
-        setTimeout(() => kvs_start[t].play(), 500 + t * 200);
-    }
+    setTimeout(() => kvs_start[t].play(), 1500 + t * 200);
 }
-setTimeout($.kvs_start, 1000);
 
+$.kv_chara_layer.batchDraw();
+$.kv_bg_layer.batchDraw();
+
+
+
+// Mouse
 $.mouse = function (e) {
 
     let wr = e.clientX / $.width;
