@@ -14,195 +14,272 @@ $.kv_bg_change_rate_x = 0.02;
 $.kv_bg_change_rate_y = 0.02;
 
 
-$('body').append(`<canvas class="kvs"></canvas>`);
+$('body').append(`<div class="konva"></div>`);
 
 
-$.width = window.screen.width;
-$.height = window.screen.height;
+let width = window.screen.width;
+let height = window.screen.height;
 
-$.kv_real_width = 2560;
-$.kv_real_height = 2000;
 
-$.kv_chara_height = $.height;
-$.kv_chara_width = $.kv_real_width * ($.kv_chara_height / $.kv_real_height);
-
-$.kv_chara = [];
-$.kv_chara_tween = [];
-
-$.kv_bg_width = $.width;
-$.kv_bg_height = $.kv_real_height * ($.kv_bg_width / $.kv_real_width);
-
-$.kv_bg = null;
-$.kv_bg_tween = null;
+// let kv_bg_width = width;
+// let kv_bg_height = kv_real_height * (kv_bg_width / kv_real_width);
 
 
 // Initialization - Stage
-$.stage = new Konva.Stage({
-    container: $("body").get(0),
-    width: $.width,
-    height: $.height,
+let stage = new Konva.Stage({
+    container: $(".konva").get(0),
+    width: width,
+    height: height,
 });
-$.kv_bg_layer = new Konva.Layer({ listening: false });
-$.kv_chara_layer = new Konva.Layer({ listening: false });
-$.stage.add($.kv_bg_layer, $.kv_chara_layer);
+let kvs_layer = new Konva.Layer({ listening: false });
+stage.add(kvs_layer);
 
 
+
+let kvs = {
+    // flare
+    // "kv_flare": {
+    //     origin: { width: width, height: height, x: 0, zIndex: 4 },
+    //     start: {},
+    // },
+
+    // charas
+    // x: the distance to the right side, y: default the bottom
+    "kv_chara_01_crop": {
+        origin: { width: 1121, height: 1390, x: 1189, zIndex: 1 },
+        start: {},
+    },
+    "kv_chara_02_crop": {
+        origin: { width: 1650, height: 1750, x: 360, zIndex: 2 },
+        start: {},
+    },
+    "kv_chara_03_crop": {
+        origin: { width: 1330, height: 1832, x: 0, zIndex: 3 },
+        start: {},
+    },
+
+    // bg
+    // "kv_bg": {
+    //     origin: { width: kv_bg_width, height: kv_bg_height, x: 1230, y: 169, zIndex: 0 },
+    //     start: {},
+    // },
+};
 
 
 // Initialization - Character kv_chara
-let stand_cancellation = $.width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
-let kv_chara_change_px_x = $.kv_chara_change_rate_x * $.width;
-let kv_chara_change_px_y = $.kv_chara_change_rate_y * $.height;
-let kv_chara_x = ($.width - $.kv_chara_width) + (kv_chara_change_px_x / 2) + stand_cancellation;
-let kv_chara_y = ($.height - $.kv_chara_height) + (kv_chara_change_px_y / 2);
-let kv_chara_width = $.kv_chara_width + (kv_chara_change_px_x / 2);
-let kv_chara_height = $.kv_chara_height + (kv_chara_change_px_y / 2);
+let kv_real_width = 2560;
+let kv_real_height = 2000;
 
-for (let t = 0; t < 3; t++) {
-    let kv_chara_img = new Image();
-    kv_chara_img.src = `img/kv_chara_0${t + 1}.png`;
+let kv_chara_height = height;
+let kv_chara_width = kv_real_width * (kv_chara_height / kv_real_height);
 
-    $.kv_chara[t] = new Konva.Image({
-        image: kv_chara_img,
-        x: kv_chara_x,
-        y: kv_chara_y,
+let stand_cancellation = width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
+let kv_chara_change_px_x = $.kv_chara_change_rate_x * width;
+let kv_chara_change_px_y = $.kv_chara_change_rate_y * height;
+
+
+// kv_charas initialize
+for (let [kv, attr] of Object.entries(kvs)) {
+    let kv_img = new Image();
+    kv_img.src = `img/${kv}.png`;
+    kv_img.onload = function () {
+        attr.loaded = true;
+    }
+
+    // kv Group 1 & Group 2 & Move
+    attr.konva_group1 = new Konva.Group({
         width: kv_chara_width,
         height: kv_chara_height,
-        zIndex: 900 + (t * 10),
-        opacity: 0
+        x: (width - kv_chara_width) + (attr.start.x || 0),
+        y: (height - kv_chara_height) + (attr.start.y || 0),
+        scaleX: attr.start.scale || 1,
+        scaleY: attr.start.scale || 1,
+        rotation: attr.start.rotate || 0,
+        opacity: attr.opacity || 1,
     });
-    $.kv_chara[t].attrs.index = t;
-    $.kv_chara_layer.add($.kv_chara[t]);
+    attr.konva_group2 = new Konva.Group({
+        width: kv_chara_width,
+        height: kv_chara_height,
+        x: (attr.start.x || 0),
+        y: (attr.start.y || 0),
+        scaleX: attr.start.scale || 1,
+        scaleY: attr.start.scale || 1,
+        rotation: attr.start.rotate || 0,
+        opacity: attr.opacity || 1,
+    });
+    attr.konva_move = new Konva.Group();
+
+
+    // kv chara
+    let kv_width = kv_chara_width * (attr.origin.width / kv_real_width);
+    let kv_height = kv_chara_height * (attr.origin.height / kv_real_height);
+    let kv_x = kv_chara_width - kv_width - attr.origin.x * (kv_chara_width / kv_real_width);
+    let kv_y = kv_chara_height - kv_height;
+
+    attr.konva_kv = new Konva.Image({
+        image: kv_img,
+        width: kv_width,
+        height: kv_height,
+        x: kv_x,
+        y: kv_y,
+    });
+
+
+    // Add to layers: group1 -> group 2 -> move -> image
+    kvs_layer.add(attr.konva_group1);
+    attr.konva_group1.add(attr.konva_group2);
+    attr.konva_group2.add(attr.konva_move);
+    attr.konva_move.add(attr.konva_kv);
 }
 
-
-// Initialization - Background kv_bg
-let kv_bg_img = new Image();
-kv_bg_img.src = "img/kv_bg.jpg";
-
-let kv_bg_change_px_x = $.kv_bg_change_rate_x * $.width;
-let kv_bg_change_px_y = $.kv_bg_change_rate_y * $.height;
-let kv_bg_x = -kv_bg_change_px_x;
-let kv_bg_y = -kv_bg_change_px_y;
-let kv_bg_width = $.kv_bg_width + kv_bg_change_px_x;
-let kv_bg_height = $.kv_bg_height + kv_bg_change_px_y;
-
-$.kv_bg = new Konva.Image({
-    x: kv_bg_x,
-    y: kv_bg_y,
-    image: kv_bg_img,
-    width: kv_bg_width,
-    height: kv_bg_height,
-    zIndex: -9999,
-    opacity: 0
-});
-$.kv_bg_layer.add($.kv_bg);
+setTimeout(() => kvs_layer.batchDraw(), 1500);
 
 
+// for (let t = 0; t < 3; t++) {
+//     let kv_chara_img = new Image();
+//     kv_chara_img.src = `img/kv_chara_0${t + 1}.png`;
 
-// Animation - kv_bg
-let bg_start = new Konva.Tween({
-    node: $.kv_bg,
-    duration: 1,
-    opacity: 1,
-    easing: Konva.Easings.StrongEaseOut
-});
-setTimeout(() => bg_start.play(), 1000);
+//     $.kv_chara[t] = new Konva.Image({
+//         image: kv_chara_img,
+//         x: kv_chara_x,
+//         y: kv_chara_y,
+//         width: kv_chara_width,
+//         height: kv_chara_height,
+//         zIndex: 900 + (t * 10),
+//         opacity: 0
+//     });
+//     $.kv_chara[t].attrs.index = t;
+//     kvs_layer.add($.kv_chara[t]);
+// }
 
-// Animation - kv_chara
-let kvs_start = [];
-let kvs_start_offset = [{ x: -30, y: 0 }, { x: 0, y: 30 }, { x: 30, y: 0 }];
-for (let t = 0; t < 3; t++) {
-    $.kv_chara[t].x(kv_chara_x + kvs_start_offset[t].x);
-    $.kv_chara[t].y(kv_chara_y + kvs_start_offset[t].y);
 
-    kvs_start[t] = new Konva.Tween({
-        node: $.kv_chara[t],
-        x: kv_chara_x,
-        y: kv_chara_y,
-        duration: 3,
-        opacity: 1,
-        easing: Konva.Easings.StrongEaseOut
-    });
-    setTimeout(() => kvs_start[t].play(), 1500 + t * 200);
-}
+// // Initialization - Background kv_bg
+// let kv_bg_img = new Image();
+// kv_bg_img.src = "img/kv_bg.jpg";
 
-$.kv_chara_layer.batchDraw();
-$.kv_bg_layer.batchDraw();
+// let kv_bg_change_px_x = $.kv_bg_change_rate_x * width;
+// let kv_bg_change_px_y = $.kv_bg_change_rate_y * height;
+// let kv_bg_x = -kv_bg_change_px_x;
+// let kv_bg_y = -kv_bg_change_px_y;
+// let kv_bg_width = kv_bg_width_ + kv_bg_change_px_x;
+// let kv_bg_height = kv_bg_height_ + kv_bg_change_px_y;
+
+// $.kv_bg = new Konva.Image({
+//     x: kv_bg_x,
+//     y: kv_bg_y,
+//     image: kv_bg_img,
+//     width: kv_bg_width,
+//     height: kv_bg_height,
+//     zIndex: -9999,
+//     opacity: 0
+// });
+// kv_bg_layer.add($.kv_bg);
 
 
 
-// Mouse
-$.mouse = function (e) {
+// // Animation - kv_bg
+// let bg_start = new Konva.Tween({
+//     node: $.kv_bg,
+//     duration: 1,
+//     opacity: 1,
+//     easing: Konva.Easings.StrongEaseOut
+// });
+// setTimeout(() => bg_start.play(), 1000);
 
-    let wr = e.clientX / $.width;
-    let hr = e.clientY / $.height;
+// // Animation - kv_chara
+// let kvs_start = [];
+// let kvs_start_offset = [{ x: -30, y: 0 }, { x: 0, y: 30 }, { x: 30, y: 0 }];
+// for (let t = 0; t < 3; t++) {
+//     $.kv_chara[t].x(kv_chara_x + kvs_start_offset[t].x);
+//     $.kv_chara[t].y(kv_chara_y + kvs_start_offset[t].y);
 
-    let kv_xChangeRate = $.kv_chara_change_rate_x * 1.0;
-    let kv_yChangeRate = $.kv_chara_change_rate_y * 1.0;
+//     kvs_start[t] = new Konva.Tween({
+//         node: $.kv_chara[t],
+//         x: kv_chara_x,
+//         y: kv_chara_y,
+//         duration: 3,
+//         opacity: 1,
+//         easing: Konva.Easings.StrongEaseOut
+//     });
+//     setTimeout(() => kvs_start[t].play(), 1500 + t * 200);
+// }
 
-    if (wr <= $.kv_stand_ratio[0]) {
-        let wr_rate = wr;
-        $.kv_x_stand[0] = e.clientX * wr_rate * $.global_outstandRatio[0] * -1;
-        $.kv_x_stand[1] = 0;
-        $.kv_x_stand[2] = 0;
-    } else if (wr <= $.kv_stand_ratio[1]) {
-        let wr_rate = wr - $.kv_stand_ratio[0];
-        $.kv_x_stand[0] = e.clientX * $.kv_stand_ratio[0] * $.global_outstandRatio[0] * -1;
-        $.kv_x_stand[1] = e.clientX * wr_rate * $.global_outstandRatio[1] * -1;
-        $.kv_x_stand[2] = 0;
-    } else if (wr <= $.kv_stand_ratio[2]) {
-        let wr_rate = wr - $.kv_stand_ratio[1];
-        $.kv_x_stand[0] = e.clientX * $.kv_stand_ratio[0] * $.global_outstandRatio[0] * -1;
-        $.kv_x_stand[1] = e.clientX * ($.kv_stand_ratio[1] - $.kv_stand_ratio[0]) * $.global_outstandRatio[1] * -1;
-        $.kv_x_stand[2] = e.clientX * wr_rate * $.global_outstandRatio[2] * -1;
-    }
+// kvs_layer.batchDraw();
+// kv_bg_layer.batchDraw();
 
-    let kv_charas_x = e.clientX * kv_xChangeRate * -1;
-    let kv_charas_y = e.clientY * kv_yChangeRate * -1;
-    $.kv_chara.forEach(kv => {
-        let kv_chara_x = (kv_charas_x + $.kv_x_stand[kv.attrs.index]) * -1;
-        let kv_chara_y = kv_charas_y * -1;
 
-        if ($.global_smooth_movement) {
-            if ($.kv_chara_tween[kv.attrs.index]) {
-                $.kv_chara_tween[kv.attrs.index].finish();
-            }
-            $.kv_chara_tween[kv.attrs.index] = new Konva.Tween({
-                node: kv,
-                duration: 3,
-                offsetX: kv_chara_x,
-                offsetY: kv_chara_y,
-                easing: Konva.Easings.StrongEaseOut,
-            });
-            $.kv_chara_tween[kv.attrs.index].play();
-        } else {
-            kv.offsetX(kv_chara_x);
-            kv.offsetY(kv_chara_y);
-            $.kv_chara_layer.batchDraw();
-        }
-    });
 
-    let kv_bg_x = e.clientX * $.kv_bg_change_rate_x * -1;
-    let kv_bg_y = e.clientY * $.kv_bg_change_rate_y * -1;
-    if ($.global_smooth_movement) {
-        if ($.kv_bg_tween) {
-            $.kv_bg_tween.finish();
-        }
-        $.kv_bg_tween = new Konva.Tween({
-            node: $.kv_bg,
-            duration: 3,
-            offsetX: kv_bg_x,
-            offsetY: kv_bg_y,
-            easing: Konva.Easings.StrongEaseOut,
-        });
-        $.kv_bg_tween.play();
-    } else {
-        $.kv_bg.offsetX(kv_bg_x);
-        $.kv_bg.offsetY(kv_bg_y);
-        $.kv_bg_layer.batchDraw();
-    }
+// // Mouse
+// $.mouse = function (e) {
 
-};
-$(document).on('mousemove', $.mouse);
+//     let wr = e.clientX / width;
+//     let hr = e.clientY / height;
+
+//     let kv_xChangeRate = $.kv_chara_change_rate_x * 1.0;
+//     let kv_yChangeRate = $.kv_chara_change_rate_y * 1.0;
+
+//     if (wr <= $.kv_stand_ratio[0]) {
+//         let wr_rate = wr;
+//         $.kv_x_stand[0] = e.clientX * wr_rate * $.global_outstandRatio[0] * -1;
+//         $.kv_x_stand[1] = 0;
+//         $.kv_x_stand[2] = 0;
+//     } else if (wr <= $.kv_stand_ratio[1]) {
+//         let wr_rate = wr - $.kv_stand_ratio[0];
+//         $.kv_x_stand[0] = e.clientX * $.kv_stand_ratio[0] * $.global_outstandRatio[0] * -1;
+//         $.kv_x_stand[1] = e.clientX * wr_rate * $.global_outstandRatio[1] * -1;
+//         $.kv_x_stand[2] = 0;
+//     } else if (wr <= $.kv_stand_ratio[2]) {
+//         let wr_rate = wr - $.kv_stand_ratio[1];
+//         $.kv_x_stand[0] = e.clientX * $.kv_stand_ratio[0] * $.global_outstandRatio[0] * -1;
+//         $.kv_x_stand[1] = e.clientX * ($.kv_stand_ratio[1] - $.kv_stand_ratio[0]) * $.global_outstandRatio[1] * -1;
+//         $.kv_x_stand[2] = e.clientX * wr_rate * $.global_outstandRatio[2] * -1;
+//     }
+
+//     let kv_charas_x = e.clientX * kv_xChangeRate * -1;
+//     let kv_charas_y = e.clientY * kv_yChangeRate * -1;
+//     $.kv_chara.forEach(kv => {
+//         let kv_chara_x = (kv_charas_x + $.kv_x_stand[kv.attrs.index]) * -1;
+//         let kv_chara_y = kv_charas_y * -1;
+
+//         if ($.global_smooth_movement) {
+//             if ($.kv_chara_tween[kv.attrs.index]) {
+//                 $.kv_chara_tween[kv.attrs.index].finish();
+//             }
+//             $.kv_chara_tween[kv.attrs.index] = new Konva.Tween({
+//                 node: kv,
+//                 duration: 3,
+//                 offsetX: kv_chara_x,
+//                 offsetY: kv_chara_y,
+//                 easing: Konva.Easings.StrongEaseOut,
+//             });
+//             $.kv_chara_tween[kv.attrs.index].play();
+//         } else {
+//             kv.offsetX(kv_chara_x);
+//             kv.offsetY(kv_chara_y);
+//             kvs_layer.batchDraw();
+//         }
+//     });
+
+//     let kv_bg_x = e.clientX * $.kv_bg_change_rate_x * -1;
+//     let kv_bg_y = e.clientY * $.kv_bg_change_rate_y * -1;
+//     if ($.global_smooth_movement) {
+//         if ($.kv_bg_tween) {
+//             $.kv_bg_tween.finish();
+//         }
+//         $.kv_bg_tween = new Konva.Tween({
+//             node: $.kv_bg,
+//             duration: 3,
+//             offsetX: kv_bg_x,
+//             offsetY: kv_bg_y,
+//             easing: Konva.Easings.StrongEaseOut,
+//         });
+//         $.kv_bg_tween.play();
+//     } else {
+//         $.kv_bg.offsetX(kv_bg_x);
+//         $.kv_bg.offsetY(kv_bg_y);
+//         kv_bg_layer.batchDraw();
+//     }
+
+// };
+// $(document).on('mousemove', $.mouse);
 
