@@ -52,21 +52,21 @@ let kvs = {
     // x: the distance to the right side, y: default the bottom
     "kv_chara_01_crop": {
         origin: { width: 1121, height: 1390, x: 1189, zIndex: 1 },
-        start: { x: kv_chara_width * -0.1, delay: 0 },
+        start: { x: kv_chara_width * -0.2, y: kv_chara_height * 0.08, delay: 0 },
     },
     "kv_chara_02_crop": {
         origin: { width: 1650, height: 1750, x: 360, zIndex: 2 },
-        start: { y: kv_chara_height * 0.08, delay: 200 },
+        start: { y: kv_chara_height * 0.2, delay: 200 },
     },
     "kv_chara_03_crop": {
         origin: { width: 1330, height: 1832, x: 0, zIndex: 3 },
-        start: { x: kv_chara_width * 0.1, delay: 400 },
+        start: { x: kv_chara_width * 0.2, y: kv_chara_height * 0.08, delay: 400 },
     },
 
     // flare
     "kv_flare": {
         origin: { opacity: 0.8, x: 0, globalCompositeOperation: "screen", zIndex: 4 },
-        start: { delay: 300 },
+        start: { opacityDuration: 1, delay: 300 },
     },
 };
 
@@ -82,11 +82,8 @@ for (let [kv, attr] of Object.entries(kvs)) {
     let konva_groups_intialize = {
         width: kv_chara_width,
         height: kv_chara_height,
-        x: (attr.start.x || 0),
-        y: (attr.start.y || 0),
-        scaleX: attr.start.scale || 1,
-        scaleY: attr.start.scale || 1,
-        rotation: attr.start.rotate || 0,
+        x: attr.start.x / 2 || 0,
+        y: attr.start.y / 2 || 0,
     };
     let konva_group1_initialize = {
         opacity: attr.start.opacity || 0,
@@ -129,9 +126,6 @@ for (let [kv, attr] of Object.entries(kvs)) {
         duration: 20,
         x: 0,
         y: 0,
-        scaleX: 1,
-        scaleY: 1,
-        rotation: 0,
         easing: mahouka_bezier,
     };
     attr.tween_start1 = new Konva.Tween(Object.assign({}, konva_groups_tween, { node: attr.konva_group1 }));
@@ -140,7 +134,7 @@ for (let [kv, attr] of Object.entries(kvs)) {
     // Start opacity
     attr.tween_opacity = new Konva.Tween({
         node: attr.konva_group1,
-        duration: 0.4,
+        duration: attr.start.opacityDuration || 0.4,
         opacity: 1,
         easing: Konva.Easings.EaseInOut,
     });
