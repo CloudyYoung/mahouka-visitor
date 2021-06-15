@@ -87,17 +87,7 @@ for (let [kv, attr] of Object.entries(kvs)) {
     }
 
     // kv Group 1 & Group 2 & Move
-    attr.konva_group1 = new Konva.Group({
-        width: kv_chara_width,
-        height: kv_chara_height,
-        x: (width - kv_chara_width) + (attr.start.x || 0),
-        y: (height - kv_chara_height) + (attr.start.y || 0),
-        scaleX: attr.start.scale || 1,
-        scaleY: attr.start.scale || 1,
-        rotation: attr.start.rotate || 0,
-        opacity: attr.opacity || 1,
-    });
-    attr.konva_group2 = new Konva.Group({
+    let konva_groups_intialize = {
         width: kv_chara_width,
         height: kv_chara_height,
         x: (attr.start.x || 0),
@@ -105,8 +95,16 @@ for (let [kv, attr] of Object.entries(kvs)) {
         scaleX: attr.start.scale || 1,
         scaleY: attr.start.scale || 1,
         rotation: attr.start.rotate || 0,
+    };
+    let konva_group1_initialize = {
         opacity: attr.opacity || 1,
-    });
+    }
+    let konva_group2_initialize = {
+        offsetX: -(width - kv_chara_width),
+        offsetY: -(height - kv_chara_height),
+    }
+    attr.konva_group1 = new Konva.Group(Object.assign({}, konva_groups_intialize, konva_group1_initialize));
+    attr.konva_group2 = new Konva.Group(Object.assign({}, konva_groups_intialize, konva_group2_initialize));
     attr.konva_move = new Konva.Group();
 
 
@@ -130,10 +128,64 @@ for (let [kv, attr] of Object.entries(kvs)) {
     attr.konva_group1.add(attr.konva_group2);
     attr.konva_group2.add(attr.konva_move);
     attr.konva_move.add(attr.konva_kv);
+
+
+    // Start animation
+    let konva_groups_tween = {
+        duration: 20,
+        x: 0,
+        y: 0,
+        scaleX: 1,
+        scaleY: 1,
+        rotation: 0,
+        easing: mahouka_bezier,
+    };
+    attr.tween_start1 = new Konva.Tween(Object.assign({}, konva_groups_tween, { node: attr.konva_group1 }));
+    attr.tween_start2 = new Konva.Tween(Object.assign({}, konva_groups_tween, { node: attr.konva_group2 }));
+
+    // Start opacity
+    attr.tween_opacity = new Konva.Tween({
+        node: attr.konva_group1,
+        duration: 0.4,
+        opacity: 1,
+        easing: Konva.Easings.EaseInOut,
+    });
 }
 
 setTimeout(() => kvs_layer.batchDraw(), 1500);
 
+
+function mahouka_bezier(t, b, c, d) {
+    let a = bezier(0.01, 0.9, 0, 0.79);
+    return b + a(t / d) / c;
+}
+
+let all_loaded_detection = setInterval(() => {
+    let all_loaded = true;
+    for (let [kv, attr] of Object.entries(kvs)) {
+        if (!attr.loaded) {
+            all_loaded = false;
+            break;
+        }
+    }
+
+    if (all_loaded) {
+        console.warn("kvs all loaded");
+        clearInterval(all_loaded_detection);
+        // start();
+    }
+}, 100);
+
+function start() {
+    // kvs start animation
+    for (let [kv, attr] of Object.entries(kvs)) {
+        setTimeout(() => {
+            attr.tween_start1.play();
+            attr.tween_start2.play();
+        }, 3000 + (attr.start.delay || 0));
+        setTimeout(() => attr.tween_opacity.play(), 3050 + (attr.start.delay || 0));
+    }
+}
 
 // for (let t = 0; t < 3; t++) {
 //     let kv_chara_img = new Image();
