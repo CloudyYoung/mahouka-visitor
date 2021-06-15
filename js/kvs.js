@@ -36,36 +36,6 @@ stage.add(kvs_layer);
 
 
 
-let kvs = {
-    // flare
-    // "kv_flare": {
-    //     origin: { width: width, height: height, x: 0, zIndex: 4 },
-    //     start: {},
-    // },
-
-    // charas
-    // x: the distance to the right side, y: default the bottom
-    "kv_chara_01_crop": {
-        origin: { width: 1121, height: 1390, x: 1189, zIndex: 1 },
-        start: {},
-    },
-    "kv_chara_02_crop": {
-        origin: { width: 1650, height: 1750, x: 360, zIndex: 2 },
-        start: {},
-    },
-    "kv_chara_03_crop": {
-        origin: { width: 1330, height: 1832, x: 0, zIndex: 3 },
-        start: {},
-    },
-
-    // bg
-    // "kv_bg": {
-    //     origin: { width: kv_bg_width, height: kv_bg_height, x: 1230, y: 169, zIndex: 0 },
-    //     start: {},
-    // },
-};
-
-
 // Initialization - Character kv_chara
 let kv_real_width = 2560;
 let kv_real_height = 2000;
@@ -77,6 +47,28 @@ let stand_cancellation = width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0
 let kv_chara_change_px_x = $.kv_chara_change_rate_x * width;
 let kv_chara_change_px_y = $.kv_chara_change_rate_y * height;
 
+let kvs = {
+    // charas
+    // x: the distance to the right side, y: default the bottom
+    "kv_chara_01_crop": {
+        origin: { width: 1121, height: 1390, x: 1189, zIndex: 1 },
+        start: { x: kv_chara_width * -0.1, delay: 0 },
+    },
+    "kv_chara_02_crop": {
+        origin: { width: 1650, height: 1750, x: 360, zIndex: 2 },
+        start: { y: kv_chara_height * 0.08, delay: 200 },
+    },
+    "kv_chara_03_crop": {
+        origin: { width: 1330, height: 1832, x: 0, zIndex: 3 },
+        start: { x: kv_chara_width * 0.1, delay: 400 },
+    },
+
+    // flare
+    "kv_flare": {
+        origin: { opacity: 0.8, x: 0, globalCompositeOperation: "screen", zIndex: 4 },
+        start: { delay: 300 },
+    },
+};
 
 // kv_charas initialize
 for (let [kv, attr] of Object.entries(kvs)) {
@@ -97,11 +89,13 @@ for (let [kv, attr] of Object.entries(kvs)) {
         rotation: attr.start.rotate || 0,
     };
     let konva_group1_initialize = {
-        opacity: attr.opacity || 1,
+        opacity: attr.start.opacity || 0,
     }
     let konva_group2_initialize = {
+        opacity: attr.origin.opacity || 1,
         offsetX: -(width - kv_chara_width),
         offsetY: -(height - kv_chara_height),
+        globalCompositeOperation: attr.origin.globalCompositeOperation || "",
     }
     attr.konva_group1 = new Konva.Group(Object.assign({}, konva_groups_intialize, konva_group1_initialize));
     attr.konva_group2 = new Konva.Group(Object.assign({}, konva_groups_intialize, konva_group2_initialize));
@@ -109,9 +103,9 @@ for (let [kv, attr] of Object.entries(kvs)) {
 
 
     // kv chara
-    let kv_width = kv_chara_width * (attr.origin.width / kv_real_width);
-    let kv_height = kv_chara_height * (attr.origin.height / kv_real_height);
-    let kv_x = kv_chara_width - kv_width - attr.origin.x * (kv_chara_width / kv_real_width);
+    let kv_width = attr.origin.width ? kv_chara_width * (attr.origin.width / kv_real_width) : kv_chara_width;
+    let kv_height = attr.origin.height ? kv_chara_height * (attr.origin.height / kv_real_height) : kv_chara_height;
+    let kv_x = kv_chara_width - kv_width - (attr.origin.x || 0) * (kv_chara_width / kv_real_width);
     let kv_y = kv_chara_height - kv_height;
 
     attr.konva_kv = new Konva.Image({
@@ -172,7 +166,7 @@ let all_loaded_detection = setInterval(() => {
     if (all_loaded) {
         console.warn("kvs all loaded");
         clearInterval(all_loaded_detection);
-        // start();
+        start();
     }
 }, 100);
 
