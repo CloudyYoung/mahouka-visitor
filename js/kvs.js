@@ -74,8 +74,8 @@ let kvs = {
 
     // flare
     "kv_flare": {
-        origin: { opacity: 0.8, globalCompositeOperation: "screen", zIndex: 4 },
-        start: { opacityDuration: 1, delay: 700 },
+        origin: { opacity: 0.9, globalCompositeOperation: "screen", zIndex: 4 },
+        start: { opacityDuration: 1, rotate: 20, scale: 1.3, delay: 600 },
     },
 };
 
@@ -83,6 +83,7 @@ let kvs = {
 for (let [kv, attr] of Object.entries(kvs)) {
 
     let is_bg = kv == "kv_bg";
+    let is_flare = kv == "kv_flare";
 
     let kv_img = new Image();
     kv_img.src = is_bg ? `img/kv_bg.jpg` : `img/${kv}.png`;
@@ -90,11 +91,13 @@ for (let [kv, attr] of Object.entries(kvs)) {
         attr.loaded = true;
     }
 
-    attr.offset = {
+    attr.offset = is_flare ? {
+        x: kv_chara_width,
+        y: 0,
+    } : {
         x: kv_chara_width / 2,
         y: kv_chara_height / 2,
-    }
-
+    };
     attr.position = attr.offset;
 
     // kv Group 1 & Group 2 & Move
