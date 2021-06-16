@@ -43,37 +43,49 @@ let kv_real_height = 2000;
 let kv_chara_height = height;
 let kv_chara_width = kv_real_width * (kv_chara_height / kv_real_height);
 
+let kv_bg_width = width;
+let kv_bg_height = kv_real_height * (kv_chara_width / kv_real_width);
+
 let stand_cancellation = width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
 let kv_chara_change_px_x = $.kv_chara_change_rate_x * width;
 let kv_chara_change_px_y = $.kv_chara_change_rate_y * height;
 
 let kvs = {
+    // bg
+    "kv_bg": {
+        origin: { zIndex: 0 },
+        start: { delay: 0 }
+    },
+
     // charas
     // x: the distance to the right side, y: default the bottom
     "kv_chara_01_crop": {
         origin: { width: 1121, height: 1390, x: 1189, zIndex: 1 },
-        start: { x: kv_chara_width * -0.2, y: kv_chara_height * 0.08, delay: 0 },
+        start: { x: kv_chara_width * -0.2, y: kv_chara_height * 0.1, delay: 400 },
     },
     "kv_chara_02_crop": {
         origin: { width: 1650, height: 1750, x: 360, zIndex: 2 },
-        start: { y: kv_chara_height * 0.2, delay: 200 },
+        start: { y: kv_chara_height * 0.2, delay: 600 },
     },
     "kv_chara_03_crop": {
         origin: { width: 1330, height: 1832, x: 0, zIndex: 3 },
-        start: { x: kv_chara_width * 0.2, y: kv_chara_height * 0.08, delay: 400 },
+        start: { x: kv_chara_width * 0.2, y: kv_chara_height * 0.1, delay: 800 },
     },
 
     // flare
     "kv_flare": {
-        origin: { opacity: 0.8, x: 0, globalCompositeOperation: "screen", zIndex: 4 },
-        start: { opacityDuration: 1, delay: 300 },
+        origin: { opacity: 0.8, globalCompositeOperation: "screen", zIndex: 4 },
+        start: { opacityDuration: 1, delay: 700 },
     },
 };
 
 // kv_charas initialize
 for (let [kv, attr] of Object.entries(kvs)) {
+
+    let is_bg = kv == "kv_bg";
+
     let kv_img = new Image();
-    kv_img.src = `img/${kv}.png`;
+    kv_img.src = is_bg ? `img/kv_bg.jpg` : `img/${kv}.png`;
     kv_img.onload = function () {
         attr.loaded = true;
     }
@@ -90,8 +102,8 @@ for (let [kv, attr] of Object.entries(kvs)) {
     }
     let konva_group2_initialize = {
         opacity: attr.origin.opacity || 1,
-        offsetX: -(width - kv_chara_width),
-        offsetY: -(height - kv_chara_height),
+        offsetX: is_bg ? 0 : -(width - kv_chara_width),
+        offsetY: is_bg ? 0 : -(height - kv_chara_height),
         globalCompositeOperation: attr.origin.globalCompositeOperation || "",
     }
     attr.konva_group1 = new Konva.Group(Object.assign({}, konva_groups_intialize, konva_group1_initialize));
@@ -107,8 +119,8 @@ for (let [kv, attr] of Object.entries(kvs)) {
 
     attr.konva_kv = new Konva.Image({
         image: kv_img,
-        width: kv_width,
-        height: kv_height,
+        width: is_bg ? kv_bg_width : kv_width,
+        height: is_bg ? kv_bg_height : kv_height,
         x: kv_x,
         y: kv_y,
     });
@@ -170,8 +182,8 @@ function start() {
         setTimeout(() => {
             attr.tween_start1.play();
             attr.tween_start2.play();
-        }, 3000 + (attr.start.delay || 0));
-        setTimeout(() => attr.tween_opacity.play(), 3050 + (attr.start.delay || 0));
+        }, 1000 + (attr.start.delay || 0));
+        setTimeout(() => attr.tween_opacity.play(), 1050 + (attr.start.delay || 0));
     }
 }
 
