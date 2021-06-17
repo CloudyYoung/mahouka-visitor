@@ -203,8 +203,8 @@ function start() {
         setTimeout(() => {
             attr.tween_start1.play();
             attr.tween_start2.play();
-        }, 1000 + (attr.start.delay || 0));
-        setTimeout(() => attr.tween_start0.play(), 1050 + (attr.start.delay || 0));
+        }, 3000 + (attr.start.delay || 0));
+        setTimeout(() => attr.tween_start0.play(), 3050 + (attr.start.delay || 0));
     }
 }
 
