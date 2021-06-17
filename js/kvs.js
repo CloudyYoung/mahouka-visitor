@@ -50,7 +50,7 @@ let kvs = {
     // bg
     "kv_bg": {
         origin: { zIndex: 0 },
-        start: { scale: 1.4, delay: 0 }
+        start: { scale: 1.6, delay: 150 }
     },
 
     // charas
