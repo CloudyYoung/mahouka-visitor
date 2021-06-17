@@ -283,6 +283,15 @@ function start() {
     setInterval(generate_dust, 3000);
 }
 
+// Desmos graph: https://www.desmos.com/calculator/0mzjah4aej
+// x: in range of -0.5 ~ 0.5
+function kv_stand_g(x) {
+    let range = Math.PI * 2;
+    let actual_x = range * x;
+    let y = Math.sin(actual_x + Math.PI * 1 / 2) + 1;
+    return y;
+}
+
 
 // // Mouse
 // $.mouse = function (e) {
