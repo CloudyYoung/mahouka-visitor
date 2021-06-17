@@ -270,6 +270,10 @@ body {
   display: none;
 }
 
+.transparent {
+  opacity: 0;
+}
+
 .animated {
   animation-fill-mode: both;
 }

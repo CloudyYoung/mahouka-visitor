@@ -205,6 +205,7 @@ function start() {
             attr.tween_start2.play();
         }, 3000 + (attr.start.delay || 0));
         setTimeout(() => attr.tween_start0.play(), 3050 + (attr.start.delay || 0));
+        setTimeout(() => $(".bg_canvas").removeClass("transparent").fadeIn(1000), 3500 + (attr.start.delay || 0));
     }
 }
 
