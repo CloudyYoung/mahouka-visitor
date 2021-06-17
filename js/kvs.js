@@ -21,10 +21,6 @@ let width = window.screen.width;
 let height = window.screen.height;
 
 
-// let kv_bg_width = width;
-// let kv_bg_height = kv_real_height * (kv_bg_width / kv_real_width);
-
-
 // Initialization - Stage
 let stage = new Konva.Stage({
     container: $(".konva").get(0),
@@ -54,7 +50,7 @@ let kvs = {
     // bg
     "kv_bg": {
         origin: { zIndex: 0 },
-        start: { scale: 1.3, delay: 0 }
+        start: { scale: 1.4, delay: 0 }
     },
 
     // charas
@@ -65,7 +61,7 @@ let kvs = {
     },
     "kv_chara_02_crop": {
         origin: { width: 1650, height: 1750, x: 360, zIndex: 2 },
-        start: { y: kv_chara_height * 0.2, delay: 600 },
+        start: { y: kv_chara_height * 0.15, delay: 600 },
     },
     "kv_chara_03_crop": {
         origin: { width: 1330, height: 1832, x: 0, zIndex: 3 },
@@ -138,8 +134,6 @@ for (let [kv, attr] of Object.entries(kvs)) {
         globalCompositeOperation: attr.origin.globalCompositeOperation || "",
         x: kv_x,
         y: kv_y,
-        scaleX: attr.origin.scale,
-        scaleY: attr.origin.scale,
     });
 
 
@@ -181,20 +175,99 @@ function mahouka_bezier(t, b, c, d) {
     return b + a(t / d) / c;
 }
 
+
+
+// bg_dust initialize
+let dust_group = new Konva.Group();
+kvs_layer.add(dust_group);
+dust_group.zIndex(1); // only above kv_bg
+
+let dusts = {
+    "bg_dust_01": {
+        origin: { width: 160, height: 117 },
+    },
+    "bg_dust_02": {
+        origin: { width: 134, height: 117 },
+    },
+    "bg_dust_03": {
+        origin: { width: 131, height: 128 },
+    },
+    "bg_dust_04": {
+        origin: { width: 168, height: 136 },
+    },
+};
+
+for (let [dust, attr] of Object.entries(dusts)) {
+    let kv_img = new Image();
+    kv_img.src = `img/${dust}.png`;
+    attr.image = kv_img;
+    kv_img.onload = function () {
+        attr.loaded = true;
+    }
+}
+
+function generate_dust() {
+
+    let rand = Math.floor(Math.random() * 10000 + 1000);
+    let remainder = rand % 5;
+    let dust = null;
+
+    if (remainder == 0) {
+        dust = dusts["bg_dust_01"];
+    } else if (remainder == 1) {
+        dust = dusts["bg_dust_02"];
+    } else if (remainder == 2) {
+        dust = dusts["bg_dust_03"];
+    } else if (remainder == 3) {
+        dust = dusts["bg_dust_04"];
+    } else {
+        return;
+    }
+
+    let duration = Math.random() * 10 + 8;
+    let dust_height = dust.origin.height * (kv_chara_height / kv_real_height) * 1.02;
+    let dust_width = dust.origin.width * (dust_height / dust.origin.height);
+    let offset_x = Math.random() * width;
+    let from_x = width;
+    let from_y = -dust_height;
+    let to_x = -dust_width;
+    let to_y = (from_x - to_x) * 0.58;
+
+    let konva_dust = new Konva.Image({
+        image: dust.image,
+        width: dust_width,
+        height: dust_height,
+        x: from_x,
+        y: from_y,
+        offsetX: offset_x,
+        opacity: 0.8,
+    });
+    dust_group.add(konva_dust);
+
+    let konva_dust_tween = new Konva.Tween({
+        node: konva_dust,
+        duration: duration,
+        x: to_x,
+        y: to_y,
+        onFinish: function () {
+            konva_dust.destroy();
+        },
+    });
+    konva_dust_tween.play();
+}
+
+
+// All loaded starting
 let all_loaded_detection = setInterval(() => {
-    let all_loaded = true;
-    for (let [kv, attr] of Object.entries(kvs)) {
+    for (let [kv, attr] of Object.entries(Object.assign({}, kvs, dusts))) {
         if (!attr.loaded) {
-            all_loaded = false;
-            break;
+            return;
         }
     }
 
-    if (all_loaded) {
-        console.warn("kvs all loaded");
-        clearInterval(all_loaded_detection);
-        start();
-    }
+    console.warn("kvs all loaded");
+    clearInterval(all_loaded_detection);
+    start();
 }, 100);
 
 function start() {
@@ -207,7 +280,9 @@ function start() {
         setTimeout(() => attr.tween_start0.play(), 3050 + (attr.start.delay || 0));
         setTimeout(() => $(".bg_canvas").removeClass("transparent").fadeIn(1000), 3500 + (attr.start.delay || 0));
     }
+    setInterval(generate_dust, 3000);
 }
+
 
 // // Mouse
 // $.mouse = function (e) {
