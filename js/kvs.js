@@ -1,11 +1,8 @@
 
 let kv_stand_ratio = [0.33, 0.66, 1.0];
 
-let kv_chara_change_rate_x = 0.04;
-let kv_chara_change_rate_y = 0.04;
-
-let kv_bg_change_rate_x = 0.02;
-let kv_bg_change_rate_y = 0.02;
+let kv_chara_change_rate = 0.04;
+let kv_bg_change_rate = 0.02;
 
 
 $('body').append(`<div class="konva"></div>`);
@@ -13,6 +10,9 @@ $('body').append(`<div class="konva"></div>`);
 
 let width = window.screen.width;
 let height = window.screen.height;
+
+// height = 500;
+// width = 1200;
 
 
 // Initialization - Stage
@@ -34,10 +34,10 @@ let kv_chara_height = height;
 let kv_chara_width = kv_real_width * (kv_chara_height / kv_real_height);
 
 let kv_bg_width = width;
-let kv_bg_height = kv_real_height * (kv_chara_width / kv_real_width);
+let kv_bg_height = kv_real_height * (kv_bg_width / kv_real_width);
 
-let kv_chara_change_px_x = kv_chara_change_rate_x * width;
-let kv_chara_change_px_y = kv_chara_change_rate_y * height;
+let kv_chara_change_px_x = kv_chara_change_rate * width;
+let kv_chara_change_px_y = kv_chara_change_rate * height;
 
 let kvs = {
     // bg
@@ -119,13 +119,25 @@ for (let [kv, attr] of Object.entries(kvs)) {
     let kv_x = kv_chara_width - kv_width - (attr.origin.x || 0) * (kv_chara_width / kv_real_width);
     let kv_y = kv_chara_height - kv_height;
 
-    // if bg
-    kv_width = is_bg ? kv_bg_width : kv_width;
-    kv_height = is_bg ? kv_bg_height : kv_height;
+    if (is_bg) {
+        let kv_move_x = width * kv_chara_change_rate;
+        let kv_move_y = height * (kv_move_x / kv_chara_width);
+        kv_width = kv_bg_width + kv_move_x;
+        kv_height = kv_bg_height + kv_move_y;
+    } else {
+        // kv_move_x and kv_move_y was originally both width * rate and height * rate
+        // but then the image ratio is broken since width/height are different across device
+        // so if kv_move_x has added, the same amount of ratio is increased to kv_move_y as well
+        // but then the kv_move_y is always greater than height * rate, so the lower part of the image
+        // will never be visible, thus we negate the invisible part to kv_y
+        let kv_move_x = width * kv_chara_change_rate;
+        let kv_move_y = height * (kv_move_x / kv_chara_width);
+        let kv_move_y_original = height * kv_chara_change_rate;
+        kv_y -= kv_move_y - kv_move_y_original;
+        kv_width += kv_move_x;
+        kv_height += kv_move_y;
+    }
 
-    // add movement size
-    kv_width += width * kv_chara_change_rate_x;
-    kv_height += height * kv_chara_change_rate_y;
 
     attr.konva_kv = new Konva.Image({
         image: kv_img,
@@ -331,7 +343,7 @@ function start() {
         setTimeout(() => $(".bg_canvas").removeClass("transparent").fadeIn(1000), 3500 + (attr.start.delay || 0));
     }
     setInterval(generate_dust, 3000);
-    setInterval(generate_particle, 20);
+    setInterval(generate_particle, 80);
 }
 
 // Desmos graph: https://www.desmos.com/calculator/0mzjah4aej
@@ -349,8 +361,8 @@ function kv_stand_g(x) {
 $.mouse = function (e) {
 
     let wr = e.clientX / width;
-    let x = e.clientX * kv_chara_change_rate_x;
-    let y = e.clientY * kv_chara_change_rate_y;
+    let x = e.clientX * kv_chara_change_rate;
+    let y = e.clientY * kv_chara_change_rate;
 
     for (let [kv, attr] of Object.entries(kvs)) {
         let total_x = x;
@@ -414,8 +426,8 @@ $.mouse = function (e) {
     //     }
     // });
 
-    // let kv_bg_x = e.clientX * $.kv_bg_change_rate_x * -1;
-    // let kv_bg_y = e.clientY * $.kv_bg_change_rate_y * -1;
+    // let kv_bg_x = e.clientX * $.kv_bg_change_rate * -1;
+    // let kv_bg_y = e.clientY * $.kv_bg_change_rate * -1;
     // if ($.global_smooth_movement) {
     //     if ($.kv_bg_tween) {
     //         $.kv_bg_tween.finish();
