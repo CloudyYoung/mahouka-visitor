@@ -194,6 +194,7 @@ function mahouka_bezier(t, b, c, d) {
 let dust_group = new Konva.Group();
 kvs_layer.add(dust_group);
 dust_group.zIndex(1); // only above kv_bg
+dust_group.opacity(0);
 
 let dusts = {
     "bg_dust_01": {
@@ -238,13 +239,13 @@ function generate_dust() {
     }
 
     let duration = Math.random() * 10 + 8;
-    let dust_height = dust.origin.height * (kv_chara_height / kv_real_height) * 1.02;
+    let dust_height = dust.origin.height * (kv_chara_height / kv_real_height);
     let dust_width = dust.origin.width * (dust_height / dust.origin.height);
     let offset_x = Math.random() * width;
     let from_x = width;
     let from_y = -dust_height;
     let to_x = -dust_width;
-    let to_y = (from_x - to_x) * 0.58;
+    let to_y = (from_x - to_x) * 0.5;
 
     let konva_dust = new Konva.Image({
         image: dust.image,
@@ -257,8 +258,7 @@ function generate_dust() {
     });
     dust_group.add(konva_dust);
 
-    let konva_dust_tween = new Konva.Tween({
-        node: konva_dust,
+    konva_dust.to({
         duration: duration,
         x: to_x,
         y: to_y,
@@ -266,7 +266,6 @@ function generate_dust() {
             konva_dust.destroy();
         },
     });
-    konva_dust_tween.play();
 }
 
 
@@ -279,6 +278,7 @@ kv_particle.image.onload = function () {
 }
 
 let particle_group = new Konva.Group();
+particle_group.opacity(0);
 kvs_layer.add(particle_group);
 
 function generate_particle() {
@@ -342,6 +342,30 @@ function start() {
         setTimeout(() => attr.tween_start0.play(), 3050 + (attr.start.delay || 0));
         setTimeout(() => $(".bg_canvas").removeClass("transparent").fadeIn(1000), 3500 + (attr.start.delay || 0));
     }
+
+    setTimeout(() => {
+        dust_tween = new Konva.Tween({
+            node: dust_group,
+            duration: 3,
+            opacity: 1,
+            easing: mahouka_bezier,
+            onFinish: () => {
+                dust_tween.destroy();
+            }
+        });
+        particle_tween = new Konva.Tween({
+            node: particle_group,
+            duration: 3,
+            opacity: 1,
+            easing: mahouka_bezier,
+            onFinish: () => {
+                particle_tween.destroy();
+            }
+        });
+        dust_tween.play();
+        particle_tween.play();
+    }, 3400);
+
     setInterval(generate_dust, 3000);
     setInterval(generate_particle, 80);
 }
