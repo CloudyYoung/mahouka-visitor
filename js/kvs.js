@@ -7,8 +7,8 @@ $.global_smooth_movement = true;
 $.kv_x_stand = [0, 0, 0];
 $.kv_stand_ratio = [0.33, 0.66, 1.0];
 
-$.kv_chara_change_rate_x = 0.04;
-$.kv_chara_change_rate_y = 0.06;
+let kv_chara_change_rate_x = 0.04;
+let kv_chara_change_rate_y = 0.04;
 
 $.kv_bg_change_rate_x = 0.02;
 $.kv_bg_change_rate_y = 0.02;
@@ -43,8 +43,8 @@ let kv_bg_width = width;
 let kv_bg_height = kv_real_height * (kv_chara_width / kv_real_width);
 
 let stand_cancellation = width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
-let kv_chara_change_px_x = $.kv_chara_change_rate_x * width;
-let kv_chara_change_px_y = $.kv_chara_change_rate_y * height;
+let kv_chara_change_px_x = kv_chara_change_rate_x * width;
+let kv_chara_change_px_y = kv_chara_change_rate_y * height;
 
 let kvs = {
     // bg
@@ -126,10 +126,18 @@ for (let [kv, attr] of Object.entries(kvs)) {
     let kv_x = kv_chara_width - kv_width - (attr.origin.x || 0) * (kv_chara_width / kv_real_width);
     let kv_y = kv_chara_height - kv_height;
 
+    // if bg
+    kv_width = is_bg ? kv_bg_width : kv_width;
+    kv_height = is_bg ? kv_bg_height : kv_height;
+
+    // add movement size
+    kv_width += width * kv_chara_change_rate_x;
+    kv_height += height * kv_chara_change_rate_y;
+
     attr.konva_kv = new Konva.Image({
         image: kv_img,
-        width: is_bg ? kv_bg_width : kv_width,
-        height: is_bg ? kv_bg_height : kv_height,
+        width: kv_width,
+        height: kv_height,
         opacity: attr.origin.opacity || 1,
         globalCompositeOperation: attr.origin.globalCompositeOperation || "",
         x: kv_x,
@@ -286,6 +294,7 @@ function start() {
 // Desmos graph: https://www.desmos.com/calculator/0mzjah4aej
 // x: in range of -0.5 ~ 0.5
 function kv_stand_g(x) {
+    if (x < -0.5 || x > 0.5) return 0;
     let range = Math.PI * 2;
     let actual_x = range * x;
     let y = Math.sin(actual_x + Math.PI * 1 / 2) + 1;
@@ -293,77 +302,95 @@ function kv_stand_g(x) {
 }
 
 
-// // Mouse
-// $.mouse = function (e) {
+// Mouse
+$.mouse = function (e) {
 
-//     let wr = e.clientX / width;
-//     let hr = e.clientY / height;
+    let wr = e.clientX / width;
+    let x = e.clientX * kv_chara_change_rate_x;
+    let y = e.clientY * kv_chara_change_rate_y;
 
-//     let kv_xChangeRate = $.kv_chara_change_rate_x * 1.0;
-//     let kv_yChangeRate = $.kv_chara_change_rate_y * 1.0;
+    for (let [kv, attr] of Object.entries(kvs)) {
+        let total_x = x;
+        let total_y = y;
 
-//     if (wr <= $.kv_stand_ratio[0]) {
-//         let wr_rate = wr;
-//         $.kv_x_stand[0] = e.clientX * wr_rate * $.global_outstandRatio[0] * -1;
-//         $.kv_x_stand[1] = 0;
-//         $.kv_x_stand[2] = 0;
-//     } else if (wr <= $.kv_stand_ratio[1]) {
-//         let wr_rate = wr - $.kv_stand_ratio[0];
-//         $.kv_x_stand[0] = e.clientX * $.kv_stand_ratio[0] * $.global_outstandRatio[0] * -1;
-//         $.kv_x_stand[1] = e.clientX * wr_rate * $.global_outstandRatio[1] * -1;
-//         $.kv_x_stand[2] = 0;
-//     } else if (wr <= $.kv_stand_ratio[2]) {
-//         let wr_rate = wr - $.kv_stand_ratio[1];
-//         $.kv_x_stand[0] = e.clientX * $.kv_stand_ratio[0] * $.global_outstandRatio[0] * -1;
-//         $.kv_x_stand[1] = e.clientX * ($.kv_stand_ratio[1] - $.kv_stand_ratio[0]) * $.global_outstandRatio[1] * -1;
-//         $.kv_x_stand[2] = e.clientX * wr_rate * $.global_outstandRatio[2] * -1;
-//     }
+        attr.konva_kv.offsetX(total_x * 0.55);
+        attr.konva_kv.offsetY(total_y * 0.55);
 
-//     let kv_charas_x = e.clientX * kv_xChangeRate * -1;
-//     let kv_charas_y = e.clientY * kv_yChangeRate * -1;
-//     $.kv_chara.forEach(kv => {
-//         let kv_chara_x = (kv_charas_x + $.kv_x_stand[kv.attrs.index]) * -1;
-//         let kv_chara_y = kv_charas_y * -1;
+        attr.tween_move = new Konva.Tween({
+            node: attr.konva_move,
+            duration: 20,
+            offsetX: total_x * 0.45,
+            offsetY: total_y * 0.45,
+            easing: mahouka_bezier,
+        });
+        attr.tween_move.play();
+    }
 
-//         if ($.global_smooth_movement) {
-//             if ($.kv_chara_tween[kv.attrs.index]) {
-//                 $.kv_chara_tween[kv.attrs.index].finish();
-//             }
-//             $.kv_chara_tween[kv.attrs.index] = new Konva.Tween({
-//                 node: kv,
-//                 duration: 3,
-//                 offsetX: kv_chara_x,
-//                 offsetY: kv_chara_y,
-//                 easing: Konva.Easings.StrongEaseOut,
-//             });
-//             $.kv_chara_tween[kv.attrs.index].play();
-//         } else {
-//             kv.offsetX(kv_chara_x);
-//             kv.offsetY(kv_chara_y);
-//             kvs_layer.batchDraw();
-//         }
-//     });
+    dust_group.offsetX(x * 0.2);
+    dust_group.offsetY(y * 0.2);
 
-//     let kv_bg_x = e.clientX * $.kv_bg_change_rate_x * -1;
-//     let kv_bg_y = e.clientY * $.kv_bg_change_rate_y * -1;
-//     if ($.global_smooth_movement) {
-//         if ($.kv_bg_tween) {
-//             $.kv_bg_tween.finish();
-//         }
-//         $.kv_bg_tween = new Konva.Tween({
-//             node: $.kv_bg,
-//             duration: 3,
-//             offsetX: kv_bg_x,
-//             offsetY: kv_bg_y,
-//             easing: Konva.Easings.StrongEaseOut,
-//         });
-//         $.kv_bg_tween.play();
-//     } else {
-//         $.kv_bg.offsetX(kv_bg_x);
-//         $.kv_bg.offsetY(kv_bg_y);
-//         kv_bg_layer.batchDraw();
-//     }
+    // if (wr <= $.kv_stand_ratio[0]) {
+    //     let wr_rate = wr;
+    //     $.kv_x_stand[0] = e.clientX * wr_rate * $.global_outstandRatio[0] * -1;
+    //     $.kv_x_stand[1] = 0;
+    //     $.kv_x_stand[2] = 0;
+    // } else if (wr <= $.kv_stand_ratio[1]) {
+    //     let wr_rate = wr - $.kv_stand_ratio[0];
+    //     $.kv_x_stand[0] = e.clientX * $.kv_stand_ratio[0] * $.global_outstandRatio[0] * -1;
+    //     $.kv_x_stand[1] = e.clientX * wr_rate * $.global_outstandRatio[1] * -1;
+    //     $.kv_x_stand[2] = 0;
+    // } else if (wr <= $.kv_stand_ratio[2]) {
+    //     let wr_rate = wr - $.kv_stand_ratio[1];
+    //     $.kv_x_stand[0] = e.clientX * $.kv_stand_ratio[0] * $.global_outstandRatio[0] * -1;
+    //     $.kv_x_stand[1] = e.clientX * ($.kv_stand_ratio[1] - $.kv_stand_ratio[0]) * $.global_outstandRatio[1] * -1;
+    //     $.kv_x_stand[2] = e.clientX * wr_rate * $.global_outstandRatio[2] * -1;
+    // }
 
-// };
-// $(document).on('mousemove', $.mouse);
+    // let kv_charas_x = e.clientX * kv_xChangeRate * -1;
+    // let kv_charas_y = e.clientY * kv_yChangeRate * -1;
+    // $.kv_chara.forEach(kv => {
+    //     let kv_chara_x = (kv_charas_x + $.kv_x_stand[kv.attrs.index]) * -1;
+    //     let kv_chara_y = kv_charas_y * -1;
+
+    //     if ($.global_smooth_movement) {
+    //         if ($.kv_chara_tween[kv.attrs.index]) {
+    //             $.kv_chara_tween[kv.attrs.index].finish();
+    //         }
+    //         $.kv_chara_tween[kv.attrs.index] = new Konva.Tween({
+    //             node: kv,
+    //             duration: 3,
+    //             offsetX: kv_chara_x,
+    //             offsetY: kv_chara_y,
+    //             easing: Konva.Easings.StrongEaseOut,
+    //         });
+    //         $.kv_chara_tween[kv.attrs.index].play();
+    //     } else {
+    //         kv.offsetX(kv_chara_x);
+    //         kv.offsetY(kv_chara_y);
+    //         kvs_layer.batchDraw();
+    //     }
+    // });
+
+    // let kv_bg_x = e.clientX * $.kv_bg_change_rate_x * -1;
+    // let kv_bg_y = e.clientY * $.kv_bg_change_rate_y * -1;
+    // if ($.global_smooth_movement) {
+    //     if ($.kv_bg_tween) {
+    //         $.kv_bg_tween.finish();
+    //     }
+    //     $.kv_bg_tween = new Konva.Tween({
+    //         node: $.kv_bg,
+    //         duration: 3,
+    //         offsetX: kv_bg_x,
+    //         offsetY: kv_bg_y,
+    //         easing: Konva.Easings.StrongEaseOut,
+    //     });
+    //     $.kv_bg_tween.play();
+    // } else {
+    //     $.kv_bg.offsetX(kv_bg_x);
+    //     $.kv_bg.offsetY(kv_bg_y);
+    //     kv_bg_layer.batchDraw();
+    // }
+
+};
+$(document).on('mousemove', $.mouse);
 
