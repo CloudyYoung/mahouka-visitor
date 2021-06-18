@@ -168,8 +168,8 @@ for (let [kv, attr] of Object.entries(kvs)) {
         y: attr.position.y,
         easing: mahouka_bezier,
     };
-    attr.tween_start1 = new Konva.Tween(Object.assign({}, konva_groups_tween, { node: attr.konva_group1 }));
-    attr.tween_start2 = new Konva.Tween(Object.assign({}, konva_groups_tween, { node: attr.konva_group2 }));
+    attr.tween_start1 = new Konva.Tween(Object.assign({}, konva_groups_tween, { node: attr.konva_group1, onFinish: () => attr.tween_start1.destroy() }));
+    attr.tween_start2 = new Konva.Tween(Object.assign({}, konva_groups_tween, { node: attr.konva_group2, onFinish: () => attr.tween_start2.destroy() }));
 
     // Start opacity
     attr.tween_start0 = new Konva.Tween({
@@ -177,6 +177,7 @@ for (let [kv, attr] of Object.entries(kvs)) {
         duration: attr.start.opacityDuration || 0.4,
         opacity: 1,
         easing: Konva.Easings.EaseInOut,
+        onFinish: () => attr.tween_start0.destroy(),
     });
 }
 
@@ -262,9 +263,7 @@ function generate_dust() {
         duration: duration,
         x: to_x,
         y: to_y,
-        onFinish: function () {
-            konva_dust.destroy();
-        },
+        onFinish: () => konva_dust.destroy(),
     });
 }
 
@@ -311,9 +310,7 @@ function generate_particle() {
         x: to_x,
         y: to_y,
         opacity: to_opacity,
-        onFinish: function () {
-            konva_particle.destroy();
-        },
+        onFinish: () => konva_particle.destroy(),
     });
 }
 
@@ -349,18 +346,15 @@ function start() {
             duration: 3,
             opacity: 1,
             easing: mahouka_bezier,
-            onFinish: () => {
-                dust_tween.destroy();
-            }
+            onFinish: () => dust_tween.destroy(),
+
         });
         particle_tween = new Konva.Tween({
             node: particle_group,
             duration: 3,
             opacity: 1,
             easing: mahouka_bezier,
-            onFinish: () => {
-                particle_tween.destroy();
-            }
+            onFinish: () => particle_tween.destroy(),
         });
         dust_tween.play();
         particle_tween.play();
@@ -395,14 +389,12 @@ $.mouse = function (e) {
         attr.konva_kv.offsetX(total_x * 0.55);
         attr.konva_kv.offsetY(total_y * 0.55);
 
-        attr.tween_move = new Konva.Tween({
-            node: attr.konva_move,
+        attr.konva_move.to({
             duration: 20,
             offsetX: total_x * 0.45,
             offsetY: total_y * 0.45,
             easing: mahouka_bezier,
         });
-        attr.tween_move.play();
     }
 
     dust_group.offsetX(x * 0.2);
