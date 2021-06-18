@@ -258,10 +258,59 @@ function generate_dust() {
 }
 
 
+// particles
+let kv_particle = {};
+kv_particle.image = new Image();
+kv_particle.image.src = `img/particle.png`;
+kv_particle.image.onload = function () {
+    kv_particle.loaded = true;
+}
+
+let particle_group = new Konva.Group();
+kvs_layer.add(particle_group);
+
+function generate_particle() {
+    let from_size = Math.random() * 10 % (height * 0.010) + (height * 0.002);
+    let from_x = Math.random() * width;
+    let from_y = Math.random() * 100 + height + from_size;
+    let from_opacity = Math.random() % 0.5 + 0.2;
+
+    let duration = Math.random() * 20 + 10;
+    let to_size = from_size * Math.random() % 0.6;
+    let factor = Math.floor(Math.random() * 10 % 2 - 0.5) == -1 ? -1 : 1;
+    let to_x = (Math.random() * width) % (width * 0.2) * factor + from_x;
+    let to_y = -from_size - Math.random() * 100;
+    let to_opacity = from_opacity * (Math.random() % 0.6);
+
+    let konva_particle = new Konva.Image({
+        image: kv_particle.image,
+        width: from_size,
+        height: from_size,
+        x: from_x,
+        y: from_y,
+        opacity: from_opacity,
+    });
+    particle_group.add(konva_particle);
+
+    konva_particle.to({
+        duration: duration,
+        width: to_size,
+        height: to_size,
+        x: to_x,
+        y: to_y,
+        opacity: to_opacity,
+        onFinish: function () {
+            konva_particle.destroy();
+        },
+    });
+}
+
+
 // All loaded starting
 let all_loaded_detection = setInterval(() => {
-    for (let [kv, attr] of Object.entries(Object.assign({}, kvs, dusts))) {
+    for (let [kv, attr] of Object.entries(Object.assign({}, kvs, dusts, { "particle": kv_particle }))) {
         if (!attr.loaded) {
+            console.log("kv not loaded", kv);
             return;
         }
     }
@@ -281,7 +330,8 @@ function start() {
         setTimeout(() => attr.tween_start0.play(), 3050 + (attr.start.delay || 0));
         setTimeout(() => $(".bg_canvas").removeClass("transparent").fadeIn(1000), 3500 + (attr.start.delay || 0));
     }
-    // setInterval(generate_dust, 3000);
+    setInterval(generate_dust, 3000);
+    setInterval(generate_particle, 20);
 }
 
 // Desmos graph: https://www.desmos.com/calculator/0mzjah4aej
@@ -311,7 +361,7 @@ $.mouse = function (e) {
 
         attr.tween_move = new Konva.Tween({
             node: attr.konva_move,
-            duration: 10,
+            duration: 20,
             offsetX: total_x * 0.45,
             offsetY: total_y * 0.45,
             easing: mahouka_bezier,

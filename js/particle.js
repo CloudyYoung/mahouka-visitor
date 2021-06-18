@@ -27,10 +27,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     startScaleVariance = 0.5;
   }
   stage = new createjs.Stage('bg_canvas');
-  // パーティクルシステム作成します。
   particleSystem = new particlejs.ParticleSystem();
-  // パーティクルシステムの描画コンテナーを表示リストに登録します。
   stage.addChild(particleSystem.container);
+
   particleSystem.importFromJson((_particleSystem$impor = {
     "bgColor": "#000000",
     "width": 513,
