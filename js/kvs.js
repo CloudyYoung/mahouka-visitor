@@ -1,17 +1,11 @@
 
-$.global_degreeRatio = 1;
-$.global_outstandRatioDefault = [0.1, 0.1, 0.1];
-$.global_outstandRatio = $.global_outstandRatioDefault;
-$.global_smooth_movement = true;
-
-$.kv_x_stand = [0, 0, 0];
-$.kv_stand_ratio = [0.33, 0.66, 1.0];
+let kv_stand_ratio = [0.33, 0.66, 1.0];
 
 let kv_chara_change_rate_x = 0.04;
 let kv_chara_change_rate_y = 0.04;
 
-$.kv_bg_change_rate_x = 0.02;
-$.kv_bg_change_rate_y = 0.02;
+let kv_bg_change_rate_x = 0.02;
+let kv_bg_change_rate_y = 0.02;
 
 
 $('body').append(`<div class="konva"></div>`);
@@ -42,7 +36,6 @@ let kv_chara_width = kv_real_width * (kv_chara_height / kv_real_height);
 let kv_bg_width = width;
 let kv_bg_height = kv_real_height * (kv_chara_width / kv_real_width);
 
-let stand_cancellation = width * ($.kv_stand_ratio[2] - $.kv_stand_ratio[1]) * 0.1;
 let kv_chara_change_px_x = kv_chara_change_rate_x * width;
 let kv_chara_change_px_y = kv_chara_change_rate_y * height;
 
@@ -288,7 +281,7 @@ function start() {
         setTimeout(() => attr.tween_start0.play(), 3050 + (attr.start.delay || 0));
         setTimeout(() => $(".bg_canvas").removeClass("transparent").fadeIn(1000), 3500 + (attr.start.delay || 0));
     }
-    setInterval(generate_dust, 3000);
+    // setInterval(generate_dust, 3000);
 }
 
 // Desmos graph: https://www.desmos.com/calculator/0mzjah4aej
@@ -318,7 +311,7 @@ $.mouse = function (e) {
 
         attr.tween_move = new Konva.Tween({
             node: attr.konva_move,
-            duration: 20,
+            duration: 10,
             offsetX: total_x * 0.45,
             offsetY: total_y * 0.45,
             easing: mahouka_bezier,

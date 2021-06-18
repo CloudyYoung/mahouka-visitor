@@ -515,7 +515,7 @@ setTimeout(function () {
 
     setInterval(() => {
         $.events.today();
-    }, 1000);
+    }, 10 * 1000);
 
     setInterval(() => {
         $.events.tick();
