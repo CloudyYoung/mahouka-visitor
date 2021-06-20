@@ -1,5 +1,5 @@
 
-let kv_stand_ratio = [0.33, 0.66, 1.0];
+let kv_stand_ratio = [0.33, 0.66, 0.99];
 
 let kv_chara_change_rate = 0.04;
 let kv_bg_change_rate = 0.02;
@@ -364,23 +364,15 @@ function start() {
     setInterval(generate_particle, 80);
 }
 
-// Desmos graph: https://www.desmos.com/calculator/0mzjah4aej
-// x: in range of -0.5 ~ 0.5
-function kv_stand_g(x) {
-    if (x < -0.5 || x > 0.5) return 0;
-    let range = Math.PI * 2;
-    let actual_x = range * x;
-    let y = Math.sin(actual_x + Math.PI * 1 / 2) + 1;
-    return y;
-}
-
 
 // Mouse
 $.mouse = function (e) {
 
-    let wr = e.clientX / width;
     let x = e.clientX * kv_chara_change_rate;
     let y = e.clientY * kv_chara_change_rate;
+
+    let start_x = width - kv_chara_width;
+    let wr = (e.clientX - start_x) / kv_chara_width;
 
     for (let [kv, attr] of Object.entries(kvs)) {
         let total_x = x;
