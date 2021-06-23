@@ -144,7 +144,7 @@ for (let [kv, attr] of Object.entries(kvs)) {
 
     // FIXME: kv_03 right-edge not completely visible
     if (attr.move && attr.move.stand) {
-        kv_x += kv_chara_width * kv_stand_rate;
+        kv_x += kv_chara_width * kv_stand_rate * 0.78;
     }
 
 
