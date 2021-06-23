@@ -3,6 +3,7 @@ let kv_stand_ratio = [0.33, 0.66, 0.99];
 
 let kv_chara_change_rate = 0.04;
 let kv_bg_change_rate = 0.02;
+let kv_stand_rate = 0.03;
 
 
 $('body').append(`<div class="konva"></div>`);
@@ -51,17 +52,17 @@ let kvs = {
     "kv_chara_01_crop": {
         origin: { width: 1121, height: 1390, x: 1189, zIndex: 1 },
         start: { x: kv_chara_width * -0.2, y: kv_chara_height * 0.1, delay: 400 },
-        move: { stand: 0.33 },
+        move: { stand: 0.0001 },
     },
     "kv_chara_02_crop": {
         origin: { width: 1650, height: 1750, x: 360, zIndex: 2 },
         start: { y: kv_chara_height * 0.15, delay: 600 },
-        move: { stand: 0.66 },
+        move: { stand: 0.3 },
     },
     "kv_chara_03_crop": {
         origin: { width: 1330, height: 1832, x: 0, zIndex: 3 },
         start: { x: kv_chara_width * 0.2, y: kv_chara_height * 0.1, delay: 800 },
-        move: { stand: 0.99 },
+        move: { stand: 0.6 },
     },
 
     // flare
@@ -139,6 +140,11 @@ for (let [kv, attr] of Object.entries(kvs)) {
         kv_y -= kv_move_y - kv_move_y_original;
         kv_width += kv_move_x;
         kv_height += kv_move_y;
+    }
+
+    // FIXME: kv_03 right-edge not completely visible
+    if (attr.move && attr.move.stand) {
+        kv_x += kv_chara_width * kv_stand_rate;
     }
 
 
@@ -367,6 +373,13 @@ function start() {
     setInterval(generate_particle, 80);
 }
 
+// x: 0 ~ 1
+// y: 0 ~ 1
+function g(x) {
+    let y = Math.pow(x - 1, 3) + 1;
+    return y;
+}
+
 
 // Mouse
 $.mouse = function (e) {
@@ -376,11 +389,26 @@ $.mouse = function (e) {
 
     let start_x = width - kv_chara_width;
     let wr = (e.clientX - start_x) / kv_chara_width;
+    let stand_range = 1;
     console.log(wr, wr - 0.33, wr - 0.66, wr - 0.99);
 
     for (let [kv, attr] of Object.entries(kvs)) {
         let total_x = x;
         let total_y = y;
+
+        // TODO: Finish kv stand
+        if (attr.move && attr.move.stand) {
+            let distance = wr - attr.move.stand;
+
+            if (distance >= 0) {
+                distance = Math.min(distance, stand_range);
+
+                let x = distance / stand_range;
+                let y = g(x);
+                console.log(kv, distance, x, y);
+                total_x += y * kv_chara_width * kv_stand_rate;
+            }
+        }
 
         attr.konva_kv.offsetX(total_x * 0.55);
         attr.konva_kv.offsetY(total_y * 0.55);
