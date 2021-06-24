@@ -1,4 +1,3 @@
-$("body").append(`<div class="widget"></div>`);
 $(".widget").append(`<div class="events"></div>`);
 
 $.events = [
