@@ -2,8 +2,9 @@
 let kv_stand_ratio = [0.33, 0.66, 0.99];
 
 let kv_chara_change_rate = 0.04;
+let kv_chara_stand_rate = 0.03;
+let kv_chara_stand_range = 1;
 let kv_bg_change_rate = 0.02;
-let kv_stand_rate = 0.03;
 
 
 $('body').append(`<div class="konva"></div>`);
@@ -142,11 +143,10 @@ for (let [kv, attr] of Object.entries(kvs)) {
         kv_height += kv_move_y;
     }
 
-    // FIXME: kv_03 right-edge not completely visible
+    // Cancel stand pixel
     if (attr.move && attr.move.stand) {
-        kv_x += kv_chara_width * kv_stand_rate * 0.78;
+        kv_x += stand(attr);
     }
-
 
     attr.konva_kv = new Konva.Image({
         image: kv_img,
@@ -375,9 +375,25 @@ function start() {
 
 // x: 0 ~ 1
 // y: 0 ~ 1
+// https://www.desmos.com/calculator/iho6ahbmg4
 function g(x) {
     let y = Math.pow(x - 1, 3) + 1;
     return y;
+}
+
+function stand(attr, wr = 1) {
+    let distance = wr - attr.move.stand;
+
+    if (distance >= 0) {
+        distance = Math.min(distance, kv_chara_stand_range);
+
+        let x = distance / kv_chara_stand_range;
+        let y = g(x);
+        console.log(distance, x, y);
+        return y * kv_chara_width * kv_chara_stand_rate;
+    } else {
+        return 0;
+    }
 }
 
 
@@ -389,25 +405,14 @@ $.mouse = function (e) {
 
     let start_x = width - kv_chara_width;
     let wr = (e.clientX - start_x) / kv_chara_width;
-    let stand_range = 1;
-    console.log(wr, wr - 0.33, wr - 0.66, wr - 0.99);
 
     for (let [kv, attr] of Object.entries(kvs)) {
         let total_x = x;
         let total_y = y;
 
-        // TODO: Finish kv stand
+        // kv chara stand
         if (attr.move && attr.move.stand) {
-            let distance = wr - attr.move.stand;
-
-            if (distance >= 0) {
-                distance = Math.min(distance, stand_range);
-
-                let x = distance / stand_range;
-                let y = g(x);
-                console.log(kv, distance, x, y);
-                total_x += y * kv_chara_width * kv_stand_rate;
-            }
+            total_x += stand(attr, wr);
         }
 
         attr.konva_kv.offsetX(total_x * 0.55);
