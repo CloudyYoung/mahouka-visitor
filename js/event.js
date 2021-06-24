@@ -1,3 +1,4 @@
+$("body").append(`<div class="widget"></div>`);
 $(".widget").append(`<div class="events"></div>`);
 
 $.events = [
@@ -392,7 +393,7 @@ $.events.forEach((each) => {
         each.html = $.events.makeEvent(each);
     }
 
-    each.html = `<div class="card ${each.key} ${each.type}" style="display: none;">` + each.html + `</div>`;
+    each.html = `<div class="card ${each.key} ${each.type}">` + each.html + `</div>`;
 
     if (each.type == "birthday") { // Birthday
         each.priority = 900;
@@ -411,18 +412,6 @@ $.events.sort((a, b) => {
 // Append to html
 $.events.forEach((each) => {
     $(".widget .events").append(each.html);
-
-    // Image preload
-    if (each.charaface_src) {
-        each.charaface_src.forEach((src) => {
-            $("body").append(`<img class="preload" src="${src}" style="transform: translate(-2000vw, -2000vh); height: 10%; width: 10%;" />`);
-        });
-    }
-
-    // Remove preload dom
-    setTimeout(function () {
-        $(".preload").remove();
-    }, 3000);
 });
 
 // Date function
@@ -431,7 +420,6 @@ $.events.date = function () {
     let month = today.getMonth() + 1;
     let day = today.getDate();
 
-    // (month = 4), (day = 24);
     return [month, day];
 };
 
@@ -520,4 +508,10 @@ setTimeout(function () {
     setInterval(() => {
         $.events.tick();
     }, 30 * 1000);
-}, 3000);
+}, 7000);
+
+
+// testing
+if (window.location.hash && window.location.hash == "#debug") {
+    // $.events.date = () => { return [4, 24] };
+}

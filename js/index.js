@@ -13,8 +13,12 @@ $('body').append(`<div class="konva"></div>`);
 let width = window.screen.width;
 let height = window.screen.height;
 
-// height = 500;
-// width = 1200;
+
+// testing
+if (window.location.hash && window.location.hash == "#debug") {
+    // height = 500;
+    // width = 1200;
+}
 
 
 // Initialization - Stage

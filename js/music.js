@@ -247,3 +247,19 @@ $('.widget').on('event', function (e, on) {
     }
     $.player.open();
 });
+
+
+// testing
+if (window.location.hash && window.location.hash == "#debug") {
+    $.player.enabled = true;
+
+    if ($.player.enabled) {
+        $('.widget .music').fadeIn();
+        $.player.generatePlaylist();
+        $.player.playback();
+        $.player.play();
+    } else {
+        $('.widget .music').hide();
+        $.player.pause();
+    }
+}
