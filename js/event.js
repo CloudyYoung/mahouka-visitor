@@ -148,8 +148,9 @@ $.events.makeText = function (each) {
     <div class="texts">
         <div class="text-body">
             <span class="chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
-            <span class="date ${each.showDate ? "" : "hide"}" i18n>${date}</span>
+            <span class="date ${each.showDate ? "" : "hide"}" i18n>${each.showDate ? date : ""}</span>
             <span class="text" i18n>${each.text.join("//")}</span>
+            <span class="hover text ${each.hoverText ? "" : "hide"}" i18n>${each.hoverText ? each.hoverText.join("//") : ""}</span>
         </div>
     </div>`;
 };
@@ -209,6 +210,7 @@ $.events.makeBirthday = function (each) {
         `${each.name.prefer[1]}，生日快乐！`,
         `Happy birthday, ${each.name.prefer[2]}!`,
     ];
+    each.hoverText = each.name.full;
     return $.events.makeIllust(each) + $.events.makeText(each);
 };
 
@@ -342,5 +344,5 @@ setTimeout(function () {
 
 // testing
 if (window.location.hash && window.location.hash == "#debug") {
-    $.events.date = () => { return [1, 4] };
+    $.events.date = () => { return [4, 24] };
 }
