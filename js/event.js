@@ -26,6 +26,10 @@ $.events = [
         type: "birthday",
         month: 1,
         day: 4,
+        charaface: [
+            ["lina", "lina-tall"],
+            ["angie", "angie-tall"]
+        ],
         name: {
             full: ["アンジェリーナ・クドウ・シールズ", "安吉莉娜 库都 希尔兹", "Angelina Kudou Shields"],
             prefer: ["リーナ", "莉娜", "Lina"],
@@ -198,7 +202,7 @@ $.events.makeEvent = function (each) {
 $.events.makeBirthday = function (each) {
     each.showDate = true;
     each.charatype = "story";
-    each.charaface = [each.key, `${each.key}-tall`];
+    each.charaface = each.charaface ? each.charaface : [each.key, `${each.key}-tall`];
     each.hasIllust = true;
     each.text = [
         `${each.name.prefer[0]}の誕生日おめでとう！`,
