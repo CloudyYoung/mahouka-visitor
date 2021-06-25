@@ -27,7 +27,7 @@ $.events = [
         month: 1,
         day: 4,
         name: {
-            full: ["アンジェリーナ クドウ シールズ", "安吉莉娜 库都 希尔兹", "Angelina Kudou Shields"],
+            full: ["アンジェリーナ・クドウ・シールズ", "安吉莉娜 库都 希尔兹", "Angelina Kudou Shields"],
             prefer: ["リーナ", "莉娜", "Lina"],
         },
     },
