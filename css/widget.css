@@ -213,6 +213,7 @@
   display: flex;
   padding: 0rem 1.54rem;
   width: 32rem;
+  float: right;
 }
 
 .widget .player .control {
