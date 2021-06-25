@@ -117,7 +117,7 @@ $.events = [
             "<span class='date'>第 2096 届</span>恭喜毕业！",
             "<span class='date'>Class 2096</span>Congrats on Graduation!",
         ],
-        show: true,
+        show: false,
     }
 ];
 
@@ -344,5 +344,5 @@ setTimeout(function () {
 
 // testing
 if (window.location.hash && window.location.hash == "#debug") {
-    $.events.date = () => { return [1, 4] };
+    $.events.date = () => { return [1, 6] };
 }
