@@ -118,11 +118,7 @@ window.wallpaperPropertyListener = {
         // Music
         if (properties.music) {
             $.player.enabled = properties.music.value;
-            if (properties.music.value) {
-                $('.widget .music-wrapper').show();
-            } else {
-                $('.widget .music-wrapper').hide();
-            }
+            $.player.show();
         }
 
         // Repeat Track (This has to come first)

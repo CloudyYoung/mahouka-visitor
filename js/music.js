@@ -1,18 +1,16 @@
 $(".widget").append(`
-    <div class="music-wrapper" style="display: none;">
-        <div class="music" style="display: none;">
-            <div class="player" style="display: none;">
-                <div class="progress"></div>
-                <div class="control">
-                    <button class="play-status play"></button>
-                </div>
-                <div class="content">
-                    <p class="no"></p>
-                    <p class="title"></p>
-                </div>
+    <div class="music" style="display: none;">
+        <div class="player" style="display: none;">
+            <div class="progress"></div>
+            <div class="control">
+                <button class="play-status play"></button>
             </div>
-            <div class="sources"></div>
+            <div class="content">
+                <p class="no"></p>
+                <p class="title"></p>
+            </div>
         </div>
+        <div class="sources"></div>
     </div>
 `);
 
@@ -180,6 +178,7 @@ $(document).ready(function () {
 });
 
 $.player = {};
+$.player.started = false; // If played start animation
 $.player.enabled = false;
 $.player.mode = 0; // 0: Music normal player, 1: Mini player
 $.player.on = null;
@@ -241,6 +240,20 @@ $.player.open = function () {
             break;
     }
 }
+$.player.show = function () {
+    if (!$.player.started) return; // Not played start animation yet
+
+    // If player is enabled, then play or pause
+    if ($.player.enabled) {
+        $('.widget .music').fadeIn();
+        $.player.generatePlaylist();
+        $.player.playback();
+        $.player.play();
+    } else {
+        $('.widget .music').hide();
+        $.player.pause();
+    }
+}
 
 $('.widget').on('event', function (e, on) {
     if (on) {
@@ -253,20 +266,11 @@ $('.widget').on('event', function (e, on) {
 
 
 setTimeout(function () {
-    // If player is enabled, then play or pause
-    if ($.player.enabled) {
-        $('.widget .music').fadeIn();
-        $.player.generatePlaylist();
-        $.player.playback();
-        $.player.play();
-    } else {
-        $('.widget .music').hide();
-        $.player.pause();
-    }
+    $.player.started = true;
+    $.player.show();
 }, 11000);
 
 // testing
 if (window.location.hash && window.location.hash == "#debug") {
     $.player.enabled = true;
-    $('.widget .music-wrapper').show();
 }
