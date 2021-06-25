@@ -6,88 +6,80 @@ $.events = [
         type: "birthday",
         month: 3,
         day: 25,
-        name: [
-            ["司波", "深雪"],
-            ["司波", "深雪"],
-            ["Shiba", "Miyuki"],
-        ],
+        name: {
+            full: ["司波 深雪", "司波 深雪", "Miyuki Shiba"],
+            prefer: ["深雪", "深雪", "Miyuki"],
+        },
     },
     {
         key: "tatsuya",
         type: "birthday",
         month: 4,
         day: 24,
-        name: [
-            ["司波", "達也"],
-            ["司波", "达也"],
-            ["Shiba", "Tatsuya"],
-        ],
+        name: {
+            full: ["司波 達也", "司波 达也", "Tatsuya Shiba"],
+            prefer: ["達也", "达也", "Tatsuya"],
+        },
     },
     {
         key: "lina",
         type: "birthday",
         month: 1,
         day: 4,
-        name: [
-            ["安吉莉娜", "库都 希尔兹"],
-            ["アンジェリーナ", "クドウ シールズ"],
-            ["Kudou Shields", "Angelina"],
-        ],
+        name: {
+            full: ["アンジェリーナ クドウ シールズ", "安吉莉娜 库都 希尔兹", "Angelina Kudou Shields"],
+            prefer: ["リーナ", "莉娜", "Lina"],
+        },
     },
     {
         key: "mayumi",
         type: "birthday",
         month: 6,
         day: 26,
-        name: [
-            ["七草", "真由美"],
-            ["七草", "真由美"],
-            ["Saegusa", "Mayumi"],
-        ],
+        name: {
+            full: ["七草 真由美", "七草 真由美", "Mayumi Saegusa"],
+            prefer: ["真由美", "真由美", "Mayumi"],
+        },
     },
     {
         key: "erika",
         type: "birthday",
         month: 8,
         day: 28,
-        name: [
-            ["千葉", "エリカ"],
-            ["千叶", "艾莉卡"],
-            ["Chiba", "Erika"],
-        ],
+        name: {
+            full: ["千葉 エリカ", "千叶 艾莉卡", "Erika Chiba"],
+            prefer: ["エリカ", "艾莉卡", "Erika"],
+        },
     },
     {
         key: "leo",
         type: "birthday",
         month: 8,
         day: 1,
-        name: [
-            ["西城", "レオンハルト"],
-            ["西城", "雷欧赫特"],
-            ["Saijo", "Leonhard"],
-        ],
+        name: {
+            full: ["西城 レオンハルト", "西城 雷欧赫特", "Leonhard Saijo"],
+            prefer: ["レオ", "雷欧", "Leo"],
+        },
     },
     {
         key: "mikihiko",
         type: "birthday",
         month: 9,
         day: 10,
-        name: [
-            ["吉田", "幹比古"],
-            ["吉田", "干比古"],
-            ["Yoshida", "Mikihiko"],
-        ],
+        name: {
+            full: ["吉田 幹比古", "吉田 干比古", "Mikihiko Yoshida"],
+            prefer: ["幹比古", "干比古", "Mikihiko"],
+        },
     },
     {
         key: "mizuki",
         type: "birthday",
         month: 9,
         day: 25,
-        name: [
-            ["柴田", "美月"],
-            ["柴田", "美月"],
-            ["Shibata", "Mizuki"],
-        ],
+        name: {
+            full: ["柴田 美月", "柴田 美月", "Mizuki Shibata"],
+            prefer: ["美月", "美月", "Mizuki"],
+        },
     },
     {
         key: "first-meet-lina",
@@ -209,9 +201,9 @@ $.events.makeBirthday = function (each) {
     each.charaface = [each.key, `${each.key}-tall`];
     each.hasIllust = true;
     each.text = [
-        `${each.name[0][1]}の誕生日おめでとう！`,
-        `${each.name[1][1]}，生日快乐！`,
-        `Happy birthday, ${each.name[2][1]}!`,
+        `${each.name.prefer[0]}の誕生日おめでとう！`,
+        `${each.name.prefer[1]}，生日快乐！`,
+        `Happy birthday, ${each.name.prefer[2]}!`,
     ];
     return $.events.makeIllust(each) + $.events.makeText(each);
 };
