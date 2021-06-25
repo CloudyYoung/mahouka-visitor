@@ -251,7 +251,7 @@ $('.widget').on('event', function (e, on) {
 
 // testing
 if (window.location.hash && window.location.hash == "#debug") {
-    $.player.enabled = true;
+    // $.player.enabled = true;
 
     if ($.player.enabled) {
         $('.widget .music').fadeIn();
