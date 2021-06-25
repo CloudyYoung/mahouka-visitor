@@ -332,7 +332,7 @@ function generate_particle() {
 let all_loaded_detection = setInterval(() => {
     for (let [kv, attr] of Object.entries(Object.assign({}, kvs, dusts, { "particle": kv_particle }))) {
         if (!attr.loaded) {
-            console.log("kv not loaded", kv);
+            console.log("waiting on kv", kv);
             return;
         }
     }
@@ -393,7 +393,6 @@ function stand(attr, wr = 1) {
 
         let x = distance / kv_chara_stand_range;
         let y = g(x);
-        console.log(distance, x, y);
         return y * kv_chara_width * kv_chara_stand_rate;
     } else {
         return 0;
@@ -433,68 +432,13 @@ $.mouse = function (e) {
     dust_group.offsetX(x * 0.2);
     dust_group.offsetY(y * 0.2);
 
-    // if (wr <= $.kv_stand_ratio[0]) {
-    //     let wr_rate = wr;
-    //     $.kv_x_stand[0] = e.clientX * wr_rate * $.global_outstandRatio[0] * -1;
-    //     $.kv_x_stand[1] = 0;
-    //     $.kv_x_stand[2] = 0;
-    // } else if (wr <= $.kv_stand_ratio[1]) {
-    //     let wr_rate = wr - $.kv_stand_ratio[0];
-    //     $.kv_x_stand[0] = e.clientX * $.kv_stand_ratio[0] * $.global_outstandRatio[0] * -1;
-    //     $.kv_x_stand[1] = e.clientX * wr_rate * $.global_outstandRatio[1] * -1;
-    //     $.kv_x_stand[2] = 0;
-    // } else if (wr <= $.kv_stand_ratio[2]) {
-    //     let wr_rate = wr - $.kv_stand_ratio[1];
-    //     $.kv_x_stand[0] = e.clientX * $.kv_stand_ratio[0] * $.global_outstandRatio[0] * -1;
-    //     $.kv_x_stand[1] = e.clientX * ($.kv_stand_ratio[1] - $.kv_stand_ratio[0]) * $.global_outstandRatio[1] * -1;
-    //     $.kv_x_stand[2] = e.clientX * wr_rate * $.global_outstandRatio[2] * -1;
-    // }
-
-    // let kv_charas_x = e.clientX * kv_xChangeRate * -1;
-    // let kv_charas_y = e.clientY * kv_yChangeRate * -1;
-    // $.kv_chara.forEach(kv => {
-    //     let kv_chara_x = (kv_charas_x + $.kv_x_stand[kv.attrs.index]) * -1;
-    //     let kv_chara_y = kv_charas_y * -1;
-
-    //     if ($.global_smooth_movement) {
-    //         if ($.kv_chara_tween[kv.attrs.index]) {
-    //             $.kv_chara_tween[kv.attrs.index].finish();
-    //         }
-    //         $.kv_chara_tween[kv.attrs.index] = new Konva.Tween({
-    //             node: kv,
-    //             duration: 3,
-    //             offsetX: kv_chara_x,
-    //             offsetY: kv_chara_y,
-    //             easing: Konva.Easings.StrongEaseOut,
-    //         });
-    //         $.kv_chara_tween[kv.attrs.index].play();
-    //     } else {
-    //         kv.offsetX(kv_chara_x);
-    //         kv.offsetY(kv_chara_y);
-    //         kvs_layer.batchDraw();
-    //     }
-    // });
-
-    // let kv_bg_x = e.clientX * $.kv_bg_change_rate * -1;
-    // let kv_bg_y = e.clientY * $.kv_bg_change_rate * -1;
-    // if ($.global_smooth_movement) {
-    //     if ($.kv_bg_tween) {
-    //         $.kv_bg_tween.finish();
-    //     }
-    //     $.kv_bg_tween = new Konva.Tween({
-    //         node: $.kv_bg,
-    //         duration: 3,
-    //         offsetX: kv_bg_x,
-    //         offsetY: kv_bg_y,
-    //         easing: Konva.Easings.StrongEaseOut,
-    //     });
-    //     $.kv_bg_tween.play();
-    // } else {
-    //     $.kv_bg.offsetX(kv_bg_x);
-    //     $.kv_bg.offsetY(kv_bg_y);
-    //     kv_bg_layer.batchDraw();
-    // }
-
+    // TODO: Flare rotate
 };
 $(document).on('mousemove', $.mouse);
 
+
+document.onreadystatechange = () => {
+    if (document.readyState === 'complete') {
+        console.warn("body loaded");
+    }
+};
