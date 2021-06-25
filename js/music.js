@@ -1,19 +1,22 @@
 $(".widget").append(`
-    <div class="music" style="display: none;">
-        <div class="player" style="display: none;">
-            <div class="progress"></div>
-            <div class="control">
-                <button class="play-status play"></button>
+    <div class="music-wrapper" style="display: none;">
+        <div class="music" style="display: none;">
+            <div class="player" style="display: none;">
+                <div class="progress"></div>
+                <div class="control">
+                    <button class="play-status play"></button>
+                </div>
+                <div class="content">
+                    <p class="no"></p>
+                    <p class="title"></p>
+                </div>
             </div>
-            <div class="content">
-                <p class="no"></p>
-                <p class="title"></p>
-            </div>
+            <div class="sources"></div>
         </div>
-        <div class="sources"></div>
     </div>
 `);
 
+// Events mini player
 $(".widget .events").append(`
     <div class="music" style="display: none;">
         <div class="mini player" style="display: none;">
@@ -249,10 +252,8 @@ $('.widget').on('event', function (e, on) {
 });
 
 
-// testing
-if (window.location.hash && window.location.hash == "#debug") {
-    // $.player.enabled = true;
-
+setTimeout(function () {
+    // If player is enabled, then play or pause
     if ($.player.enabled) {
         $('.widget .music').fadeIn();
         $.player.generatePlaylist();
@@ -262,4 +263,10 @@ if (window.location.hash && window.location.hash == "#debug") {
         $('.widget .music').hide();
         $.player.pause();
     }
+}, 11000);
+
+// testing
+if (window.location.hash && window.location.hash == "#debug") {
+    $.player.enabled = true;
+    $('.widget .music-wrapper').show();
 }

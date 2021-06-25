@@ -118,6 +118,11 @@ window.wallpaperPropertyListener = {
         // Music
         if (properties.music) {
             $.player.enabled = properties.music.value;
+            if (properties.music.value) {
+                $('.widget .music-wrapper').show();
+            } else {
+                $('.widget .music-wrapper').hide();
+            }
         }
 
         // Repeat Track (This has to come first)
@@ -138,17 +143,6 @@ window.wallpaperPropertyListener = {
             $.album.tracks.forEach((each) => {
                 each.dom.volume = properties.volume.value / 100;
             });
-        }
-
-        // If player is enabled, then play or pause
-        if ($.player.enabled) {
-            $('.widget .music').fadeIn();
-            $.player.generatePlaylist();
-            $.player.playback();
-            $.player.play();
-        } else {
-            $('.widget .music').hide();
-            $.player.pause();
         }
     }
 }
