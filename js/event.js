@@ -117,7 +117,7 @@ $.events = [
             "<span class='date'>第 2096 届</span>恭喜毕业！",
             "<span class='date'>Class 2096</span>Congrats on Graduation!",
         ],
-        show: false,
+        show: true,
     }
 ];
 
@@ -139,18 +139,22 @@ $.months = [
     "Dec",
 ];
 
+
 $.events.makeText = function (each) {
-    let date = `${each.year ? `${each.year}年` : ""}${each.month}月${each.day}日 // 
-                ${each.year ? `${each.year}年` : ""}${each.month}月${each.day}日 // 
-                ${$.months[each.month - 1]} ${each.day}${each.year ? `, ${each.year}` : ""}`;
+    let date = [
+        `${each.year ? `${each.year}年` : ""}${each.month}月${each.day}日`,
+        `${each.year ? `${each.year}年` : ""}${each.month}月${each.day}日`,
+        `${$.months[each.month - 1]} ${each.day}${each.year ? `, ${each.year}` : ""}`
+    ];
+    each.hoverText = each.hoverText ? each.hoverText : [];
 
     return `
     <div class="texts">
         <div class="text-body">
             <span class="chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
-            <span class="date ${each.showDate ? "" : "hide"}" i18n>${each.showDate ? date : ""}</span>
-            <span class="text" i18n>${each.text.join("//")}</span>
-            <span class="hover text ${each.hoverText ? "" : "hide"}" i18n>${each.hoverText ? each.hoverText.join("//") : ""}</span>
+            <span class="date ${each.showDate ? "" : "hide"}" ${date.i18n()}></span>
+            <span class="text" ${each.text.i18n()}></span>
+            <span class="hover text" ${each.hoverText.i18n()}></span>
         </div>
     </div>`;
 };
@@ -312,7 +316,6 @@ $.events.tick = function () {
     // Dom ids
     let id = `.${current.key}.${current.type}`; // Card id
     let illust_id = `.${minorIndex}`;    // Illust group id
-    console.log(illust_id);
 
     // Hide not to show items & show event
     $(".widget .events .card").not(id).removeClass("is-op").hide();
