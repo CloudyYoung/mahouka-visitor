@@ -2,65 +2,6 @@ $(".widget").append(`<div class="events"></div>`);
 
 $.events = [
     {
-        key: "story-1",
-        type: "illust",
-        charatype: "story",
-        charaface: ["miyuki", "tatsuya", "angie"],
-        show: false,
-    },
-    {
-        key: "story-2",
-        type: "illust",
-        charatype: "story",
-        charaface: ["erika", "mikihiko"],
-        show: false,
-    },
-    {
-        key: "story-3",
-        type: "illust",
-        charatype: "story",
-        charaface: ["shizuku"],
-        show: false,
-    },
-    {
-        key: "story-4",
-        type: "illust",
-        charatype: "story",
-        charaface: ["mikihiko", "mizuki"],
-        show: false,
-    },
-    {
-        key: "story-5",
-        type: "illust",
-        charatype: "story",
-        charaface: ["miyuki", "lina-kimono", "honoka"],
-        show: false,
-    },
-    {
-        key: "story-6",
-        type: "illust",
-        charatype: "story",
-        charaface: ["tatsuya", "angie"],
-        show: false,
-    },
-    {
-        key: "story-7",
-        charatype: "story",
-        charaface: [
-            ["miyuki", "tatsuya"],
-            ["lina-kimono", "lina", "angie"],
-            ["erika", "leo"],
-            ["mizuki", "mikihiko"],
-            ["honoka", "shizuku"],
-        ],
-        text: [
-            "シーズン 2 終了おめでとうございます!",
-            "来访者篇 动画完结撒花！",
-            "Congrats on Season Finale!",
-        ],
-        show: false,
-    },
-    {
         key: "miyuki",
         type: "birthday",
         month: 3,
@@ -80,6 +21,17 @@ $.events = [
             ["司波", "達也"],
             ["司波", "达也"],
             ["Shiba", "Tatsuya"],
+        ],
+    },
+    {
+        key: "lina",
+        type: "birthday",
+        month: 1,
+        day: 4,
+        name: [
+            ["安吉莉娜", "库都 希尔兹"],
+            ["アンジェリーナ", "クドウ シールズ"],
+            ["Kudou Shields", "Angelina"],
         ],
     },
     {
@@ -138,100 +90,6 @@ $.events = [
         ],
     },
     {
-        key: "halloween-8",
-        month: 10,
-        day: 24,
-        charatype: "halloween",
-        charaface: "azusa",
-        text: [
-            "ハッピーハロウィンウィーク！",
-            "万圣周快乐！",
-            "Happy Halloween Week!",
-        ],
-    },
-    {
-        key: "halloween-7",
-        month: 10,
-        day: 25,
-        charatype: "halloween",
-        charaface: "honoka",
-        text: [
-            "ハッピーハロウィンウィーク！",
-            "万圣周快乐！",
-            "Happy Halloween Week!",
-        ],
-    },
-    {
-        key: "halloween-6",
-        month: 10,
-        day: 26,
-        charatype: "halloween",
-        charaface: "mari",
-        text: [
-            "ハッピーハロウィンウィーク！",
-            "万圣周快乐！",
-            "Happy Halloween Week!",
-        ],
-    },
-    {
-        key: "halloween-5",
-        month: 10,
-        day: 27,
-        charatype: "halloween",
-        charaface: "shizuku",
-        text: [
-            "ハッピーハロウィンウィーク！",
-            "万圣周快乐！",
-            "Happy Halloween Week!",
-        ],
-    },
-    {
-        key: "halloween-4",
-        month: 10,
-        day: 28,
-        charatype: "halloween",
-        charaface: "erika",
-        text: [
-            "ハッピーハロウィンウィーク！",
-            "万圣周快乐！",
-            "Happy Halloween Week!",
-        ],
-    },
-    {
-        key: "halloween-3",
-        month: 10,
-        day: 29,
-        charatype: "halloween",
-        charaface: "lina",
-        text: [
-            "ハッピーハロウィンウィーク！",
-            "万圣周快乐！",
-            "Happy Halloween Week!",
-        ],
-    },
-    {
-        key: "halloween-2",
-        month: 10,
-        day: 30,
-        charatype: "halloween",
-        charaface: "miyuki",
-        text: [
-            "ハッピーハロウィンウィーク！",
-            "万圣周快乐！",
-            "Happy Halloween Week!",
-        ],
-    },
-    {
-        key: "halloween-1",
-        year: 2095,
-        month: 10,
-        day: 31,
-        showDate: true,
-        charatype: "halloween",
-        charaface: "tatsuya",
-        text: ["灼熱のハロウィン", "烧焦的万圣节", "Scorched Halloween"],
-    },
-    {
         key: "first-meet-lina",
         year: 2096,
         month: 1,
@@ -264,31 +122,7 @@ $.events = [
             "<span class='date'>Class 2096</span>Congrats on Graduation!",
         ],
         show: false,
-    },
-    {
-        key: "anniversary",
-        type: "illust",
-        charatype: "10th-anniversary",
-        charaface: "10th-anniversary",
-        show: false,
-    },
-    // {
-    //     key: "2096-student-council",
-    //     year: 2096,
-    //     month: 10,
-    //     day: 1,
-    //     showDate: true,
-    //     charatype: "uniform",
-    //     charaface: ["miyuki", "tatsuya", "minami", "izumi", "honoka"],
-    // },
-    // {
-    //     key: "2096-science-competition",
-    //     year: 2096,
-    //     month: 10,
-    //     day: 28,
-    //     showDate: true, charatype: "uniform",
-    //     charaface: ["honoka"],
-    // }
+    }
 ];
 
 // TODO: Add main characters uniform images
@@ -507,10 +341,10 @@ setTimeout(function () {
     setInterval(() => {
         $.events.tick();
     }, 30 * 1000);
-}, 7000);
+}, 11000);
 
 
 // testing
 if (window.location.hash && window.location.hash == "#debug") {
-    // $.events.date = () => { return [4, 24] };
+    $.events.date = () => { return [1, 4] };
 }
