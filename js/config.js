@@ -5,10 +5,10 @@ window.wallpaperPropertyListener = {
         // Mahouka Logo
         if (properties.mahouka_logo) {
             if (properties.mahouka_logo.value) {
-                $('.logo').css("display", "block");
+                $('.logo-wrapper').removeClass("transparent");
                 $.console.logo(true);
             } else {
-                $('.logo').css("display", "none");
+                $('.logo-wrapper').addClass("transparent");
                 $.console.logo(false);
             }
         }

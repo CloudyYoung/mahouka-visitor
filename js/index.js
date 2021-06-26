@@ -8,6 +8,7 @@ let kv_bg_change_rate = 0.02;
 
 
 $('body').append(`<div class="konva"></div>`);
+$('body').append(`<div class="logo-wrapper transparent"><div class="logo transparent"></div></div>`);
 
 
 let width = window.screen.width;
@@ -18,6 +19,7 @@ let height = window.screen.height;
 if (window.location.hash && window.location.hash == "#debug") {
     // height = 500;
     // width = 1200;
+    $('.logo-wrapper').removeClass("transparent");
 }
 
 
@@ -381,6 +383,7 @@ function start() {
 
     setInterval(generate_dust, 3000);
     setInterval(generate_particle, 80);
+    setInterval(() => $(".logo").removeClass("transparent"), 6000);
 }
 
 // x: 0 ~ 1

@@ -24,7 +24,6 @@ body {
 }
 
 .logo {
-  display: none;
   z-index: 1999;
   position: absolute;
   top: 40px;
@@ -37,6 +36,7 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top right;
+  transition: 1.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .logo.sp {
