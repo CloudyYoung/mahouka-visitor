@@ -150,7 +150,6 @@ $.events.makeText = function (each) {
     return `
     <div class="texts">
         <div class="text-body">
-            <span class="chara ${each.charatype}" style="background-image: url('chara/${each.charatype}/${each.charaface}.png')" ></span>
             <span class="date ${each.showDate ? "" : "hide"}" ${date.i18n()}></span>
             <span class="text" ${each.text.i18n()}></span>
         </div>
@@ -225,7 +224,7 @@ $.events.forEach((each) => {
         each.html = $.events.makeEvent(each);
     }
 
-    each.html = `<div class="card ${each.key} ${each.type}">` + each.html + `</div>`;
+    each.html = `<div class="card ${each.key} ${each.type}">${each.html}</div>`;
 
     if (each.type == "birthday") { // Birthday
         each.priority = 900;
