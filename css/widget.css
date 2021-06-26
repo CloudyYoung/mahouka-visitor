@@ -198,6 +198,10 @@
   margin-right: -6rem;
 }
 
+.widget .music {
+  float: right;
+}
+
 .widget .music .sources {
   display: none;
 }
@@ -213,7 +217,6 @@
   display: flex;
   padding: 0rem 1.54rem;
   width: 32rem;
-  float: right;
 }
 
 .widget .player .control {
