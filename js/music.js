@@ -14,6 +14,7 @@ $(".widget").append(`
     </div>
 `);
 
+// Events mini player
 $(".widget .events").append(`
     <div class="music" style="display: none;">
         <div class="mini player" style="display: none;">
@@ -177,6 +178,7 @@ $(document).ready(function () {
 });
 
 $.player = {};
+$.player.started = false; // If played start animation
 $.player.enabled = false;
 $.player.mode = 0; // 0: Music normal player, 1: Mini player
 $.player.on = null;
@@ -238,6 +240,20 @@ $.player.open = function () {
             break;
     }
 }
+$.player.show = function () {
+    if (!$.player.started) return; // Not played start animation yet
+
+    // If player is enabled, then play or pause
+    if ($.player.enabled) {
+        $('.widget .music').fadeIn();
+        $.player.generatePlaylist();
+        $.player.playback();
+        $.player.play();
+    } else {
+        $('.widget .music').hide();
+        $.player.pause();
+    }
+}
 
 $('.widget').on('event', function (e, on) {
     if (on) {
@@ -247,3 +263,14 @@ $('.widget').on('event', function (e, on) {
     }
     $.player.open();
 });
+
+
+setTimeout(function () {
+    $.player.started = true;
+    $.player.show();
+}, 11000);
+
+// testing
+if (window.location.hash && window.location.hash == "#debug") {
+    // $.player.enabled = true;
+}

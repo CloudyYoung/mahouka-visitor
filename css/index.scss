@@ -22,167 +22,6 @@ body {
   height: 100%;
 }
 
-.performance-none {
-  .bg {
-    transition: none !important;
-  }
-
-  .kv {
-    transition: none !important;
-  }
-}
-
-.performance-simple {
-  .bg {
-    transition: none !important;
-  }
-
-  .kv {
-    transition: none !important;
-  }
-}
-
-.smooth-movement {
-  .bg {
-    transition: $transition-fluent !important;
-  }
-
-  .kv {
-    transition: $transition-fluent !important;
-  }
-}
-
-.bg {
-  --x: 0px;
-  --y: 0px;
-  --x-change-rate: 0.02;
-  --y-change-rate: 0.02;
-  position: absolute;
-  top: calc(var(--x-change-rate) * -1 * 100%);
-  left: calc(var(--y-change-rate) * -1 * 100%);
-  width: calc((1 + var(--x-change-rate)) * 100%);
-  height: calc((1 + var(--y-change-rate)) * 100%);
-  margin: 0px;
-  z-index: -9999;
-  background-image: url("../img/kv_bg.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  transition: $transition;
-  background-position: var(--x) var(--y);
-}
-
-.kv {
-  --x: 0px;
-  --y: 0px;
-  --x-change-rate: 0.04;
-  --y-change-rate: 0.06;
-  --x-change-resist: calc(var(--x-change-rate) * 100% * -1);
-  --y-change-resist: calc(var(--y-change-rate) * 100% * -1);
-  height: 100%;
-  width: 100%;
-  z-index: 899;
-  position: absolute;
-  bottom: var(--y-change-resist);
-  right: var(--x-change-resist);
-  width: calc((var(--x-change-rate) + 1) * 100%);
-  height: calc((var(--y-change-rate) + 1) * 100%);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  transition: $transition;
-  will-change: background-position;
-  background-position: calc(100% + var(--x)) calc(100% + var(--y));
-
-  &.kv_chara_01 {
-    background-image: url("../img/kv_chara_01.png");
-  }
-
-  &.kv_chara_02 {
-    background-image: url("../img/kv_chara_02.png");
-  }
-
-  &.kv_chara_03 {
-    background-image: url("../img/kv_chara_03.png");
-  }
-}
-
-.kv_flare {
-  --degree: 0deg;
-  --degree-change-rate: 0.06;
-  position: absolute;
-  z-index: 1299;
-  height: 100%;
-  width: 100%;
-  top: 0px;
-  right: 0%;
-  background-image: url("../img/kv_flare.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: top right;
-  mix-blend-mode: screen;
-  opacity: 0.8;
-  transform: scale(1.1) rotate(var(--degree));
-  transform-origin: top right;
-}
-
-.dust-wrapper {
-  z-index: -1999 !important;
-}
-
-.dust {
-  --width: 100;
-  --height: 100;
-  --height-rate: calc(var(--width) / var(--height));
-  z-index: -1999;
-  position: absolute;
-  left: 100%;
-  top: 0px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: top center;
-  transform: scale(0.8);
-  opacity: 0.8;
-  // animation: dust-run 10s linear;
-  width: 5%;
-  height: calc(var(--height-rate) * 5%);
-
-  &.bg_dust_01 {
-    --width: 160;
-    --height: 117;
-    background-image: url("../img/bg_dust_01.png");
-  }
-
-  &.bg_dust_02 {
-    --width: 134;
-    --height: 117;
-    background-image: url("../img/bg_dust_02.png");
-  }
-
-  &.bg_dust_03 {
-    --width: 131;
-    --height: 128;
-    background-image: url("../img/bg_dust_03.png");
-  }
-
-  &.bg_dust_04 {
-    --width: 168px;
-    --height: 136px;
-    background-image: url("../img/bg_dust_04.png");
-  }
-
-  @keyframes dust-run {
-    from {
-      margin-top: 0%;
-      left: 100%;
-    }
-
-    to {
-      margin-top: 50%;
-      left: -200px;
-    }
-  }
-}
-
 /** LOGO **/
 .logo-wrapper {
   z-index: 1999;
@@ -252,35 +91,16 @@ body {
   z-index: 999 !important;
 }
 
-.bg_circle {
-  position: absolute;
-  background-image: url("../img/bg_circle_news.png");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 704px;
-  height: 704px;
-  margin-left: -352px;
-  animation: rotate-360 200s linear 0.2s infinite;
-  left: 50%;
-
-  @keyframes rotate-360 {
-    0% {
-      transform: rotate(0deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-}
-
 .hide {
   display: none;
 }
 
 .iframe {
   display: none;
+}
+
+.transparent {
+  opacity: 0;
 }
 
 .animated {
@@ -326,66 +146,6 @@ body {
   @keyframes fadeIn {
     0% {
       opacity: 0;
-    }
-  }
-
-  &.kvChara01Movement {
-    animation-name: fadeIn, kvChara01Movement;
-    animation-duration: 0.7s, 3s;
-    animation-timing-function: ease, cubic-bezier(0.08, 0.91, 0, 0.96);
-  }
-
-  @keyframes kvChara01Movement {
-    0% {
-      transform: translate(-60px, 10px);
-    }
-  }
-
-  &.kvChara02Movement {
-    animation-name: fadeIn, kvChara02Movement;
-    animation-duration: 0.7s, 3s;
-    animation-timing-function: ease, cubic-bezier(0.08, 0.91, 0, 0.96);
-  }
-
-  @keyframes kvChara02Movement {
-    0% {
-      transform: translate(-30px, 40px);
-    }
-  }
-
-  &.kvChara03Movement {
-    animation-name: fadeIn, kvChara03Movement;
-    animation-duration: 0.7s, 3s;
-    animation-timing-function: ease, cubic-bezier(0.08, 0.91, 0, 0.96);
-  }
-
-  @keyframes kvChara03Movement {
-    0% {
-      transform: translate(60px, 0);
-    }
-  }
-
-  &.bgMovement {
-    animation-name: fadeIn, bgMovement;
-    animation-duration: 0.7s, 2s;
-    animation-timing-function: ease, $bezier-fluent;
-  }
-
-  @keyframes bgMovement {
-    0% {
-      transform: scale(1.14);
-    }
-  }
-
-  &.flareMovement {
-    animation-name: fadeIn, flareMovement;
-    animation-duration: 0.7s, 3s;
-    animation-timing-function: ease, cubic-bezier(0.13, 0.9, 0.18, 0.98);
-  }
-
-  @keyframes flareMovement {
-    0% {
-      transform: scale(1.1) rotate(4deg);
     }
   }
 }

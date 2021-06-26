@@ -176,7 +176,7 @@
 
 @keyframes moveRight {
   0% {
-    transform: translateX(-2rem);
+    transform: translate3d(-2rem, 0, 0);
   }
 }
 
@@ -196,6 +196,10 @@
   --ratio: 0.6715;
   margin-left: -5rem;
   margin-right: -6rem;
+}
+
+.widget .music {
+  float: right;
 }
 
 .widget .music .sources {
