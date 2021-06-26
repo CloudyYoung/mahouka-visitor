@@ -8,11 +8,6 @@
 		{
 			"en-us" : 
 			{
-				"ui_background_amplitude" : "Background amplitude",
-				"ui_character_amplitude_x" : "Character horizontal amplitude",
-				"ui_character_amplitude_y" : "Character vertical amplitude",
-				"ui_developer_console" : "Developer console",
-				"ui_high" : "High",
 				"ui_logo" : "Logo",
 				"ui_logo_horizontal" : "Default Horizontal",
 				"ui_logo_horizontal_en" : "Horizontal English",
@@ -20,25 +15,15 @@
 				"ui_logo_vertical" : "Default Vertical",
 				"ui_logo_vertical_en" : "Vertical English",
 				"ui_music" : "Music",
-				"ui_particles" : "Particles",
-				"ui_performance" : "Performance",
 				"ui_playback_mode" : "Playback Mode",
 				"ui_repeat" : "Repeat",
 				"ui_repeat_one" : "Repeat One",
 				"ui_repeat_track" : "Repeat Track",
 				"ui_shuffle" : "Shuffle",
-				"ui_simple" : "Simple",
-				"ui_smooth_movement" : "Character Smooth Movement",
-				"ui_static" : "Static",
 				"ui_volume" : "Volume"
 			},
 			"ja-jp" : 
 			{
-				"ui_background_amplitude" : "背景の移動量",
-				"ui_character_amplitude_x" : "キャラの横移動範囲",
-				"ui_character_amplitude_y" : "キャラの横移動範囲",
-				"ui_developer_console" : "開発者パネル",
-				"ui_high" : "高",
 				"ui_logo" : "ロゴマーク",
 				"ui_logo_horizontal" : "デフォルトの水平版",
 				"ui_logo_horizontal_en" : "英語水平版",
@@ -46,25 +31,15 @@
 				"ui_logo_vertical" : "デフォルトの垂直版",
 				"ui_logo_vertical_en" : "英语垂直版",
 				"ui_music" : "BGM",
-				"ui_particles" : "粒子",
-				"ui_performance" : "表现",
 				"ui_playback_mode" : "再生モード",
 				"ui_repeat" : "フルサイクル",
 				"ui_repeat_one" : "シングルトラックサイクル",
 				"ui_repeat_track" : "ラックループ",
 				"ui_shuffle" : "適当に",
-				"ui_simple" : "簡明",
-				"ui_smooth_movement" : "スムーズなキャラクターの動き",
-				"ui_static" : "定置",
 				"ui_volume" : "おおきさ"
 			},
 			"zh-chs" : 
 			{
-				"ui_background_amplitude" : "背景移动幅度",
-				"ui_character_amplitude_x" : "角色横向移动幅度",
-				"ui_character_amplitude_y" : "角色纵向移动幅度",
-				"ui_developer_console" : "开发者面板",
-				"ui_high" : "高",
 				"ui_logo" : "图标",
 				"ui_logo_horizontal" : "默认横版",
 				"ui_logo_horizontal_en" : "英文横版",
@@ -72,71 +47,16 @@
 				"ui_logo_vertical" : "默认竖版",
 				"ui_logo_vertical_en" : "英文竖版",
 				"ui_music" : "音乐",
-				"ui_particles" : "粒子",
-				"ui_performance" : "表现",
 				"ui_playback_mode" : "播放模式",
 				"ui_repeat" : "全部循环",
 				"ui_repeat_one" : "单曲循环",
 				"ui_repeat_track" : "循环曲目",
 				"ui_shuffle" : "随机",
-				"ui_simple" : "简单",
-				"ui_smooth_movement" : "角色平滑移动",
-				"ui_static" : "静态",
 				"ui_volume" : "音量"
 			}
 		},
 		"properties" : 
 		{
-			"background_amplitude" : 
-			{
-				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
-				"fraction" : true,
-				"index" : 4,
-				"max" : 10,
-				"min" : 1,
-				"order" : 104,
-				"precision" : 2,
-				"step" : 0.10000000000000001,
-				"text" : "ui_background_amplitude",
-				"type" : "slider",
-				"value" : 2
-			},
-			"character_amplitude_x" : 
-			{
-				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
-				"fraction" : true,
-				"index" : 2,
-				"max" : 10,
-				"min" : 1,
-				"order" : 102,
-				"precision" : 2,
-				"step" : 0.10000000000000001,
-				"text" : "ui_character_amplitude_x",
-				"type" : "slider",
-				"value" : 4
-			},
-			"character_amplitude_y" : 
-			{
-				"condition" : "movement_performance.value == \"high\" || movement_performance.value == \"simple\"",
-				"fraction" : true,
-				"index" : 3,
-				"max" : 10,
-				"min" : 1,
-				"order" : 103,
-				"precision" : 2,
-				"step" : 0.10000000000000001,
-				"text" : "ui_character_amplitude_y",
-				"type" : "slider",
-				"value" : 6
-			},
-			"developer_console" : 
-			{
-				"index" : 12,
-				"order" : 900,
-				"text" : "ui_developer_console",
-				"type" : "bool",
-				"value" : false
-			},
 			"mahouka_logo" : 
 			{
 				"index" : 5,
@@ -172,29 +92,6 @@
 				"text" : "ui_logo_style",
 				"type" : "combo"
 			},
-			"movement_performance" : 
-			{
-				"index" : 0,
-				"options" : 
-				[
-					{
-						"label" : "ui_high",
-						"value" : "high"
-					},
-					{
-						"label" : "ui_simple",
-						"value" : "simple"
-					},
-					{
-						"label" : "ui_static",
-						"value" : "none"
-					}
-				],
-				"order" : 100,
-				"text" : "ui_performance",
-				"type" : "combo",
-				"value" : "high"
-			},
 			"music" : 
 			{
 				"index" : 9,
@@ -202,14 +99,6 @@
 				"text" : "ui_music",
 				"type" : "bool",
 				"value" : false
-			},
-			"particles" : 
-			{
-				"index" : 7,
-				"order" : 107,
-				"text" : "ui_particles",
-				"type" : "bool",
-				"value" : true
 			},
 			"playback_mode" : 
 			{
