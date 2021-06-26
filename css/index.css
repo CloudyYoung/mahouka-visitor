@@ -78,15 +78,6 @@ body {
   list-style-type: none;
 }
 
-.bg_canvas {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  height: 100%;
-  width: 100%;
-  z-index: 999 !important;
-}
-
 .hide {
   display: none;
 }
@@ -97,51 +88,4 @@ body {
 
 .transparent {
   opacity: 0;
-}
-
-.animated {
-  animation-fill-mode: both;
-}
-
-.animated.delay-0 {
-  animation-delay: 1s;
-}
-
-.animated.delay-1 {
-  animation-delay: 1.5s;
-}
-
-.animated.delay-2 {
-  animation-delay: 1.7s;
-}
-
-.animated.delay-3 {
-  animation-delay: 1.9s;
-}
-
-.animated.delay-4 {
-  animation-delay: 2s;
-}
-
-.animated.delay-5 {
-  animation-delay: 2.25s;
-}
-
-.animated.delay-6 {
-  animation-delay: 3s;
-}
-
-.animated.delay-7 {
-  animation-delay: 3.15s;
-}
-
-.animated.fadeIn {
-  animation-name: fadeIn;
-  animation-duration: 0.7s;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
 }
