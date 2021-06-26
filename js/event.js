@@ -340,8 +340,7 @@ setTimeout(function () {
     }, 30 * 1000);
 }, 11000);
 
-
 // testing
 if (window.location.hash && window.location.hash == "#debug") {
-    $.events.date = () => { return [1, 6] };
+    $.events.date = () => { return [1, 4] };
 }

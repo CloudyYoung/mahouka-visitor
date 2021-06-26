@@ -272,5 +272,5 @@ setTimeout(function () {
 
 // testing
 if (window.location.hash && window.location.hash == "#debug") {
-    $.player.enabled = true;
+    // $.player.enabled = true;
 }
