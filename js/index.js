@@ -26,6 +26,7 @@ let stage = new Konva.Stage({
     container: $(".konva").get(0),
     width: width,
     height: height,
+    listening: false,
 });
 let kvs_layer = new Konva.Layer({ listening: false });
 stage.add(kvs_layer);
@@ -104,6 +105,7 @@ for (let [kv, attr] of Object.entries(kvs)) {
         offsetX: is_bg ? 0 : -(width - kv_chara_width),
         offsetY: is_bg ? 0 : -(height - kv_chara_height),
         opacity: attr.start.opacity || 0,
+        listening: false,
     }
     let konva_groups_intialize = {
         width: kv_chara_width,
@@ -115,11 +117,12 @@ for (let [kv, attr] of Object.entries(kvs)) {
         scaleX: Math.sqrt(attr.start.scale) || 1,
         scaleY: Math.sqrt(attr.start.scale) || 1,
         rotation: (attr.start.rotate / 2) || 0,
+        listening: false,
     };
     attr.konva_group0 = new Konva.Group(konva_group0_initialize);
     attr.konva_group1 = new Konva.Group(konva_groups_intialize);
     attr.konva_group2 = new Konva.Group(konva_groups_intialize);
-    attr.konva_move = new Konva.Group();
+    attr.konva_move = new Konva.Group({ listening: false, });
 
 
     // kv chara
@@ -160,6 +163,7 @@ for (let [kv, attr] of Object.entries(kvs)) {
         globalCompositeOperation: attr.origin.globalCompositeOperation || "",
         x: kv_x,
         y: kv_y,
+        listening: false,
     });
 
 
@@ -205,7 +209,7 @@ function mahouka_bezier(t, b, c, d) {
 
 
 // bg_dust initialize
-let dust_group = new Konva.Group();
+let dust_group = new Konva.Group({ listening: false, });
 kvs_layer.add(dust_group);
 dust_group.zIndex(1); // only above kv_bg
 dust_group.opacity(0);
@@ -269,6 +273,7 @@ function generate_dust() {
         y: from_y,
         offsetX: offset_x,
         opacity: 0.8,
+        listening: false,
     });
     dust_group.add(konva_dust);
 
@@ -289,7 +294,7 @@ kv_particle.image.onload = function () {
     kv_particle.loaded = true;
 }
 
-let particle_group = new Konva.Group();
+let particle_group = new Konva.Group({ listening: false, });
 particle_group.opacity(0);
 kvs_layer.add(particle_group);
 
@@ -313,6 +318,7 @@ function generate_particle() {
         x: from_x,
         y: from_y,
         opacity: from_opacity,
+        listening: false,
     });
     particle_group.add(konva_particle);
 
