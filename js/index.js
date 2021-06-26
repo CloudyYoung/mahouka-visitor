@@ -1,4 +1,36 @@
 
+let kv_stand_ratio = [0.33, 0.66, 0.99];
+
+let kv_chara_change_rate = 0.04;
+let kv_chara_stand_rate = 0.03;
+let kv_chara_stand_range = 1;
+let kv_bg_change_rate = 0.02;
+
+
+$('body').append(`<div class="konva"></div>`);
+
+
+let width = window.screen.width;
+let height = window.screen.height;
+
+
+// testing
+if (window.location.hash && window.location.hash == "#debug") {
+    // height = 500;
+    // width = 1200;
+}
+
+
+// Initialization - Stage
+let stage = new Konva.Stage({
+    container: $(".konva").get(0),
+    width: width,
+    height: height,
+    listening: false,
+});
+let kvs_layer = new Konva.Layer({ listening: false });
+stage.add(kvs_layer);
+
 
 
 // Initialization - Character kv_chara
@@ -165,6 +197,7 @@ for (let [kv, attr] of Object.entries(kvs)) {
         onFinish: () => attr.tween_start0.destroy(),
     });
 }
+
 setTimeout(() => kvs_layer.batchDraw(), 1500);
 
 
@@ -262,6 +295,9 @@ kv_particle.image.onload = function () {
 }
 
 let particle_group = new Konva.Group({ listening: false, });
+particle_group.opacity(0);
+kvs_layer.add(particle_group);
+
 function generate_particle() {
     let from_size = Math.random() * 10 % (height * 0.010) + (height * 0.002);
     let from_x = Math.random() * width;
@@ -278,6 +314,7 @@ function generate_particle() {
     let konva_particle = new Konva.Image({
         image: kv_particle.image,
         width: from_size,
+        height: from_size,
         x: from_x,
         y: from_y,
         opacity: from_opacity,

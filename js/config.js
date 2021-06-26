@@ -132,7 +132,6 @@ window.wallpaperPropertyListener = {
             if ($.player.playbackMode != properties.playback_mode.value) {
                 $.player.playbackMode = properties.playback_mode.value;
             }
-            $.player.playbackMode = properties.playback_mode.value;
         }
 
         // Volume

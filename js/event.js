@@ -243,18 +243,6 @@ $.events.sort((a, b) => {
 // Append to html
 $.events.forEach((each) => {
     $(".widget .events").append(each.html);
-
-    // Image preload
-    if (each.charaface_src) {
-        each.charaface_src.forEach((src) => {
-            $("body").append(`<img class="preload" src="${src}" style="transform: translate(-2000vw, -2000vh); height: 10%; width: 10%;" />`);
-        });
-    }
-
-    // Remove preload dom
-    setTimeout(function () {
-        $(".preload").remove();
-    }, 3000);
 });
 
 // Date function
