@@ -4,7 +4,7 @@ let kv_stand_ratio = [0.33, 0.66, 0.99];
 let kv_chara_change_rate = 0.04;
 let kv_chara_stand_rate = 0.03;
 let kv_chara_stand_range = 1;
-let kv_bg_change_rate = 0.02;
+let kv_bg_change_rate = 0.014;
 
 
 $('body').append(`<div class="konva"></div>`);
@@ -52,7 +52,7 @@ let kvs = {
     // bg
     "kv_bg": {
         origin: { zIndex: 0 },
-        start: { scale: 1.6, delay: 150 }
+        start: { scale: 1.6, delay: 150, rotate: -5 }
     },
 
     // charas
@@ -124,7 +124,7 @@ for (let [kv, attr] of Object.entries(kvs)) {
     attr.konva_group0 = new Konva.Group(konva_group0_initialize);
     attr.konva_group1 = new Konva.Group(konva_groups_intialize);
     attr.konva_group2 = new Konva.Group(konva_groups_intialize);
-    attr.konva_move = new Konva.Group({ listening: false, });
+    attr.konva_move = new Konva.Group({ listening: false });
 
 
     // kv chara
@@ -134,10 +134,12 @@ for (let [kv, attr] of Object.entries(kvs)) {
     let kv_y = kv_chara_height - kv_height;
 
     if (is_bg) {
-        let kv_move_x = width * kv_chara_change_rate;
+        let kv_move_x = width * kv_bg_change_rate;
         let kv_move_y = height * (kv_move_x / kv_chara_width);
         kv_width = kv_bg_width + kv_move_x;
         kv_height = kv_bg_height + kv_move_y;
+        kv_x = -kv_move_x;
+        kv_y = -kv_move_y;
     } else {
         // kv_move_x and kv_move_y was originally both width * rate and height * rate
         // but then the image ratio is broken since width/height are different across device
@@ -412,15 +414,22 @@ function stand(attr, wr = 1) {
 // Mouse
 $.mouse = function (e) {
 
-    let x = e.clientX * kv_chara_change_rate;
-    let y = e.clientY * kv_chara_change_rate;
+    let x = e.clientX;
+    let y = e.clientY;
 
     let start_x = width - kv_chara_width;
     let wr = (e.clientX - start_x) / kv_chara_width;
 
     for (let [kv, attr] of Object.entries(kvs)) {
-        let total_x = x;
-        let total_y = y;
+        let total_x, total_y;
+
+        if (kv == "kv_bg") {
+            total_x = -x * kv_bg_change_rate;
+            total_y = -y * kv_bg_change_rate;
+        } else {
+            total_x = x * kv_chara_change_rate;
+            total_y = y * kv_chara_change_rate;
+        }
 
         // kv chara stand
         if (attr.move && attr.move.stand) {
@@ -438,8 +447,8 @@ $.mouse = function (e) {
         });
     }
 
-    dust_group.offsetX(x * 0.2);
-    dust_group.offsetY(y * 0.2);
+    dust_group.offsetX(x * kv_bg_change_rate);
+    dust_group.offsetY(y * kv_bg_change_rate);
 
     // TODO: Flare rotate
 };
