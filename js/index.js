@@ -298,7 +298,7 @@ kv_particle.image.onload = function () {
     kv_particle.loaded = true;
 }
 
-let particle_group = new Konva.Group({ listening: false, });
+let particle_group = new Konva.Group({ listening: false });
 particle_group.opacity(0);
 kvs_layer.add(particle_group);
 
@@ -451,6 +451,10 @@ $.mouse = function (e) {
     dust_group.offsetY(y * kv_bg_change_rate);
 
     // TODO: Flare rotate
+
+    // Particles layer movement
+    particle_group.offsetX(x * kv_bg_change_rate * 1.1);
+    particle_group.offsetY(y * kv_bg_change_rate * 1.1);
 };
 $(document).on('mousemove', $.mouse);
 
