@@ -1,24 +1,17 @@
 
-let kv_stand_ratio = [0.33, 0.66, 0.99];
-
-let kv_chara_change_rate = 0.04;
-let kv_chara_stand_rate = 0.03;
-let kv_chara_stand_range = 1;
-let kv_bg_change_rate = 0.014;
-
-
 $('body').append(`<div class="konva"></div>`);
 $('body').append(`<div class="logo-wrapper transparent"><div class="logo transparent"></div></div>`);
 
 
 let width = window.screen.width;
 let height = window.screen.height;
-
+let kv_chara_change_rate = 0.06;
+let kv_bg_change_rate = 0.014;
 
 // testing
 if (window.location.hash && window.location.hash == "#debug") {
-    // height = 500;
-    // width = 1200;
+    // height = 700;
+    // width = 1000;
     $('.logo-wrapper').removeClass("transparent");
 }
 
@@ -45,9 +38,6 @@ let kv_chara_width = kv_real_width * (kv_chara_height / kv_real_height);
 let kv_bg_width = width;
 let kv_bg_height = kv_real_height * (kv_bg_width / kv_real_width);
 
-let kv_chara_change_px_x = kv_chara_change_rate * width;
-let kv_chara_change_px_y = kv_chara_change_rate * height;
-
 let kvs = {
     // bg
     "kv_bg": {
@@ -59,18 +49,18 @@ let kvs = {
     // x: the distance to the right side, y: default the bottom
     "kv_chara_01_crop": {
         origin: { width: 1121, height: 1390, x: 1189, zIndex: 1 },
-        start: { x: kv_chara_width * -0.2, y: kv_chara_height * 0.1, delay: 400 },
-        move: { stand: 0.0001 },
+        start: { x: kv_chara_width * -0.1, y: kv_chara_height * 0.1, delay: 400 },
+        move: { depth: 0.4, offsetX: -0.02 },
     },
     "kv_chara_02_crop": {
         origin: { width: 1650, height: 1750, x: 360, zIndex: 2 },
-        start: { y: kv_chara_height * 0.15, delay: 600 },
-        move: { stand: 0.3 },
+        start: { y: kv_chara_height * 0.1, delay: 600 },
+        move: { depth: 0.7, offsetX: -0.01 },
     },
     "kv_chara_03_crop": {
         origin: { width: 1330, height: 1832, x: 0, zIndex: 3 },
-        start: { x: kv_chara_width * 0.2, y: kv_chara_height * 0.1, delay: 800 },
-        move: { stand: 0.6 },
+        start: { x: kv_chara_width * 0.1, y: kv_chara_height * 0.1, delay: 800 },
+        move: { depth: 1, offsetX: 0.0 },
     },
 
     // flare
@@ -83,6 +73,7 @@ let kvs = {
 // kv_charas initialize
 for (let [kv, attr] of Object.entries(kvs)) {
 
+    // boolean
     let is_bg = kv == "kv_bg";
     let is_flare = kv == "kv_flare";
 
@@ -90,12 +81,13 @@ for (let [kv, attr] of Object.entries(kvs)) {
     kv_img.src = is_bg ? `img/kv_bg.jpg` : `img/${kv}.png`;
     kv_img.onload = function () {
         attr.loaded = true;
-    }
+    };
 
     attr.offset = is_flare ? {
         x: kv_chara_width,
         y: 0,
     } : {
+        // For setting origin to center
         x: kv_chara_width / 2,
         y: kv_chara_height / 2,
     };
@@ -108,7 +100,10 @@ for (let [kv, attr] of Object.entries(kvs)) {
         offsetY: is_bg ? 0 : -(height - kv_chara_height),
         opacity: attr.start.opacity || 0,
         listening: false,
-    }
+    };
+    // Group 1 & 2: Both using same config
+    //   x, y and rotate are divided in half to apply on both Group 1 and 2, 
+    //   when they animate at the same time, the effects are added up
     let konva_groups_intialize = {
         width: kv_chara_width,
         height: kv_chara_height,
@@ -140,6 +135,8 @@ for (let [kv, attr] of Object.entries(kvs)) {
         kv_height = kv_bg_height + kv_move_y;
         kv_x = -kv_move_x;
         kv_y = -kv_move_y;
+    } else if (is_flare) {
+
     } else {
         // kv_move_x and kv_move_y was originally both width * rate and height * rate
         // but then the image ratio is broken since width/height are different across device
@@ -150,13 +147,16 @@ for (let [kv, attr] of Object.entries(kvs)) {
         let kv_move_y = height * (kv_move_x / kv_chara_width);
         let kv_move_y_original = height * kv_chara_change_rate;
         kv_y -= kv_move_y - kv_move_y_original;
-        kv_width += kv_move_x;
-        kv_height += kv_move_y;
+        // kv_width += kv_move_x;
+        // kv_height += kv_move_y;
+        kv_x += kv_move_x;
+        kv_y += kv_move_y;
     }
 
-    // Cancel stand pixel
-    if (attr.move && attr.move.stand) {
-        kv_x += stand(attr);
+    // Cancel depth movement pixel
+    if (attr.move && attr.move.depth) {
+        // kv_x += width * attr.move.depth;
+        kv_x += width * attr.move.offsetX;
     }
 
     attr.konva_kv = new Konva.Image({
@@ -239,7 +239,7 @@ for (let [dust, attr] of Object.entries(dusts)) {
     attr.image = kv_img;
     kv_img.onload = function () {
         attr.loaded = true;
-    }
+    };
 }
 
 function generate_dust() {
@@ -296,7 +296,7 @@ kv_particle.image = new Image();
 kv_particle.image.src = `img/particle.png`;
 kv_particle.image.onload = function () {
     kv_particle.loaded = true;
-}
+};
 
 let particle_group = new Konva.Group({ listening: false });
 particle_group.opacity(0);
@@ -388,28 +388,6 @@ function start() {
     setInterval(() => $(".logo").removeClass("transparent"), 6000);
 }
 
-// x: 0 ~ 1
-// y: 0 ~ 1
-// https://www.desmos.com/calculator/iho6ahbmg4
-function g(x) {
-    let y = Math.pow(x - 1, 3) + 1;
-    return y;
-}
-
-function stand(attr, wr = 1) {
-    let distance = wr - attr.move.stand;
-
-    if (distance >= 0) {
-        distance = Math.min(distance, kv_chara_stand_range);
-
-        let x = distance / kv_chara_stand_range;
-        let y = g(x);
-        return y * kv_chara_width * kv_chara_stand_rate;
-    } else {
-        return 0;
-    }
-}
-
 
 // Mouse
 $.mouse = function (e) {
@@ -426,14 +404,17 @@ $.mouse = function (e) {
         if (kv == "kv_bg") {
             total_x = -x * kv_bg_change_rate;
             total_y = -y * kv_bg_change_rate;
+        } else if (kv == "kv_flare") {
+
         } else {
             total_x = x * kv_chara_change_rate;
             total_y = y * kv_chara_change_rate;
         }
 
-        // kv chara stand
-        if (attr.move && attr.move.stand) {
-            total_x += stand(attr, wr);
+        // kv chara depth movement
+        if (attr.move && attr.move.depth) {
+            total_x_new = total_x * attr.move.depth;
+            total_x = total_x_new;
         }
 
         attr.konva_kv.offsetX(total_x * 0.55);
@@ -462,5 +443,6 @@ $(document).on('mousemove', $.mouse);
 document.onreadystatechange = () => {
     if (document.readyState === 'complete') {
         console.warn("body loaded");
+        $.mouse({ clientX: width / 2, clientY: height / 2 });
     }
 };
