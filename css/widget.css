@@ -306,3 +306,9 @@
   height: 4rem;
   width: 4rem;
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+}

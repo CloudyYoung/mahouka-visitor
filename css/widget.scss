@@ -211,7 +211,7 @@
     }
   }
 
-  .music{
+  .music {
     float: right;
   }
 
@@ -321,5 +321,11 @@
         width: $button-height;
       }
     }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
 }
