@@ -291,7 +291,7 @@ $.events.today = function () {
     } else {
         $(".widget").trigger("event", [true]); // Trigger event
     }
-}
+};
 
 
 $.events.onIndex = 0.0; // Decimal, integer part represents index of event, decimal part represents index of illust group
@@ -342,5 +342,5 @@ setTimeout(function () {
 
 // testing
 if (window.location.hash && window.location.hash == "#debug") {
-    $.events.date = () => { return [1, 4] };
+    $.events.date = () => { return [3, 25]; };
 }
