@@ -49,17 +49,17 @@ let kvs = {
     // x: the distance to the right side, y: default the bottom
     "kv_chara_01_crop": {
         origin: { width: 1121, height: 1390, x: 1189, zIndex: 1 },
-        start: { x: kv_chara_width * -0.1, y: kv_chara_height * 0.1, delay: 400 },
-        move: { depth: 0.4, offsetX: -0.02 },
+        start: { x: kv_chara_width * -0.2, y: kv_chara_height * 0.1, delay: 400 },
+        move: { depth: 0.4, offsetX: 0.01 },
     },
     "kv_chara_02_crop": {
         origin: { width: 1650, height: 1750, x: 360, zIndex: 2 },
-        start: { y: kv_chara_height * 0.1, delay: 600 },
-        move: { depth: 0.7, offsetX: -0.01 },
+        start: { y: kv_chara_height * 0.15, delay: 600 },
+        move: { depth: 0.7, offsetX: 0.005 },
     },
     "kv_chara_03_crop": {
         origin: { width: 1330, height: 1832, x: 0, zIndex: 3 },
-        start: { x: kv_chara_width * 0.1, y: kv_chara_height * 0.1, delay: 800 },
+        start: { x: kv_chara_width * 0.2, y: kv_chara_height * 0.1, delay: 800 },
         move: { depth: 1, offsetX: 0.0 },
     },
 
@@ -155,7 +155,6 @@ for (let [kv, attr] of Object.entries(kvs)) {
 
     // Cancel depth movement pixel
     if (attr.move && attr.move.depth) {
-        // kv_x += width * attr.move.depth;
         kv_x += width * attr.move.offsetX;
     }
 
