@@ -6,7 +6,7 @@ $('body').append(`<div class="logo-wrapper transparent"><div class="logo transpa
 let width = window.screen.width;
 let height = window.screen.height;
 let kv_chara_change_rate = 0.065;
-let kv_bg_change_rate = 0.014;
+let kv_bg_change_rate = 0.018;
 
 // testing
 if (window.location.hash && window.location.hash == "#debug") {
@@ -147,8 +147,6 @@ for (let [kv, attr] of Object.entries(kvs)) {
         let kv_move_y = height * (kv_move_x / kv_chara_width);
         let kv_move_y_original = height * kv_chara_change_rate;
         kv_y -= kv_move_y - kv_move_y_original;
-        // kv_width += kv_move_x;
-        // kv_height += kv_move_y;
         kv_x += kv_move_x;
         kv_y += kv_move_y;
     }
@@ -404,7 +402,7 @@ $.mouse = function (e) {
             total_x = -x * kv_bg_change_rate;
             total_y = -y * kv_bg_change_rate;
         } else if (kv == "kv_flare") {
-
+            continue;
         } else {
             total_x = x * kv_chara_change_rate;
             total_y = y * kv_chara_change_rate;
