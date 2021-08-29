@@ -5,7 +5,7 @@ $('body').append(`<div class="logo-wrapper transparent"><div class="logo transpa
 
 let width = window.screen.width;
 let height = window.screen.height;
-let kv_chara_change_rate = 0.06;
+let kv_chara_change_rate = 0.065;
 let kv_bg_change_rate = 0.014;
 
 // testing
@@ -50,12 +50,12 @@ let kvs = {
     "kv_chara_01_crop": {
         origin: { width: 1121, height: 1390, x: 1189, zIndex: 1 },
         start: { x: kv_chara_width * -0.2, y: kv_chara_height * 0.1, delay: 400 },
-        move: { depth: 0.4, offsetX: 0.01 },
+        move: { depth: 0.5, offsetX: 0.01 },
     },
     "kv_chara_02_crop": {
         origin: { width: 1650, height: 1750, x: 360, zIndex: 2 },
         start: { y: kv_chara_height * 0.15, delay: 600 },
-        move: { depth: 0.7, offsetX: 0.005 },
+        move: { depth: 0.75, offsetX: 0.005 },
     },
     "kv_chara_03_crop": {
         origin: { width: 1330, height: 1832, x: 0, zIndex: 3 },
@@ -433,8 +433,16 @@ $.mouse = function (e) {
     // TODO: Flare rotate
 
     // Particles layer movement
-    particle_group.offsetX(x * kv_bg_change_rate * 1.1);
-    particle_group.offsetY(y * kv_bg_change_rate * 1.1);
+    let particle_total_x = x * kv_bg_change_rate * 3;
+    let particle_total_y = y * kv_bg_change_rate * 2;
+    particle_group.offsetX(particle_total_x * 0.55);
+    particle_group.offsetY(particle_total_y * 0.55);
+    particle_group.to({
+        duration: 20,
+        offsetX: particle_total_x * 0.45,
+        offsetY: particle_total_y * 0.45,
+        easing: mahouka_bezier,
+    });
 };
 $(document).on('mousemove', $.mouse);
 
